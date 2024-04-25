@@ -1,0 +1,166 @@
+import React from 'react'
+import { RiLogoutCircleLine } from "react-icons/ri";
+import { Link, Outlet, useNavigate, useParams } from 'react-router-dom'
+import { FaUserGraduate } from "react-icons/fa6";
+import { PiStudentFill } from "react-icons/pi";
+import { CgProfile } from "react-icons/cg";
+import { ImCalculator } from "react-icons/im";
+import { FcDepartment } from "react-icons/fc";
+import { MdOutlineClass, MdDashboardCustomize } from "react-icons/md";
+import { BsGrid1X2Fill } from 'react-icons/bs'
+import 'bootstrap-icons/font/bootstrap-icons.css'
+import axios from 'axios'
+import { FiPrinter } from 'react-icons/fi';
+
+function Staffsidebar({ openSidebarToggle, setOpenSidebarToggle, mat }) {
+    const navigate = useNavigate()
+    axios.defaults.withCredentials = true
+
+    const handlelogout = () => {
+        axios.get('http://localhost:3000/auth/logout')
+            .then(result => {
+                if (result.data.Status) {
+                    navigate('/')
+                    window.location.reload()
+                }
+            })
+    }
+    const handleLinkClick = () => {
+        if (openSidebarToggle) {
+            setOpenSidebarToggle(false);
+        }
+    };
+   
+    return (
+        <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive" : ""}>
+            <div className='sidebar-title'>
+                <div className='sidebar-brand'>
+                    <img src={'http://localhost:3000/image/Screenshot_20240323-102722 (1).png'} alt="" className='logo' />
+                    NHIEPS
+                </div>
+                <span className='icon close_icon' onClick={() => setOpenSidebarToggle(!openSidebarToggle)}>X</span>
+            </div>
+
+            <ul className='sidebar-list'>
+                <li className='sidebar-list-item'>
+                    <Link to={`/staffhome/${mat}`} onClick={handleLinkClick}>
+                        <MdDashboardCustomize className='icon' /> Dashboard
+                    </Link>
+                </li>
+                <li className='sidebar-list-item'>
+                    <Link to="/admin1" onClick={handleLinkClick}>
+                        <PiStudentFill className='icon' /> Admins
+                    </Link>
+                </li>
+                <li className='sidebar-list-item'>
+                    <Link to="/studentlist1" onClick={handleLinkClick}>
+                        <PiStudentFill className='icon' /> Students
+                    </Link>
+                </li>
+                <li className='sidebar-list-item'>
+                    <Link to="/staff1" onClick={handleLinkClick}>
+                        <FaUserGraduate className='icon' /> My colleagues
+                    </Link>
+                </li>
+                <li className='sidebar-list-item'>
+                    <Link to="/department1" onClick={handleLinkClick}>
+                        <FcDepartment className='icon' /> Departments
+                    </Link>
+                </li>
+                <li className='sidebar-list-item'>
+                    <Link to="/specialities1" onClick={handleLinkClick}>
+                        <BsGrid1X2Fill className='icon' /> Specialities
+                    </Link>
+                </li>
+
+                <li className='sidebar-list-item'>
+                    <Link to="/courselist1" onClick={handleLinkClick}>
+                        <MdOutlineClass className='icon' /> Courses
+                    </Link>
+                </li>
+                <li className='sidebar-list-item'>
+                    <Link to="/timetable1" onClick={handleLinkClick}>
+                        <MdOutlineClass className='icon' /> Time table
+                    </Link>
+                </li>
+                <li className='sidebar-list-item'>
+                    <Link to={`/assigncamarks/${mat}`} onClick={handleLinkClick}>
+                        <ImCalculator className='icon' /> Assign CA's marks
+                    </Link>
+                </li>
+                <li className='sidebar-list-item'>
+                    <Link to={`/assignexammarks/${mat}`} onClick={handleLinkClick}>
+                        <ImCalculator className='icon' /> Assign EXAM's marks
+                    </Link>
+                </li>
+                <li className='sidebar-list-item'>
+                    <Link to="/mark1" onClick={handleLinkClick}>
+                        <ImCalculator className='icon' /> Marks
+                    </Link>
+                </li>
+                {/* <li className='sidebar-list-item'>
+                    <Link to={`/lecturer/${mat}`} onClick={handleLinkClick}>
+                        <CgProfile className='icon' /> My Profile
+                    </Link>
+                </li> */}
+                <li className='sidebar-list-item'>
+                    <button className='btn btn-warning' onClick={handlelogout}>
+                        <Link to="">
+                            <RiLogoutCircleLine className='icon' /> Logout
+                        </Link>
+                    </button>
+                </li>
+                <hr />
+                {/* <div>
+                    <li className='sidebar-list-item'>
+                            <Link to="">
+                                <FiPrinter className='icon' /> Student's list
+                            </Link>
+                    </li>
+                    <li className='sidebar-list-item'>
+                            <Link to="">
+                                <FiPrinter className='icon' /> Time table
+                            </Link>
+                    </li>
+                    <li className='sidebar-list-item'>
+                            <Link to="">
+                                <FiPrinter className='icon' /> Attendance's board
+                            </Link>
+                    </li>
+                    <li className='sidebar-list-item'>
+                            <Link to="">
+                                <FiPrinter className='icon' /> Salaries board
+                            </Link>
+                    </li>
+                    <li className='sidebar-list-item'>
+                            <Link to="">
+                                <FiPrinter className='icon' /> Lecturer's list
+                            </Link>
+                    </li>
+                    <li className='sidebar-list-item'>
+                            <Link to="">
+                                <FiPrinter className='icon' /> CAs VP
+                            </Link>
+                    </li>
+                    <li className='sidebar-list-item'>
+                            <Link to="">
+                                <FiPrinter className='icon' /> Exams VP
+                            </Link>
+                    </li>
+                    <li className='sidebar-list-item'>
+                            <Link to="">
+                                <FiPrinter className='icon' /> Solvability's board
+                            </Link>
+                    </li>
+                </div> */}
+
+            </ul>
+            <div className='col p-0 m-0'>
+                <Outlet></Outlet>
+            </div>
+        </aside>
+
+    )
+}
+
+export default Staffsidebar
