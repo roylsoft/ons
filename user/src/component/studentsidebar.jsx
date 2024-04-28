@@ -84,6 +84,11 @@ function Studentsidebar({ openSidebarToggle, setOpenSidebarToggle, mat}) {
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
+                    <Link to="/mypayement" onClick={handleLinkClick}>
+                        <MdOutlineClass className='icon' /> My payement
+                    </Link>
+                </li>
+                <li className='sidebar-list-item'>
                     <Link to="/mark1" onClick={handleLinkClick}>
                         <ImCalculator className='icon' /> Marks
                     </Link>

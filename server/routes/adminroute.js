@@ -35,6 +35,20 @@ router.get('/admin', (req, res) => {
     })
 
 })
+router.get('/banker', (req, res) => {
+    const com = "select * from bank";
+    connection.query(com, (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.json({ readingStatus: false, Error: 'Error' })
+        }
+        else {
+            console.log(result);
+            return res.json({ readingStatus: true, Result: result })
+        }
+    })
+
+})
 
 
 const upload = multer({
@@ -69,7 +83,7 @@ router.get('/timetable/:data', (req, res) => {
             return res.json({ readingStatus: false, Error: 'Error' })
         }
         else {
-           
+
             return res.json({ readingStatus: true, Result: result })
         }
     })
@@ -118,7 +132,6 @@ router.get('/sortmark/:data', (req, res) => {
 router.post('/transcript1', (req, res) => {
     const student = "select spec, level from royalstudent where mat=?"
     const comn = "SELECT code,title,credit FROM course where spec=? and level=? and semester=?"
-
     let mat = req.body.mat
     console.log(req.body.mat);
     connection.query(student, [mat], (err, result) => {
@@ -389,7 +402,6 @@ router.get('/updatemark/:inf', (req, res) => {
 
 //login
 router.post('/adminlogin', (req, res) => {
-
     const com = "select * from admin where mat=?";
     connection.query(com, [req.body.matricule], (err, result) => {
         if (err) {
@@ -423,6 +435,46 @@ router.post('/adminlogin', (req, res) => {
         } else {
             console.log('Wrong password or matricule');
             return res.json({ loginStatus: false, Error: 'Wrong matricule or password' })
+        }
+    })
+
+})
+
+router.post('/loginbank', (req, res) => {
+
+    const com = "select * from bank where caisse=?";
+    connection.query(com, [req.body.caisse], (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.json({ loginStatus: false, Error: 'Error' })
+        }
+        if (result.length > 0) {
+            bcrypt.compare(req.body.password.toString(), result[0].mat, (err, hash) => {
+                if (err) {
+                    console.log(err);
+                    return res.json({ loginStatus: false, Error: 'Password compare Error' })
+                }else
+                if (hash) {
+
+                    const token = jwt.sign({
+                        role: "bank",
+                        caisse: req.body.caisse
+                    },
+                        "jwt_secretmysecret_key",
+                        { expiresIn: '1d' }
+                    )
+                    res.cookie('token', token)
+                    console.log('login succesfully');
+                    return res.json({ loginStatus: true, result: result })
+
+                } else {
+                    return res.json({ loginStatus: false, Error: 'Wrong checkout or password' })
+                }
+
+            })
+        } else {
+            console.log('Wrong password or checkout');
+            return res.json({ loginStatus: false, Error: 'Wrong checkout or password' })
         }
     })
 
@@ -622,7 +674,52 @@ router.put('/editadmin/:mat', (req, res) => {
         }
     });
 });
+router.put('/editbanker/:caisse', (req, res) => {
 
+    const com = "select * from bank where caisse=?";
+    connection.query(com, [req.params.caisse], (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.json({ createStatus: false, Error: 'Error' })
+        }
+        if (result.length == 0) {
+            console.log('This member doesn\'t exist');
+            return res.json({ updatingStatus: false, Error: 'This member doesn\'t exist' })
+        } else {
+
+            const values = [req.body.password]
+            const com = 'UPDATE bank SET mat=? where caisse=?';
+            connection.query(com, [...values, req.params.caisse], (err, result) => {
+                if (err) {
+                    console.log(err);
+                    return res.json({ createStatus: false, Error: 'Error' })
+                }
+                else {
+                    return res.json({ createStatus: true, result:result })
+                }
+            })
+
+        }
+    });
+});
+
+//create admin
+router.post('/addbanker', (req, res) => {
+
+    const com = "INSERT INTO bank (mat,caisse) VALUES (?,?)";
+    bcrypt.hash(req.body.password, 13, (err, hash) => {
+        connection.query(com, [hash, req.body.caisse], (err, result) => {
+            if (err) {
+                console.log(err);
+                return res.json({ createStatus: false, Error: 'Error' })
+            }
+            else {
+
+                return res.json({ createStatus: true })
+            }
+        });
+    })
+})
 //create admin
 router.post('/key', (req, res) => {
     console.log(req.body.randomNumber);
@@ -633,7 +730,7 @@ router.post('/key', (req, res) => {
             return res.json({ createStatus: false, Error: 'Error' })
         }
         else {
-            console.log('key created successfully ');
+
             return res.json({ createStatus: true })
         }
     });

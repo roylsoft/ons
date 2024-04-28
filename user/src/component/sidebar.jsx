@@ -110,11 +110,16 @@ function Sidebar({ openSidebarToggle, setOpenSidebarToggle, mat }) {
                         <MdDescription className='icon' />Transcripts
                     </Link>
                 </li>
-                {/* <li className='sidebar-list-item'>
-                    <Link to={`/profile/${mat}`} onClick={handleLinkClick}>
-                        <CgProfile className='icon' /> My Profile
+                <li className='sidebar-list-item'>
+                    <Link to="/addbanker" onClick={handleLinkClick}>
+                        <CgProfile className='icon' /> New banker
                     </Link>
-                </li> */}
+                </li>
+                <li className='sidebar-list-item'>
+                    <Link to="/editbanker" onClick={handleLinkClick}>
+                        <CgProfile className='icon' /> Edit banker
+                    </Link>
+                </li>
                 <li className='sidebar-list-item'>
                     <Link to={"/key"} onClick={handleLinkClick}>
                         <FaKey className='icon' /> Keys

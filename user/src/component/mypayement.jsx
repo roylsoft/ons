@@ -5,22 +5,27 @@ import { useReactToPrint } from 'react-to-print'
 import { FiPrinter } from "react-icons/fi";
 import moment from 'moment';
 
-function Solvability() {
+function Solvability2() {
 
     const pdf = useRef()
 
-
-    const [students, setStudents] = useState([])
+    const [data, setdata] = useState([])
+    const [student, setStudent] = useState([])
     const [values, setValues] = useState({
         mat: ""
     })
     const [value, setValue] = useState([]);
+    const [order, setorder] = useState("ASC");
     const currentYear = new Date().getFullYear();
     const nextYear = currentYear + 1;
     const cdate = new Date();
     const date = moment(cdate).format('DD/MM/YYYY hh:mm:ss');
     const [num, setnum] = useState()
-    
+    const [speciality, setSpeciality] = useState()
+
+
+
+
     const solvability = async () => {
         const url = 'http://localhost:3000/student/solvability/data'
         axios.get(url, { params: { mat: values.mat } }
@@ -29,7 +34,7 @@ function Solvability() {
 
                 if (result.data.readingStatus) {
                     setValue(result.data.Result)
-                    setStudents(result.data.Result[0])
+                    setStudent(result.data.Result[0])
                 } else {
                     alert(result.data.Error)
                 }
@@ -47,7 +52,7 @@ function Solvability() {
         }
     };
 
-    const numerosol = () => {
+    const numero = () => {
         axios.get('http://localhost:3000/student/number')
             .then(result => {
                 if (result.data.readingStatus) {
@@ -65,7 +70,7 @@ function Solvability() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        numerosol()
+        numero()
         solvability();
 
     };
@@ -82,6 +87,23 @@ function Solvability() {
                 }
             }).catch(err => console.log(err))
     }, [])
+
+    const sorting = (col) => {
+        if (order === "ASC") {
+            const sorted = [...data].sort((a, b) =>
+                a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
+            );
+            setdata(sorted)
+            setorder("DSC")
+        }
+        if (order === "DSC") {
+            const sorted = [...data].sort((a, b) =>
+                a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
+            );
+            setdata(sorted)
+            setorder("ASC")
+        }
+    }
 
     const handleCellChange = async (mat, field, value) => {
         try {
@@ -110,7 +132,7 @@ function Solvability() {
 
     })
 
-    let total = students.reg + students.inst1 + students.inst2 + students.inst3 + students.inst4 + students.inst5
+    let total = student.reg + student.inst1 + student.inst2 + student.inst3 + student.inst4 + student.inst5
 
 
     return (
@@ -153,15 +175,15 @@ function Solvability() {
                     <hr />
                     <div class="row mt-1 mb-2 d-flex justify-content-center">
                         <div class="col-5 d-flex justify-content-center">
-                            Full name: {students.name} <br />
-                            Student UID : {students.mat} <br />
-                            Speciality : {students.codesp}
+                            Full name: {student.name} <br />
+                            Student UID : {student.mat} <br />
+                            Speciality : {student.codesp}
                         </div>
                         <div class="col-2 d-flex justify-content-center">
                             Academic Year: {currentYear}/{nextYear}<br />
                         </div>
                         <div class="col-5 d-flex justify-content-center">
-                            <div class="col-2 d-flex justify-content-center"> <strong>Class BMD/{students.codesp}{students.level}</strong>   </div>
+                            <div class="col-2 d-flex justify-content-center"> <strong>Class BMD/{student.codesp}{student.level}</strong>   </div>
                         </div>
                     </div>
 
@@ -189,52 +211,34 @@ function Solvability() {
                                             <td>{st.mat}</td>
                                             <td>{st.level}</td>
                                             <td>
-                                                <input
-                                                    type="number"
-                                                    value={st.reg}
-                                                    onChange={(e) => handleCellChange(st.mat, 'reg', e.target.value)}
-                                                    onBlur={(e) => handleCellChange(st.mat, 'reg', e.target.value)}
-                                                />
+
+                                                {st.reg}
+
                                             </td>
                                             <td>
-                                                <input
-                                                    type="number"
-                                                    value={st.inst1}
-                                                    onChange={(e) => handleCellChange(st.mat, 'inst1', e.target.value)}
-                                                    onBlur={(e) => handleCellChange(st.mat, 'inst1', e.target.value)}
-                                                />
+
+                                                {st.inst1}
+
                                             </td>
                                             <td>
-                                                <input
-                                                    type="number"
-                                                    value={st.inst2}
-                                                    onChange={(e) => handleCellChange(st.mat, 'inst2', e.target.value)}
-                                                    onBlur={(e) => handleCellChange(st.mat, 'inst2', e.target.value)}
-                                                />
+
+                                                {st.inst2}
+
                                             </td>
                                             <td>
-                                                <input
-                                                    type="number"
-                                                    value={st.inst3}
-                                                    onChange={(e) => handleCellChange(st.mat, 'inst3', e.target.value)}
-                                                    onBlur={(e) => handleCellChange(st.mat, 'inst3', e.target.value)}
-                                                />
+
+                                                {st.inst3}
+
                                             </td>
                                             <td>
-                                                <input
-                                                    type="number"
-                                                    value={st.inst4}
-                                                    onChange={(e) => handleCellChange(st.mat, 'inst4', e.target.value)}
-                                                    onBlur={(e) => handleCellChange(st.mat, 'inst4', e.target.value)}
-                                                />
+
+                                                {st.inst4}
+
                                             </td>
                                             <td>
-                                                <input
-                                                    type="number"
-                                                    value={st.inst5}
-                                                    onChange={(e) => handleCellChange(st.mat, 'inst5', e.target.value)}
-                                                    onBlur={(e) => handleCellChange(st.mat, 'inst5', e.target.value)}
-                                                />
+
+                                                {st.inst5}
+
                                             </td>
                                             <td>{parseInt(st.reg) + parseInt(st.inst1) + parseInt(st.inst2) + parseInt(st.inst3) + parseInt(st.inst4) + parseInt(st.inst5)}</td>
                                         </tr>
@@ -258,36 +262,24 @@ function Solvability() {
                                     value.map(st => (
                                         <tr key={st.mat}>
                                             <td>
-                                                <input
-                                                    type="number"
-                                                    value={st.univ}
-                                                    onChange={(e) => handleCellChange(st.mat, 'univ', e.target.value)}
-                                                    onBlur={(e) => handleCellChange(st.mat, 'univ', e.target.value)}
-                                                />
+
+                                                {st.univ}
+
                                             </td>
                                             <td>
-                                                <input
-                                                    type="number"
-                                                    value={st.grad}
-                                                    onChange={(e) => handleCellChange(st.mat, 'grad', e.target.value)}
-                                                    onBlur={(e) => handleCellChange(st.mat, 'grad', e.target.value)}
-                                                />
+
+                                                {st.grad}
+
                                             </td>
                                             <td>
-                                                <input
-                                                    type="number"
-                                                    value={st.sup}
-                                                    onChange={(e) => handleCellChange(st.mat, 'sup', e.target.value)}
-                                                    onBlur={(e) => handleCellChange(st.mat, 'sup', e.target.value)}
-                                                />
+
+                                                {st.sup}
+
                                             </td>
                                             <td>
-                                                <input
-                                                    type="number"
-                                                    value={st.prac}
-                                                    onChange={(e) => handleCellChange(st.mat, 'prac', e.target.value)}
-                                                    onBlur={(e) => handleCellChange(st.mat, 'prac', e.target.value)}
-                                                />
+
+                                                {st.prac}
+
                                             </td>
                                             <td>{parseInt(st.univ) + parseInt(st.grad) + parseInt(st.sup) + parseInt(st.prac)}</td>
 
@@ -306,7 +298,7 @@ function Solvability() {
                     </div>
 
                     <div class="row mt-1 mb d-flex justify-content-center">
-                        <div class="col-5 d-flex justify-content-center">The student: <br />Signature <br /> {students.name}</div>
+                        <div class="col-5 d-flex justify-content-center">The student: <br />Signature <br /> {student.name}</div>
                         <div class="col-2"></div>
                         <div class="col-5 d-flex justify-content-center">The secretary</div>
                     </div>
@@ -327,4 +319,4 @@ function Solvability() {
 
 }
 
-export default Solvability
+export default Solvability2

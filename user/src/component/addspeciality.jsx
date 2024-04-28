@@ -97,7 +97,7 @@ function Addspeciality() {
                             </select>
                             {errors.codep && <div className="error-message">{errors.codep}</div>}
                         </div>
-                        <button className='btn btn-success w-100 round-5 mb-2'>Create</button>
+                        <button type='submit' className='btn btn-success w-100 round-5 mb-2'>Create</button>
 
                     </form>
                 </div>

@@ -4,8 +4,10 @@ import axios from "axios";
 import { FaUserGraduate } from "react-icons/fa6";
 import { FaUserTie } from "react-icons/fa6";
 import { PiStudentFill } from "react-icons/pi";
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, 
-  ResponsiveContainer, LineChart, Line }
+import {
+  BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  ResponsiveContainer, LineChart, Line
+}
   from 'recharts';
 
 function Starter() {
@@ -18,7 +20,7 @@ function Starter() {
       .then(result => {
 
         if (result.data.Status) {
-          window.location.reload()
+          // window.location.reload()
           if (result.data.role === "admin") {
             navigate('/home')
           } else if (result.data.role === "staff") {
@@ -108,11 +110,11 @@ function Starter() {
         <div className='justify-content-center align-items-center loginPage'>
 
           <div className='p-3 mx-2 mt-3 shadow-sm border welcome'>
-            <div className='justify-content-center align-items-center'>
-              <img src={'http://localhost:3000/image/log.jpg'} alt="" className='logo' />
-            </div>
+            
             <h6 className='text-center'>Do you have and Account? Yes! Okey! Login as:</h6> <br />
+
             <div className='p-1 d-flex justify-content-around mt-3 log'>
+
               <div className='px-2 pt-2 pb-3 mx-2 shadow-sm w-5 log1'>
                 <div className='text-center'>
                   <PiStudentFill className='icon' />
@@ -133,10 +135,9 @@ function Starter() {
                 <div className='d-flex justify-content-center'>
                   <h5> <button type='button' className='btn btn-success'
                     onClick={() => { navigate('/adminlogin') }}>Host</button></h5>
-
                 </div>
-
               </div>
+
               <div className='px-2 pt-2 pb-3 mx-3 shadow-sm w-5 log3'>
                 <div className='text-center'>
                   <FaUserGraduate className='icon' />
@@ -145,19 +146,31 @@ function Starter() {
                 <div className='d-flex justify-content-center'>
                   <h5>  <button type='button' className='btn btn-info '
                     onClick={() => { navigate('/logintostaff') }}>Lecturer</button> </h5>
-
                 </div>
               </div>
-
             </div>
-            <div className='d-flex justify-content-center mt-1 mb-2'>
-              <div className='px-2 pt-2 pb-2 mx-3 shadow-sm w-5 log2'>
+
+            <div className='p-1 d-flex justify-content-around mt-3 log'>
+
+              <div className='px-2 pt-2 pb-3 mx-2 shadow-sm w-5 log1'>
                 <div className='text-center'>
                   <FaUserGraduate className='icon' />
                 </div> <hr />
                 <div className='d-flex justify-content-center'>
                   <h5>  <button type='button' className='btn btn-info '
                     onClick={() => { navigate('/commun') }}>Delegate</button> </h5>
+                </div>
+              </div>
+
+              <div className='px-2 pt-2 pb-3 mt-1 shadow-sm w-5 log3'>
+                <div className='text-center'>
+                  <FaUserGraduate className='icon' />
+                  <h6></h6>
+                </div> <hr />
+                <div className='d-flex justify-content-center'>
+                  <h5>  <button type='button' className='btn btn-info '
+                    onClick={() => { navigate('/loginbank') }}>Banker</button> </h5>
+
                 </div>
               </div>
             </div>

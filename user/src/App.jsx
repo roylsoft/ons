@@ -79,6 +79,11 @@ import Feesboard from './component/feesboard.jsx';
 import Editstaffprofile from './component/edstaffprofile.jsx';
 import Assignexammarks from './component/assignexammarks.jsx';
 import Editstudentprofile from './component/editstudentprofile.jsx';
+import Solvability1 from './component/frombanker.jsx';
+import Loginbank from './component/loginbank.jsx';
+import Addbanker from './component/addbanker.jsx';
+import Editbanker from './component/editbanker.jsx';
+import Solvability2 from './component/mypayement.jsx';
 
 
 
@@ -112,6 +117,8 @@ function App() {
     location.pathname.startsWith('/staffprint') ||
     location.pathname.startsWith('/home') ||
     location.pathname.startsWith('/addadmin') ||
+    location.pathname.startsWith('/addbanker') ||
+    location.pathname.startsWith('/editbanker') ||
     location.pathname.startsWith('/editadmin') ||
     location.pathname.startsWith('/addstudent') ||
     location.pathname.startsWith('/editstudent') ||
@@ -147,6 +154,7 @@ function App() {
     location.pathname.startsWith('/department1') ||
     location.pathname.startsWith('/assigncamarks') ||
     location.pathname.startsWith('/assignexammarks') ||
+    location.pathname.startsWith('/mypayement') ||
     location.pathname.startsWith('/timetable1') ||
     location.pathname.startsWith('/transcript1') ||
     location.pathname.startsWith('/edstaffprofile') ||
@@ -172,14 +180,16 @@ function App() {
   const isStarterPage = location.pathname === '/';
   const isAdminloginPage = location.pathname === '/adminlogin';
   const isLoginPage = location.pathname === '/login';
+  const isLoginbanker = location.pathname === '/loginbanker';
   const isLoginstaffPage = location.pathname === '/logintostaff';
   const isCommun = location.pathname === '/commun';
   const isAddattendance = location.pathname === '/addattendance';
   const isStudent = location.pathname === '/studentreg';
+  const isBanker = location.pathname === '/frombanker';
   const isVerifkey = location.pathname === '/verifkey';
 
   const gridContainerClassName = isStarterPage || isAdminloginPage || isLoginPage ||
-    isLoginstaffPage || isCommun || isAddattendance || isVerifkey || isStudent
+    isLoginstaffPage || isCommun || isAddattendance || isVerifkey || isStudent || isBanker || isLoginbanker
     ? 'grid-container-starter' : 'grid-container';
 
   return (
@@ -201,11 +211,13 @@ function App() {
           <Route path="/" element={<Starter />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logintostaff" element={<Stafflogin />} />
+          <Route path="/loginbank" element={<Loginbank />} />
           <Route path="/adminlogin" element={<Adminlogin />} />
           <Route path="/addattendance/:mat" element={<Addattendance />} />
           <Route path="/commun" element={<Commun />} />
           <Route path="/studentreg" element={<Studentreg />} />
           <Route path="/verifkey" element={<Verifkey />} />
+          <Route path="/frombanker" element={<Solvability1 />} />
 
           <Route path="/studentlist" element={<Studentlist />} />
           <Route path="/studentprint" element={<Studentprint />} />
@@ -223,6 +235,8 @@ function App() {
           <Route path="/specialities" element={<Specialities />} />
           <Route path="/addspeciality" element={<Addspeciality />} />
           <Route path="/addcourse" element={<Addcourse />} />
+          <Route path="/addbanker" element={<Addbanker />} />
+          <Route path="/editbanker" element={<Editbanker />} />
           <Route path="/courselist" element={<Courselist />} />
           <Route path="/transcript" element={<Transcript />} />
           <Route path="/adddepartment" element={<Adddepartment />} />
@@ -252,6 +266,7 @@ function App() {
           <Route path="/specialities1" element={<Specialities1 />} />
           <Route path="/department1" element={<Department1 />} />
           <Route path="/transcript1" element={<Transcript1 />} />
+          <Route path="/mypayement" element={<Solvability2 />} />
           <Route path="/assignexammarks/:inf" element={<Assignexammarks />} />
           <Route path="/assigncamarks/:inf" element={<Assignmark />} />
           <Route path="/courselist1" element={<Courselist1 />} />
