@@ -5,7 +5,11 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 function Editdep() {
     const Navigate = useNavigate()
-    const { code } = useParams()
+    const [route, setsuite] = useState("");
+    let way = location.pathname
+    let words = way.split("/")
+    let code = words.pop()
+    let mat = words[words.length - 1];
     const [values, setValues] = useState({
         title: "",
         codep: ""
@@ -16,7 +20,7 @@ function Editdep() {
         axios.put('http://localhost:3000/auth/editdep/' + code, values)
             .then(result => {
                 console.log(result.data);
-                Navigate('/department')
+                Navigate('/department/'+ route)
 
             })
             .catch(err => console.log(err))
@@ -26,6 +30,7 @@ function Editdep() {
     useEffect(() => {
         axios.get('http://localhost:3000/auth/department/' + code)
             .then(result => {
+                setsuite(mat)
                 setValues({
                     ...values,
 

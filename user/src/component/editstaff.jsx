@@ -7,19 +7,37 @@ function Editstaff() {
 
 
     const Navigate = useNavigate()
-    const { mat } = useParams()
+    let way = location.pathname
+    let words = way.split("/")
+    let mat=words.pop()
+    let route = words[words.length - 2];
     const [values, setValues] = useState({
         name: "",
         email: "",
+        codep: "",
         phone: "",
         grade: "",
         idcard: "",
         birth: "",
         place: "",
         sex: "",
+        coasthour: "",
         pic: ""
 
     })
+
+    const [department, setValue] = useState([])
+
+    useEffect(() => {
+        axios.get('http://localhost:3000/auth/department')
+            .then(result => {
+                if (result.data.readingStatus) {
+                    setValue(result.data.Result)
+                } else {
+                    alert(result.data.Error)
+                }
+            }).catch(err => console.log(err))
+    }, [])
 
     const [errors, setErrors] = useState({});
     const validateForm = () => {
@@ -45,17 +63,19 @@ function Editstaff() {
             const formdata = new FormData()
             formdata.append('name', values.name)
             formdata.append('email', values.email)
+            formdata.append('codep', values.codep)
             formdata.append('phone', values.phone)
             formdata.append('grade', values.grade)
             formdata.append('idcard', values.idcard)
             formdata.append('birth', values.birth)
             formdata.append('place', values.place)
             formdata.append('sex', values.sex)
+            formdata.append('coasthour', values.coasthour)
 
             axios.put('http://localhost:3000/auth/editstaff/' + mat, values)
                 .then(result => {
                     console.log(result.data);
-                    Navigate('/staff')
+                    Navigate('/staff/'+route)
 
                 })
                 .catch(err => console.log(err))
@@ -70,12 +90,14 @@ function Editstaff() {
                     ...values,
                     name: result.data.Result[0].name,
                     email: result.data.Result[0].email,
+                    codep: result.data.Result[0].codep,
                     phone: result.data.Result[0].phone,
                     grade: result.data.Result[0].grade,
                     idcard: result.data.Result[0].idcard,
                     birth: result.data.Result[0].birth,
                     place: result.data.Result[0].place,
                     sex: result.data.Result[0].sex,
+                    coasthour: result.data.Result[0].coasthour
 
                 })
             }).catch(err => console.log(err))
@@ -96,17 +118,17 @@ function Editstaff() {
                                 name='name' placeholder='Enter your name' className='form-control rounded-0' />
                             <label htmlFor="email"><strong>Email :</strong></label>
                             <input type="e-mail" value={values.email} onChange={(e) => setValues({ ...values, email: e.target.value })}
-                                name='email' autoComplete='off' placeholder='Enter your email addres' 
+                                name='email' autoComplete='off' placeholder='Enter your email addres'
                                 className='form-control rounded-0' />
-                                {errors.email && <div className="error-message">{errors.email}</div>}
+                            {errors.email && <div className="error-message">{errors.email}</div>}
                         </div>
 
                         <div className='mb-3 form-group'>
                             <label htmlFor="phone"><strong>Phone:</strong></label>
                             <input type="number" value={values.phone} onChange={(e) => setValues({ ...values, phone: e.target.value })}
-                                name='phone' placeholder='Enter your phone number' 
+                                name='phone' placeholder='Enter your phone number'
                                 className='form-control rounded-0' />
-                                {/* {errors.phone && <div className="error-message">{errors.phone}</div>} */}
+                            {/* {errors.phone && <div className="error-message">{errors.phone}</div>} */}
                             <label htmlFor="grade"><strong>Grade:</strong></label>
                             <input type="text" value={values.grade} onChange={(e) => setValues({ ...values, grade: e.target.value })}
                                 name='grade' autoComplete='off' placeholder='Your grade' className='form-control rounded-0' />
@@ -134,8 +156,21 @@ function Editstaff() {
 
                             </select>
                         </div>
-
-                        <button className='btn btn-success w-100 round-0 mb-2'>Save</button>
+                        <div className='mb-3 form-group'>
+                            <label htmlFor="coasthour"><strong>Hourly gain:</strong></label>
+                            <input type="text" value={values.coasthour} onChange={(e) => setValues({ ...values, coasthour: e.target.value })}
+                                name='coasthour' autoComplete='off' placeholder='hourly gain' className='form-control rounded-0' />
+                            <label htmlFor="department" className='form-label'> <strong> Department</strong><span className='start'>*</span></label>
+                            <select type='select' name="codep" onChange={(e) => setValues({ ...values, codep: e.target.value })}
+                                className='form-control rounded-2'>
+                                <option value="">-- Select --</option>
+                                {department.map(sp => (
+                                    <option key={sp.codep} value={sp.title}>{sp.title}</option>
+                                ))}
+                            </select>
+                            {errors.codep && <div className="error-message">{errors.codep}</div>}
+                            <button className='btn btn-success w-100 round-0 mb-2 form-control'>Save</button>
+                        </div>
                     </form>
                 </div>
             </div>

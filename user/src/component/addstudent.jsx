@@ -5,6 +5,10 @@ import { useNavigate } from 'react-router-dom'
 
 
 function Addstudent() {
+    const [route, setsuite] = useState("");
+    let way = location.pathname
+    let words = way.split("/")
+    let code = words.pop();
 
     const [speciality, setSpeciality] = useState([]);
     const [values, setValues] = useState({
@@ -53,15 +57,8 @@ function Addstudent() {
             newErrors.email = 'Invalid email address';
         }
 
-        if (!values.phone) {
-            newErrors.phone = 'Phone number is required';
-        } else if (!/^[0-9]{10}$/.test(values.phone)) {
-            newErrors.phone = 'Invalid phone number';
-        }
-        if (!values.cpass) {
+        if (!values.pass) {
             newErrors.cpass = 'Password is required';
-        } else if (values.cpass.length < 8) {
-            newErrors.cpass = 'Password must be at least 8 characters long';
         }
 
         if (!values.pic) {
@@ -97,7 +94,7 @@ function Addstudent() {
                 .then(result => {
                     if (result.data.createStatus) {
                         console.log(result.data);
-                        Navigate('/studentlist')
+                        Navigate('/studentlist/' + code)
                         setmatricule(result.data.mat)
 
                     } else {
@@ -125,7 +122,10 @@ function Addstudent() {
                 <div className='p-3 border-rounded w-60 bolder loginForm'>
 
                     <h2>Create and Account</h2> <br />
-                    
+                    <div className='text-danger'>
+                        Your Unique Matriculation number is: {Matricule && Matricule}
+                    </div>
+
                     <div className='text-danger'>
                         {error && error}
                     </div>
@@ -145,7 +145,7 @@ function Addstudent() {
                             <label htmlFor="phone"><strong>Phone<span className='start'>*</span></strong></label>
                             <input type="number" onChange={(e) => setValues({ ...values, phone: e.target.value })}
                                 name='phone' placeholder='Enter your phone number' className='form-control rounded-2' />
-                                {errors.email && <div className="error-message">{errors.phone}</div>}
+                            {errors.email && <div className="error-message">{errors.phone}</div>}
                             <label htmlFor="speciality" className='form-label'> <strong> Speciality</strong><span className='start'>*</span></label>
                             <select type='select' name="spec" onChange={(e) => setValues({ ...values, spec: e.target.value })}
                                 className='form-control rounded-2'>

@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Table from 'react-bootstrap/Table';
-import { Link } from "react-router-dom";
 
 function Mark() {
   const [speciality, setSpeciality] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
-  const [perPage, setPerPage] = useState(40);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [editedValues, setEditedValues] = useState({});
   const [data, setdata] = useState([]);
-  const [columns, setColumns] = useState([]);
   const [values, setValues] = useState({
     spec: "",
     semester: "",
@@ -28,8 +23,6 @@ function Mark() {
           session: values.session,
           semester: values.semester,
           level: values.level,
-          page: currentPage,
-          perPage: perPage,
           search: search,
         },
       });
@@ -41,8 +34,6 @@ function Mark() {
         selector: key,
         editable: true,
       }));
-      setColumns(dynamicColumns);
-
     } catch (error) {
       console.log(error);
     }
@@ -270,10 +261,10 @@ function Mark() {
               }
             </tbody>
           </Table>
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          {/* <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button className='btn btn-primary me-md-2' onClick={() => setCurrentPage(currentPage - 1)}>Previous</button>
             <button className='btn btn-info' onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
-          </div>
+          </div> */}
 
         </div>
       </div>

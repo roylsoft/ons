@@ -111,15 +111,7 @@ function Timetable1 () {
                           <div class="col"> <button type='submit' className='btn btn-success'>Display</button></div>
                       </div>
                   </form>
-                  <div class="col mt-1 mb-2">
-                      <p><h5>Enter a word to locate a specific student: </h5></p>
-                  </div>
-
-                  <div class="col mt-1 mb-2">
-                      <input type="text" class="form-control"
-                          onChange={(e) => setSearch(e.target.value)}
-                          placeholder="Search..." />
-                  </div>
+                  
               </div>
               <hr />
               <div ref={pdf} style={{ width: '95%', marginLeft: '2%', marginRight: '3%', marginTop: '8%' }}>
@@ -180,10 +172,7 @@ function Timetable1 () {
                           </thead>
                           <tbody>
                               {
-                                  value.filter(item => {
-                                      return search.toLowerCase() === "" ?
-                                          item : item.spec.toLowerCase().includes(search)
-                                  }).map(sp => (
+                                  value.map(sp => (
                                       <tr>
                                           <td>{sp.code}</td>
                                           <td>{sp.title}</td>

@@ -5,7 +5,12 @@ import { useNavigate } from 'react-router-dom'
 
 
 function Addstaff() {
+    const [route, setsuite] = useState("");
+    let way = location.pathname
+    let words = way.split("/")
+    let code = words.pop();
     const [values, setValues] = useState({
+        codep: "",
         name: "",
         email: "",
         phone: "",
@@ -19,53 +24,65 @@ function Addstaff() {
 
     })
     const [error, setError] = useState(null)
+    const [Matricule, setmatricule] = useState(null)
     const [errors, setErrors] = useState({});
     const Navigate = useNavigate()
-    const [Matricule, setmatricule] = useState(null)
+
+    const [department, setValue] = useState([])
+
+    useEffect(() => {
+        axios.get('http://localhost:3000/auth/department')
+            .then(result => {
+                if (result.data.readingStatus) {
+                    setValue(result.data.Result)
+                } else {
+                    alert(result.data.Error)
+                }
+            }).catch(err => console.log(err))
+    }, [])
+
 
     const validateForm = () => {
         const newErrors = {};
 
         // Perform validation for each field
-        if (!formData.name) {
+        // if (!values.dep) {
+        //     newErrors.dep = 'department is required';
+        // }
+        if (!values.name) {
             newErrors.name = 'Name is required';
         }
-        if (!formData.grade) {
+        if (!values.grade) {
             newErrors.grade = 'grade is required';
         }
-        if (!formData.birth) {
+        if (!values.birth) {
             newErrors.birth = 'birth is required';
         }
-        if (!formData.idcard) {
+        if (!values.idcard) {
             newErrors.idcard = 'idcard is required';
         }
-        if (!formData.place) {
+        if (!values.place) {
             newErrors.place = 'Place is required';
         }
-        if (!formData.sex) {
+        if (!values.sex) {
             newErrors.sex = 'sex is required';
         }
 
-        if (!formData.email) {
+        if (!values.email) {
             newErrors.email = 'Email is required';
-        } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+        } else if (!/^\S+@\S+\.\S+$/.test(values.email)) {
             newErrors.email = 'Invalid email address';
         }
 
-        if (!formData.phone) {
+        if (!values.phone) {
             newErrors.phone = 'Phone number is required';
-        } else if (!/^[0-9]{10}$/.test(formData.phone)) {
-            newErrors.phone = 'Invalid phone number';
         }
-
-        if (!formData.pass) {
+        if (!values.pass) {
             newErrors.pass = 'Password is required';
 
-        } else if (formData.cpass.length < 8) {
-            newErrors.cpass = 'Password must be at least 8 characters long';
         }
 
-        if (!formData.pic) {
+        if (!values.pic) {
             newErrors.pic = 'Picture is required';
         }
 
@@ -77,8 +94,10 @@ function Addstaff() {
     const handleSubmit = (event) => {
         event.preventDefault()
         const isValid = validateForm();
+        console.log(isValid);
         if (isValid) {
             const formdata = new FormData()
+            formdata.append('codep', values.codep)
             formdata.append('name', values.name)
             formdata.append('email', values.email)
             formdata.append('phone', values.phone)
@@ -94,7 +113,7 @@ function Addstaff() {
                 .then(result => {
                     if (result.data.createStatus) {
                         console.log(result.data);
-                        Navigate('/staff')
+                        Navigate('/staff/' + code)
                         setmatricule(result.data.Matricule)
 
                     } else {
@@ -112,7 +131,9 @@ function Addstaff() {
                 <div className='p-3 border-rounded w-60 bolder loginForm'>
 
                     <h2>Create an Account</h2> <br />
-                    
+                    <div className='text-success'>
+                        Your Unique Matriculation number is: {Matricule && Matricule}
+                    </div>
                     <div className='text-danger'>
                         {error && error}
                     </div>
@@ -178,16 +199,25 @@ function Addstaff() {
                             <input type="file" onChange={(e) => setValues({ ...values, pic: e.target.files[0] })} name='pic' autoComplete='off' placeholder=''
                                 className='form-control rounded-0' />
                             {errors.pic && <div className="error-message">{errors.pic}</div>}
-                            <label htmlFor="pass"><strong>Password<span className='start'>*</span></strong></label>
-                            <input type="text" onChange={(e) => setValues({ ...values, pass: e.target.value })}
-                                name='pass' placeholder='Enter your password'
-                                className='form-control rounded-0' />
-                            {errors.pass && <div className="error-message">{errors.pass}</div>}
+                            <label htmlFor="department" className='form-label'> <strong> Department</strong><span className='start'>*</span></label>
+                            <select type='select' name="codep" onChange={(e) => setValues({ ...values, codep: e.target.value })}
+                                className='form-control rounded-2'>
+                                <option value="">-- Select --</option>
+                                {department.map(sp => (
+                                    <option key={sp.codep} value={sp.codep}>{sp.title}</option>
+                                ))}
+                            </select>
+                            {errors.codep && <div className="error-message">{errors.codep}</div>}
                         </div>
                         <div className='text-danger'>
                             {error && error}
                         </div>
                         <div className='mb-3 form-group'>
+                            <label htmlFor="pass"><strong>Password<span className='start'>*</span></strong></label>
+                            <input type="text" onChange={(e) => setValues({ ...values, pass: e.target.value })}
+                                name='pass' placeholder='Enter your password'
+                                className='form-control rounded-0' />
+                            {errors.pass && <div className="error-message">{errors.pass}</div>}
                             <label htmlFor="cpass"><strong>Repeat password<span className='start'>*</span></strong></label>
                             <input type="password" onChange={(e) => setValues({ ...values, cpass: e.target.value })}
                                 name='cpass' placeholder='Re-enter your password'
@@ -195,7 +225,7 @@ function Addstaff() {
                             {errors.cpass && <div className="error-message">{errors.cpass}</div>}
                         </div>
                         <br />
-                        <button className='btn btn-success w-100 rounded-5 mb-2'>Create</button>
+                        <button type='submit' className='btn btn-success w-100 rounded-5 mb-2'>Create</button>
                     </form>
                 </div>
             </div>

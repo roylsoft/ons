@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table';
 import axios from "axios";
-import moment from 'moment';
+
 
 
 function Payement() {
@@ -136,7 +136,6 @@ function Payement() {
               <th>Name</th>
               <th>Phone</th>
               <th>Course</th>
-              
               <th className='bi-sort-up-alt' onClick={()=>sorting("codesp")}>Speciality</th>
               <th>Level</th>
               <th>Price/hours</th>

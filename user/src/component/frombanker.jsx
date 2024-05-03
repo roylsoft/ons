@@ -88,22 +88,6 @@ function Solvability1() {
             }).catch(err => console.log(err))
     }, [])
 
-    const sorting = (col) => {
-        if (order === "ASC") {
-            const sorted = [...data].sort((a, b) =>
-                a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
-            );
-            setdata(sorted)
-            setorder("DSC")
-        }
-        if (order === "DSC") {
-            const sorted = [...data].sort((a, b) =>
-                a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
-            );
-            setdata(sorted)
-            setorder("ASC")
-        }
-    }
 
     const handleCellChange = async (mat, field, value) => {
         try {
@@ -124,13 +108,9 @@ function Solvability1() {
         }
     };
 
-
-    const generatePdf = useReactToPrint({
-        content: () => pdf.current,
-        documentTitle: 'receipt',
-        onAfterPrint: () => alert('receipt saved successfully'),
-
-    })
+    const handleUpdate = async (mat, field, value) => {
+        
+    }
 
     let total = student.reg + student.inst1 + student.inst2 + student.inst3 + student.inst4 + student.inst5
 
@@ -193,6 +173,7 @@ function Solvability1() {
                             <thead>
                                 <tr>
                                     <th>Student's UId</th>
+                                    <th>Name</th>
                                     <th>Level</th>
                                     <th>Registration</th>
                                     <th>1st Instalment</th>
@@ -200,7 +181,7 @@ function Solvability1() {
                                     <th>3rd Instalment</th>
                                     <th>4th Instalment</th>
                                     <th>5th Instalment</th>
-                                    <th>Total payed</th>
+                                    {/* <th>Total payed</th> */}
 
                                 </tr>
                             </thead>
@@ -209,56 +190,56 @@ function Solvability1() {
                                     value.map(st => (
                                         <tr key={st.mat}>
                                             <td>{st.mat}</td>
+                                            <td>{st.name}</td>
                                             <td>{st.level}</td>
                                             <td>
                                                 <input
                                                     type="number"
-                                                    value={st.reg}
-                                                    onChange={(e) => handleCellChange(st.mat, 'reg', e.target.value)}
+                                                    // onChange={(e) => handleCellChange(st.mat, 'reg', e.target.value)}
                                                     onBlur={(e) => handleCellChange(st.mat, 'reg', e.target.value)}
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="number"
-                                                    value={st.inst1}
-                                                    onChange={(e) => handleCellChange(st.mat, 'inst1', e.target.value)}
+
+                                                    // onChange={(e) => handleCellChange(st.mat, 'inst1', e.target.value)}
                                                     onBlur={(e) => handleCellChange(st.mat, 'inst1', e.target.value)}
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="number"
-                                                    value={st.inst2}
-                                                    onChange={(e) => handleCellChange(st.mat, 'inst2', e.target.value)}
+
+                                                    // onChange={(e) => handleCellChange(st.mat, 'inst2', e.target.value)}
                                                     onBlur={(e) => handleCellChange(st.mat, 'inst2', e.target.value)}
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="number"
-                                                    value={st.inst3}
-                                                    onChange={(e) => handleCellChange(st.mat, 'inst3', e.target.value)}
+
+                                                    // onChange={(e) => handleCellChange(st.mat, 'inst3', e.target.value)}
                                                     onBlur={(e) => handleCellChange(st.mat, 'inst3', e.target.value)}
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="number"
-                                                    value={st.inst4}
-                                                    onChange={(e) => handleCellChange(st.mat, 'inst4', e.target.value)}
+
+                                                    // onChange={(e) => handleCellChange(st.mat, 'inst4', e.target.value)}
                                                     onBlur={(e) => handleCellChange(st.mat, 'inst4', e.target.value)}
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="number"
-                                                    value={st.inst5}
-                                                    onChange={(e) => handleCellChange(st.mat, 'inst5', e.target.value)}
+
+                                                    // onChange={(e) => handleCellChange(st.mat, 'inst5', e.target.value)}
                                                     onBlur={(e) => handleCellChange(st.mat, 'inst5', e.target.value)}
                                                 />
                                             </td>
-                                            <td>{parseInt(st.reg) + parseInt(st.inst1) + parseInt(st.inst2) + parseInt(st.inst3) + parseInt(st.inst4) + parseInt(st.inst5)}</td>
+                                           
                                         </tr>
 
                                     ))
@@ -272,7 +253,7 @@ function Solvability1() {
                                     <th>Graduation</th>
                                     <th>Supervision</th>
                                     <th>Practical</th>
-                                    <th>Total Payed</th>
+                                    <th>VALIDATE</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -282,37 +263,36 @@ function Solvability1() {
                                             <td>
                                                 <input
                                                     type="number"
-                                                    value={st.univ}
-                                                    onChange={(e) => handleCellChange(st.mat, 'univ', e.target.value)}
+
+                                                    // onChange={(e) => handleCellChange(st.mat, 'univ', e.target.value)}
                                                     onBlur={(e) => handleCellChange(st.mat, 'univ', e.target.value)}
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="number"
-                                                    value={st.grad}
-                                                    onChange={(e) => handleCellChange(st.mat, 'grad', e.target.value)}
+
+                                                    // onChange={(e) => handleCellChange(st.mat, 'grad', e.target.value)}
                                                     onBlur={(e) => handleCellChange(st.mat, 'grad', e.target.value)}
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="number"
-                                                    value={st.sup}
-                                                    onChange={(e) => handleCellChange(st.mat, 'sup', e.target.value)}
+
+                                                    // onChange={(e) => handleCellChange(st.mat, 'sup', e.target.value)}
                                                     onBlur={(e) => handleCellChange(st.mat, 'sup', e.target.value)}
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="number"
-                                                    value={st.prac}
-                                                    onChange={(e) => handleCellChange(st.mat, 'prac', e.target.value)}
+
+                                                    // onChange={(e) => handleCellChange(st.mat, 'prac', e.target.value)}
                                                     onBlur={(e) => handleCellChange(st.mat, 'prac', e.target.value)}
                                                 />
                                             </td>
-                                            <td>{parseInt(st.univ) + parseInt(st.grad) + parseInt(st.sup) + parseInt(st.prac)}</td>
-
+                                            <td><button className='btn btn-success'>OK</button></td>
                                         </tr>
 
                                     ))
@@ -338,11 +318,6 @@ function Solvability1() {
                             Copy@right-2023 NFONAP-HIEPS {date}</p>
                     </div>
                 </div>
-                {/* <div class="d-md-flex justify-content-md-end">
-                    <button type='submit' className='btn btn-success' onClick={generatePdf}>
-                        <FiPrinter className='card_icon' /> Download PDF
-                    </button>
-                </div> */}
             </div>
         </main>
     )

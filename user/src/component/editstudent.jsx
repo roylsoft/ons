@@ -5,10 +5,15 @@ import axios from "axios"
 import { useNavigate, useParams } from 'react-router-dom'
 
 function Editstudent() {
+
+    let way = location.pathname
+    let words = way.split("/")
+    let mat=words.pop()
+    let route = words[words.length - 2];
     const [speciality, setSpeciality] = useState([]);
     const [success, setSuccess] = useState(null)
     const Navigate = useNavigate()
-    const { mat } = useParams()
+    // const { mat } = useParams()
     const [values, setValues] = useState({
         name: "",
         email: "",
@@ -45,11 +50,11 @@ function Editstudent() {
         event.preventDefault()
         const isValid = validateForm();
         if (isValid) {
-
+            
             axios.put('http://localhost:3000/auth/editstudent/' + mat, values)
                 .then(result => {
                     console.log(result.data);
-                    Navigate('/studentlist')
+                    Navigate('/studentlist/' + route)
                     setSuccess(result.data.Matricule)
                 })
                 .catch(err => console.log(err))
@@ -80,6 +85,7 @@ function Editstudent() {
         axios.get('http://localhost:3000/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
+                    console.log(mat);
                     setSpeciality(result.data.Result)
                 } else {
                     alert(result.data.Error)
@@ -101,17 +107,17 @@ function Editstudent() {
                                 name='name' placeholder='Enter your password' className='form-control rounded-0' />
                             <label htmlFor="email"><strong>Email :</strong></label>
                             <input type="e-mail" value={values.email} onChange={(e) => setValues({ ...values, email: e.target.value })}
-                                name='email' autoComplete='off' placeholder='Enter your email addres' 
+                                name='email' autoComplete='off' placeholder='Enter your email addres'
                                 className='form-control rounded-0' />
-                                {errors.email && <div className="error-message">{errors.email}</div>}
+                            {errors.email && <div className="error-message">{errors.email}</div>}
                         </div>
 
                         <div className='mb-3 form-group'>
                             <label htmlFor="phone"><strong>Phone:</strong></label>
                             <input type="number" value={values.phone} onChange={(e) => setValues({ ...values, phone: e.target.value })}
-                                name='phone' placeholder='Enter your phone number' 
+                                name='phone' placeholder='Enter your phone number'
                                 className='form-control rounded-0' />
-                                {/* {errors.phone && <div className="error-message">{errors.phone}</div>} */}
+                            {/* {errors.phone && <div className="error-message">{errors.phone}</div>} */}
                             <label htmlFor="speciality" className='form-label'>Select a speciality:</label>
                             <select type='select' name="spec" value={values.spec} onChange={(e) => setValues({ ...values, spec: e.target.value })}
                                 className='form-control rounded-0'>

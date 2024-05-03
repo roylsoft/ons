@@ -4,10 +4,15 @@ import axios from "axios"
 import { useNavigate, useParams } from 'react-router-dom'
 
 function Editspec() {
-    const [speciality, setSpeciality] = useState([]);
+    const [route, setsuite] = useState("");
+    let way = location.pathname
+    let words = way.split("/")
+    let code = words.pop()
+    let mat = words[words.length - 1];
+
     const [department, setDepartment] = useState([]);
     const Navigate = useNavigate()
-    const { code } = useParams()
+  
     const [values, setValues] = useState({
         codesp: "",
         title: "",
@@ -24,8 +29,8 @@ function Editspec() {
 
         axios.put('http://localhost:3000/auth/editspec/' + code, values)
             .then(result => {
-                console.log(result.data);
-                Navigate('/specialities')
+              
+                Navigate('/specialities/'+route)
 
             })
             .catch(err => console.log(err))
@@ -35,6 +40,7 @@ function Editspec() {
     useEffect(() => {
         axios.get('http://localhost:3000/auth/specialities/' + code)
             .then(result => {
+                setsuite(mat)
                 setValues({
                     ...values,
                     codesp: result.data.Result[0].codesp,

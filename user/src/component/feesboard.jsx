@@ -184,8 +184,6 @@ function Feesboard() {
                                 <tr>
                                     <th>Student's UId</th>
                                     <th>Student's name</th>
-                                    <th>Level</th>
-                                    <th className='bi-sort-up-alt' onClick={() => sorting("codesp")}>Speciality</th>
                                     <th>Registration</th>
                                     <th>1st Inst</th>
                                     <th>2nd Inst</th>
@@ -211,8 +209,7 @@ function Feesboard() {
                                         <tr key={st.mat}>
                                             <td>{st.mat}</td>
                                             <td>{st.name}</td>
-                                            <td>{st.level}</td>
-                                            <td>{st.codesp}</td>
+                                           
                                             <td>{st.reg}</td>
                                             <td>{st.inst1}</td>
                                             <td>{st.inst2}</td>

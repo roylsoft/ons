@@ -65,7 +65,7 @@ function Studentdashboad() {
             .then(result => {
                 if (result.data.readingStatus) {
                     update(result.data.Result[0].trans + 1)
-                    let n=result.data.Result[0].trans + 1
+                    let n = result.data.Result[0].trans + 1
                     const num = "N°19101606" + n
                     setnum(num)
                 } else {
@@ -78,12 +78,12 @@ function Studentdashboad() {
         try {
             const valeur = value
             // Mettre à jour la valeur dans la base de données MySQL via une requête API
-            await axios.put(`http://localhost:3000/student/uptrans`, {valeur});
+            await axios.put(`http://localhost:3000/student/uptrans`, { valeur });
         } catch (error) {
             console.error(error);
         }
     };
-    
+
     const handleSubmit = (event) => {
         event.preventDefault()
         numero()
@@ -467,13 +467,13 @@ function Studentdashboad() {
                 </div>
                 <div className='px-2 mt-3'>
                     <div class="row mt-1 mb-2">
-                       
-                            <div class="row mt-1 mb-2">
-                            
-                                <div class="col-3"> <button onClick={handleSubmit} className='btn btn-success'><MdDescription className='icon' />Generate my transcript</button></div>
 
-                            </div>
-                     
+                        <div class="row mt-1 mb-2">
+
+                            <div class="col-3"> <button onClick={handleSubmit} className='btn btn-success'><MdDescription className='icon' />Generate my transcript</button></div>
+
+                        </div>
+
                     </div>
                     <hr />
                     <div ref={pdf} style={{ width: '95%', marginLeft: '2%', marginRight: '3%', fontSynthesisWeight: 'auto', marginTop: '8%' }} className='pdf'>
@@ -528,7 +528,7 @@ function Studentdashboad() {
                         <div className='mt-1  ms-1 '>
                             <Table striped bordered hover responsive>
                                 <thead>
-                                    <tr>
+                                    <tr >
                                         <th>Course</th>
                                         <th>Title</th>
                                         <th>Credit</th>
@@ -541,22 +541,19 @@ function Studentdashboad() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {
-                                        semester1.map(sp => (
-                                            <tr>
-                                                <td>{sp.code}</td>
-                                                <td>{sp.title}</td>
-                                                <td>{sp.credit}</td>
-                                                <td>{sp.ca}</td>
-                                                <td>{sp.ns}</td>
-                                                <td>{sp.avg}</td>
-                                                <td>{sp.qm}</td>
-                                                <td>{sp.grade}</td>
-                                                <td>{sp.obs}</td>
-                                            </tr>
-                                        ))
-                                    }
-
+                                    {semester1.map((sp, index) => (
+                                        <tr key={index} style={index === 0 ? { color: 'white' } : null}>
+                                            <td>{sp.code}</td>
+                                            <td>{sp.title}</td>
+                                            <td>{sp.credit}</td>
+                                            <td>{sp.ca}</td>
+                                            <td>{sp.ns}</td>
+                                            <td>{sp.avg}</td>
+                                            <td>{sp.qm}</td>
+                                            <td>{sp.grade}</td>
+                                            <td>{sp.obs}</td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </Table>
                             <div className='d-flex justify-content-center'>

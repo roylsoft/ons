@@ -16,6 +16,7 @@ import { MdOutlineClass, MdDashboardCustomize } from "react-icons/md";
 
 
 
+
 function Home(OpenSidebar) {
   const [adminTotal, setAdmindTotal] = useState()
   const [staffTotal, setStaffTotal] = useState()
@@ -296,7 +297,7 @@ function Home(OpenSidebar) {
               </tbody>
             </Table>
           </div>
-          <Link to='/addadmin' className='btn btn-success'>+ Add Admin</Link>
+          <Link to={`/addadmin/${route}`} className='btn btn-success'>+ Add Admin</Link>
    
           <div className='mt-2 ms-1 '>
             <Table striped bordered hover variant="dark" responsive>
@@ -343,7 +344,6 @@ function Home(OpenSidebar) {
             </Table>
           </div>
         </div>
-       
       </main>
   
   )

@@ -47,6 +47,7 @@ function Staffsidebar({ openSidebarToggle, setOpenSidebarToggle, mat }) {
                         <MdDashboardCustomize className='icon' /> Dashboard
                     </Link>
                 </li>
+               
                 <li className='sidebar-list-item'>
                     <Link to="/admin1" onClick={handleLinkClick}>
                         <PiStudentFill className='icon' /> Admins
@@ -98,11 +99,7 @@ function Staffsidebar({ openSidebarToggle, setOpenSidebarToggle, mat }) {
                         <ImCalculator className='icon' /> Marks
                     </Link>
                 </li>
-                {/* <li className='sidebar-list-item'>
-                    <Link to={`/lecturer/${mat}`} onClick={handleLinkClick}>
-                        <CgProfile className='icon' /> My Profile
-                    </Link>
-                </li> */}
+                
                 <li className='sidebar-list-item'>
                     <button className='btn btn-warning' onClick={handlelogout}>
                         <Link to="">
@@ -111,48 +108,7 @@ function Staffsidebar({ openSidebarToggle, setOpenSidebarToggle, mat }) {
                     </button>
                 </li>
                 <hr />
-                {/* <div>
-                    <li className='sidebar-list-item'>
-                            <Link to="">
-                                <FiPrinter className='icon' /> Student's list
-                            </Link>
-                    </li>
-                    <li className='sidebar-list-item'>
-                            <Link to="">
-                                <FiPrinter className='icon' /> Time table
-                            </Link>
-                    </li>
-                    <li className='sidebar-list-item'>
-                            <Link to="">
-                                <FiPrinter className='icon' /> Attendance's board
-                            </Link>
-                    </li>
-                    <li className='sidebar-list-item'>
-                            <Link to="">
-                                <FiPrinter className='icon' /> Salaries board
-                            </Link>
-                    </li>
-                    <li className='sidebar-list-item'>
-                            <Link to="">
-                                <FiPrinter className='icon' /> Lecturer's list
-                            </Link>
-                    </li>
-                    <li className='sidebar-list-item'>
-                            <Link to="">
-                                <FiPrinter className='icon' /> CAs VP
-                            </Link>
-                    </li>
-                    <li className='sidebar-list-item'>
-                            <Link to="">
-                                <FiPrinter className='icon' /> Exams VP
-                            </Link>
-                    </li>
-                    <li className='sidebar-list-item'>
-                            <Link to="">
-                                <FiPrinter className='icon' /> Solvability's board
-                            </Link>
-                    </li>
-                </div> */}
+             
 
             </ul>
             <div className='col p-0 m-0'>

@@ -54,74 +54,75 @@ function Sidebar({ openSidebarToggle, setOpenSidebarToggle, mat }) {
                         <MdDashboardCustomize className='icon' /> Dashboard
                     </Link>
                 </li>
+                
                 <li className='sidebar-list-item'>
-                    <Link to="/studentlist" onClick={handleLinkClick}>
+                    <Link to={`/studentlist/${mat}`} onClick={handleLinkClick}>
                         <PiStudentFill className='icon' /> Students
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/staff" onClick={handleLinkClick}>
+                    <Link to={`/staff/${mat}`} onClick={handleLinkClick}>
                         <FaUserGraduate className='icon' /> Lecturers
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/department" onClick={handleLinkClick}>
+                    <Link to={`/department/${mat}`} onClick={handleLinkClick}>
                         <FcDepartment className='icon' /> Departments
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/specialities" onClick={handleLinkClick}>
+                    <Link to={`/specialities/${mat}`} onClick={handleLinkClick}>
                         <BsGrid1X2Fill className='icon' /> Specialities
                     </Link>
                 </li>
 
                 <li className='sidebar-list-item'>
-                    <Link to="/courselist" onClick={handleLinkClick}>
+                    <Link to={`/courselist/${mat}`} onClick={handleLinkClick}>
                         <MdOutlineClass className='icon' /> Courses
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/timetable" onClick={handleLinkClick}>
+                    <Link to={`/timetable/${mat}`} onClick={handleLinkClick}>
                         <RxLapTimer className='icon' /> Time table
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/mark" onClick={handleLinkClick}>
+                    <Link to={`/mark/${mat}`} onClick={handleLinkClick}>
                         <ImCalculator className='icon' /> Marks
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/attendance" onClick={handleLinkClick}>
+                    <Link to={`/attendance/${mat}`} onClick={handleLinkClick}>
                         <FaCalendarCheck className='icon' />Attendance
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/solvability" onClick={handleLinkClick}>
+                    <Link to={`/solvability/${mat}`} onClick={handleLinkClick}>
                         <FaBitcoin className='icon' />School fees
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/payement" onClick={handleLinkClick}>
+                    <Link to={`/payement/${mat}`} onClick={handleLinkClick}>
                         <FaSackDollar className='icon' />Salaries
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/transcript" onClick={handleLinkClick}>
+                    <Link to={`/transcript/${mat}`} onClick={handleLinkClick}>
                         <MdDescription className='icon' />Transcripts
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/addbanker" onClick={handleLinkClick}>
+                    <Link to={`/addbanker/${mat}`} onClick={handleLinkClick}>
                         <CgProfile className='icon' /> New banker
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/editbanker" onClick={handleLinkClick}>
+                    <Link to={`/editbanker/${mat}`} onClick={handleLinkClick}>
                         <CgProfile className='icon' /> Edit banker
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to={"/key"} onClick={handleLinkClick}>
+                    <Link to={`/key/${mat}`} onClick={handleLinkClick}>
                         <FaKey className='icon' /> Keys
                     </Link>
                 </li>
@@ -142,34 +143,34 @@ function Sidebar({ openSidebarToggle, setOpenSidebarToggle, mat }) {
                 <hr />
                 <div>
                     <li className='sidebar-list-item'>
-                            <Link to={'/studentprint'} onClick={handleLinkClick}>
-                                <FiPrinter className='icon' /> Student's list
-                            </Link>
+                        <Link to={`/studentprint/${mat}`} onClick={handleLinkClick}>
+                            <FiPrinter className='icon' /> Student's list
+                        </Link>
                     </li>
                     <li className='sidebar-list-item'>
-                            <Link to={"/timetableprint"}>
-                                <FiPrinter className='icon' /> Time table
-                            </Link>
+                        <Link to={`/timetableprint/${mat}`}>
+                            <FiPrinter className='icon' /> Time table
+                        </Link>
                     </li>
                     <li className='sidebar-list-item'>
-                            <Link to={"/salaryprint"}>
-                                <FiPrinter className='icon' /> Salaries board
-                            </Link>
+                        <Link to={`/salaryprint/${mat}`}>
+                            <FiPrinter className='icon' /> Salaries board
+                        </Link>
                     </li>
                     <li className='sidebar-list-item'>
-                            <Link to={"/staffprint"}>
-                                <FiPrinter className='icon' /> Lecturer's list
-                            </Link>
+                        <Link to={`/staffprint/${mat}`}>
+                            <FiPrinter className='icon' /> Lecturer's list
+                        </Link>
                     </li>
                     <li className='sidebar-list-item'>
-                            <Link to={"/markprint"}>
-                                <FiPrinter className='icon' /> Exams VP
-                            </Link>
+                        <Link to={`/markprint/${mat}`}>
+                            <FiPrinter className='icon' /> Exams VP
+                        </Link>
                     </li>
                     <li className='sidebar-list-item'>
-                            <Link to="/feesboard">
-                                <FiPrinter className='icon' /> Solvability's board
-                            </Link>
+                        <Link to={`/feesboard/${mat}`}>
+                            <FiPrinter className='icon' /> Solvability's board
+                        </Link>
                     </li>
                 </div>
 

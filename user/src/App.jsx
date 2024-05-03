@@ -10,6 +10,7 @@ import Commun from './component/commun'
 import Verifkey from './component/verifkey.jsx';
 
 
+
 import Addstudent from './component/addstudent.jsx'
 import Studentlist from './component/studentlist.jsx'
 import Studentprint from './component/studentprint.jsx'
@@ -84,14 +85,6 @@ import Loginbank from './component/loginbank.jsx';
 import Addbanker from './component/addbanker.jsx';
 import Editbanker from './component/editbanker.jsx';
 import Solvability2 from './component/mypayement.jsx';
-
-
-
-
-
-
-
-
 
 
 function App() {
@@ -189,7 +182,8 @@ function App() {
   const isVerifkey = location.pathname === '/verifkey';
 
   const gridContainerClassName = isStarterPage || isAdminloginPage || isLoginPage ||
-    isLoginstaffPage || isCommun || isAddattendance || isVerifkey || isStudent || isBanker || isLoginbanker
+    isLoginstaffPage || isCommun || isAddattendance || isVerifkey || isStudent ||
+    isBanker || isLoginbanker
     ? 'grid-container-starter' : 'grid-container';
 
   return (
@@ -218,42 +212,44 @@ function App() {
           <Route path="/studentreg" element={<Studentreg />} />
           <Route path="/verifkey" element={<Verifkey />} />
           <Route path="/frombanker" element={<Solvability1 />} />
+          
 
-          <Route path="/studentlist" element={<Studentlist />} />
-          <Route path="/studentprint" element={<Studentprint />} />
-          <Route path="/timetableprint" element={<Timetableprint />} />
-          <Route path="/editcourse/:codec" element={<Editcourse />} />
-          <Route path="/editspec/:code" element={<Editspec />} />
+
           <Route path="/studentlist/:mat" element={<Studentlist />} />
-          <Route path="/staff" element={<Staff />} />
-          <Route path="/staffprint" element={<Staffprint />} />
-          <Route path="/home/:mat" element={<Home />} />
-          <Route path="/addadmin" element={<Addadmin />} />
-          <Route path="/editadmin/:mat" element={<Editadmin />} />
-          <Route path="/addstudent" element={<Addstudent />} />
-          <Route path="/editstudent/:mat" element={<Editstudent />} />
-          <Route path="/specialities" element={<Specialities />} />
-          <Route path="/addspeciality" element={<Addspeciality />} />
-          <Route path="/addcourse" element={<Addcourse />} />
-          <Route path="/addbanker" element={<Addbanker />} />
-          <Route path="/editbanker" element={<Editbanker />} />
-          <Route path="/courselist" element={<Courselist />} />
-          <Route path="/transcript" element={<Transcript />} />
-          <Route path="/adddepartment" element={<Adddepartment />} />
-          <Route path="/department" element={<Department />} />
-          <Route path="/editdep/:code" element={<Editdep />} />
+          <Route path="/studentprint/:mat" element={<Studentprint />} />
+          <Route path="/timetableprint/:mat" element={<Timetableprint />} />
+          <Route path="/editcourse/:mat/:suite" element={<Editcourse />} />
+          <Route path="/editspec/:mat/:suite" element={<Editspec />} />
+          <Route path="/studentlist/:mat" element={<Studentlist />} />
+          <Route path="/staff/:mat" element={<Staff />} />
+          <Route path="/staffprint/:mat" element={<Staffprint />} />
+          <Route path="home/:mat" element={<Home />} />
+          <Route path="/addadmin/:mat" element={<Addadmin />} />
+          <Route path="/editadmin/:mat/:suite" element={<Editadmin />} />
+          <Route path="/addstudent/:mat" element={<Addstudent />} />
+          <Route path="/editstudent/:mat/:suite" element={<Editstudent />} />
+          <Route path="/specialities/:mat" element={<Specialities />} />
+          <Route path="/addspeciality/:mat" element={<Addspeciality />} />
+          <Route path="/addcourse/:mat" element={<Addcourse />} />
+          <Route path="/addbanker/:mat" element={<Addbanker />} />
+          <Route path="/editbanker/:mat" element={<Editbanker />} />
+          <Route path="/courselist/:mat" element={<Courselist />} />
+          <Route path="/transcript/:mat" element={<Transcript />} />
+          <Route path="/adddepartment/:mat" element={<Adddepartment />} />
+          <Route path="/department/:mat" element={<Department />} />
+          <Route path="/editdep/:mat/:suite" element={<Editdep />} />
           <Route path="/profile/:mat" element={<Profile />} />
-          <Route path="/addstaff" element={<Addstaff />} />
-          <Route path="/mark" element={<Mark />} />
-          <Route path="/markprint" element={<Markprint />} />
-          <Route path="/timetable" element={<Timetable />} />
-          <Route path="/attendance" element={<Attendance />} />
-          <Route path="/payement" element={<Payement />} />
-          <Route path="/solvability" element={<Solvability />} />
-          <Route path="/feesboard" element={<Feesboard />} />
-          <Route path="/salaryprint" element={<Salaryprint />} />
-          <Route path="/key" element={<Key />} />
-          <Route path="/editstaff/:mat" element={<Editstaff />} />
+          <Route path="/addstaff/:mat" element={<Addstaff />} />
+          <Route path="/mark/:mat" element={<Mark />} />
+          <Route path="/markprint/:mat" element={<Markprint />} />
+          <Route path="/timetable/:mat" element={<Timetable />} />
+          <Route path="/attendance/:mat" element={<Attendance />} />
+          <Route path="/payement/:mat" element={<Payement />} />
+          <Route path="/solvability/:mat" element={<Solvability />} />
+          <Route path="/feesboard/:mat" element={<Feesboard />} />
+          <Route path="/salaryprint/:mat" element={<Salaryprint />} />
+          <Route path="/key/:mat" element={<Key />} />
+          <Route path="/editstaff/:mat/:suite" element={<Editstaff />} />
 
 
           <Route path="/lecturer/:mat" element={<Lecturer />} />

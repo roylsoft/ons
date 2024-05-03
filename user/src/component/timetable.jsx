@@ -150,7 +150,7 @@ function Timetable() {
             <tbody>
               {value
                 .filter(item => search.toLowerCase() === "" ||
-                  item.day.toLowerCase().includes(search) ||
+                
                   item.title.toLowerCase().includes(search) ||
                   item.code.toLowerCase().includes(search) ||
                   item.mat.toLowerCase().includes(search))

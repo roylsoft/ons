@@ -55,15 +55,9 @@ function Studentreg() {
             newErrors.email = 'Invalid email address';
         }
 
-        if (!values.phone) {
-            newErrors.phone = 'Phone number is required';
-        } else if (!/^[0-9]{10}$/.test(values.phone)) {
-            newErrors.phone = 'Invalid phone number';
-        }
-
         if (!values.pass) {
             newErrors.pass = 'Password is required';
-        } else if (values.cpass.length < 8) {
+        } else if (values.pass.length < 8) {
             newErrors.pass = 'Password must be at least 8 characters long';
         }
 

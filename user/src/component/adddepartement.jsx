@@ -4,7 +4,10 @@ import axios from "axios"
 import { useNavigate } from 'react-router-dom'
 
 function Adddepartment() {
-
+  const [route, setsuite] = useState("");
+  let way = location.pathname
+  let words = way.split("/")
+  let code = words.pop();
   const [values, setValues] = useState({
     codep: "",
     title: ""
@@ -39,7 +42,7 @@ function Adddepartment() {
         .then(result => {
           if (result.data.createStatus) {
             console.log(result.data);
-            Navigate('/department')
+            Navigate('/department/'+code)
           } else {
             setError(result.data.Error)
           }

@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./style.css"
 import axios from "axios"
 import { useNavigate } from 'react-router-dom'
-
 
 
 
@@ -11,6 +10,7 @@ const Verifkey = () => {
     const [values, setValues] = useState({
         key: "",
         name: "",
+        codep: "",
         email: "",
         phone: "",
         grade: "",
@@ -22,7 +22,7 @@ const Verifkey = () => {
         pass: ""
 
     })
-   
+
     const [error, setError] = useState(null)
     const [errors, setErrors] = useState({});
     const [Matricule, setmatricule] = useState(null)
@@ -83,10 +83,23 @@ const Verifkey = () => {
         return Object.keys(newErrors).length === 0; // Return true if there are no errors
     };
 
+    const [department, setValue] = useState([])
+
+    useEffect(() => {
+        axios.get('http://localhost:3000/auth/department')
+            .then(result => {
+                if (result.data.readingStatus) {
+                    setValue(result.data.Result)
+                } else {
+                    alert(result.data.Error)
+                }
+            }).catch(err => console.log(err))
+    }, [])
+
     axios.defaults.withCredentials = true
     const handleSubmit = (event) => {
         event.preventDefault()
-        axios.post('http://localhost:3000/staff/verifkey', value)
+        axios.post('http://localhost:3000/staff/verifkey', values)
             .then(result => {
                 if (result.data.loginStatus) {
                     const isValid = validateForm();
@@ -94,6 +107,7 @@ const Verifkey = () => {
                         const formdata = new FormData()
                         formdata.append('key', values.key)
                         formdata.append('name', values.name)
+                        formdata.append('codep', values.codep)
                         formdata.append('email', values.email)
                         formdata.append('phone', values.phone)
                         formdata.append('grade', values.grade)
@@ -202,14 +216,24 @@ const Verifkey = () => {
                             <input type="file" onChange={(e) => setValues({ ...values, pic: e.target.files[0] })} name='pic' autoComplete='off' placeholder=''
                                 className='form-control rounded-2' />
                             {errors.pic && <div className="error-message">{errors.pic}</div>}
+                            <label htmlFor="codep" className='form-label'> <strong> Department</strong><span className='start'>*</span></label>
+                            <select type='select' name="codep" onChange={(e) => setValues({ ...values, codep: e.target.value })}
+                                className='form-control rounded-2'>
+                                <option value="">-- Select --</option>
+                                {department.map(sp => (
+                                    <option key={sp.codep} value={sp.title}>{sp.title}</option>
+                                ))}
+                            </select>
+                            {errors.codep && <div className="error-message">{errors.codep}</div>}
+
+                        </div>
+
+                        <div className='mb-3 form-group'>
                             <label htmlFor="pass"><strong>Password<span className='start'>*</span></strong></label>
                             <input type="text" onChange={(e) => setValues({ ...values, pass: e.target.value })}
                                 name='pass' placeholder='Enter your password'
                                 className='form-control rounded-2' />
                             {errors.pass && <div className="error-message">{errors.pass}</div>}
-                        </div>
-
-                        <div className='mb-3 form-group'>
                             <label htmlFor="cpass"><strong>Repeat password<span className='start'>*</span></strong></label>
                             <input type="password" onChange={(e) => setValues({ ...values, cpass: e.target.value })}
                                 name='cpass' placeholder='Re-enter your password'
@@ -217,7 +241,7 @@ const Verifkey = () => {
 
                         </div>
                         <br />
-                        <button className='btn btn-success w-100 rounded-5 mb-2'>Create</button>
+                        <button type='submit' className='btn btn-success w-100 rounded-5 mb-2'>Create</button>
                         <div className='d-flex justify-content-center'>
                             <h6> Copy your Matricule from the top and click here to log in
                                 <button type='button' className='btn btn-success '

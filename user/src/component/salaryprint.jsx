@@ -197,6 +197,8 @@ function Salaryprint() {
                             <thead>
                                 <tr>
                                     <th>Lecturer ID</th>
+
+                                    <th>Name</th>
                                     <th>Course</th>
                                     <th className='bi-sort-up-alt' onClick={() => sorting("codesp")}>Speciality</th>
                                     <th>Level</th>
@@ -216,6 +218,7 @@ function Salaryprint() {
                                     }).map(st => (
                                         <tr key={st.code}>
                                             <td>{st.lecturer}</td>
+                                            <td>{st.name}</td>
                                             <td>{st.code}</td>
                                             <td>{st.codesp}</td>
                                             <td>{st.level}</td>

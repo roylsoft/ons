@@ -5,6 +5,11 @@ import { useNavigate } from 'react-router-dom'
 
 function Addspeciality() {
 
+    const [route, setsuite] = useState("");
+    let way = location.pathname
+    let words = way.split("/")
+    let code = words.pop();
+
     const [values, setValues] = useState({
         codesp: "",
         title: "",
@@ -42,7 +47,7 @@ function Addspeciality() {
                 .then(result => {
                     if (result.data.createStatus) {
                         console.log(result.data);
-                        Navigate('/specialities')
+                        Navigate('/specialities/'+ code)
                     } else {
                         setError(result.data.Error)
                     }

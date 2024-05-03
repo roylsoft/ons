@@ -7,9 +7,15 @@ function Courselist() {
 
   const [value, setValue] = useState([])
 
+  const [route, setsuite] = useState("");
+  let way = location.pathname
+  let words = way.split("/")
+  let code = words.pop();
+
   useEffect(()=>{
     axios.get('http://localhost:3000/auth/courselist')
     .then(result=>{
+      setsuite(code)
         setValue(result.data.Result)
     }).catch(err=>console.log(err))
   },[])
@@ -31,7 +37,7 @@ function Courselist() {
         <div className='d-flex justify-content-center'>
             <h3>Courses list</h3>
         </div>
-        <Link to='/addcourse' className='btn btn-success'>+ Add Course</Link>
+        <Link to={`/addcourse/${route}`} className='btn btn-success'>+ Add Course</Link>
        <div className='mt-3  ms-1 '>
         <Table striped bordered hover variant="dark" responsive>
           <thead>
@@ -60,7 +66,7 @@ function Courselist() {
                   <td>{sp.type}</td>
                   <td>{sp.mat}</td>
                   <td>
-                    <Link to={'/editcourse/'+sp.code} className='btn btn-info btn-sm me-2 bi-pencil-square'></Link>
+                    <Link to={`/editcourse/${route}/` + sp.code} className='btn btn-info btn-sm me-2 bi-pencil-square'></Link>
                     <Link className='btn btn-danger btn-sm bi-trash' onClick={()=>handelDelete(sp.code)}></Link>
                   </td>
                 </tr>

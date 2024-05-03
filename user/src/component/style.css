@@ -19,7 +19,13 @@
 
 }
 
+.first-row {
+  color: black;
+}
 
+.white-text {
+  color: white;
+}
 
 .form-group {
   display: flex;

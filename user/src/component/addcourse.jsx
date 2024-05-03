@@ -4,7 +4,10 @@ import axios from "axios"
 import { useNavigate } from 'react-router-dom'
 
 function Addcourse() {
-
+    const [route, setsuite] = useState("");
+    let way = location.pathname
+    let words = way.split("/")
+    let code = words.pop();
     const [speciality, setSpeciality] = useState([]);
     const [values, setValues] = useState({
         code: "",
@@ -51,18 +54,18 @@ function Addcourse() {
         event.preventDefault()
         const isValid = validateForm();
         if (isValid) {
-        axios.post('http://localhost:3000/auth/addcourse', values)
-            .then(result => {
-                if (result.data.createStatus) {
-                    console.log(result.data);
-                    Navigate('/courselist')
-                    setSuccess(result.data.Matricule)
+            axios.post('http://localhost:3000/auth/addcourse', values)
+                .then(result => {
+                    if (result.data.createStatus) {
+                        console.log(result.data);
+                        Navigate('/courselist/'+code)
+                        setSuccess(result.data.Matricule)
 
-                } else {
-                    setError(result.data.Error)
-                }
-            })
-            .catch(err => console.log(err))
+                    } else {
+                        setError(result.data.Error)
+                    }
+                })
+                .catch(err => console.log(err))
         }
     }
 
@@ -95,14 +98,14 @@ function Addcourse() {
                                     e.target.value
                             })} name='code' placeholder='course code'
                                 className='form-control rounded-0' />
-                                {errors.code && <div className="error-message">{errors.code}</div>}
+                            {errors.code && <div className="error-message">{errors.code}</div>}
                             <label htmlFor="title"><strong>course title :</strong></label>
                             <input type="text" onChange={(e) => setValues({
                                 ...values, title:
                                     e.target.value
                             })} name='title' autoComplete='off' placeholder='course title'
                                 className='form-control rounded-0' />
-                                {errors.title && <div className="error-message">{errors.title}</div>}
+                            {errors.title && <div className="error-message">{errors.title}</div>}
                         </div>
 
                         <div className='mb-3 form-group'>
@@ -112,7 +115,7 @@ function Addcourse() {
                                     e.target.value
                             })} name='credit' placeholder='course credit'
                                 className='form-control rounded-0' />
-                                {errors.credit && <div className="error-message">{errors.credit}</div>}
+                            {errors.credit && <div className="error-message">{errors.credit}</div>}
                             <label htmlFor="speciality" className='form-label'>Select a speciality:</label>
                             <select type='select' name="speciality" onChange={(e) => setValues({
                                 ...values, speciality:

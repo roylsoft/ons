@@ -6,6 +6,10 @@ import { useNavigate } from 'react-router-dom'
 
 
 function Addadmin() {
+    const [route, setsuite] = useState("");
+    let way = location.pathname
+    let words = way.split("/")
+    let code = words.pop();
 
     const [values, setValues] = useState({
         name: "",
@@ -98,7 +102,7 @@ function Addadmin() {
                 .then(result => {
                     if (result.data.createStatus) {
                         console.log(result.data);
-                        Navigate('/home')
+                        Navigate('/home/' + code)
                         setmatricule(result.data.Matricule)
 
                     } else {
@@ -116,7 +120,9 @@ function Addadmin() {
                     <h2>Add a new admin</h2>
                 </div>
                 <br />
-                
+                <div className='text-danger'>
+                    Your Unique Matriculation number is: {Matricule && Matricule}
+                </div>
                 <div className='text-danger'>
                     {error && error}
                 </div>

@@ -7,6 +7,14 @@ body {
   font-size: 10px;
 }
 
+.first-row {
+  color: black;
+}
+
+.white-text {
+  color: white;
+}
+
 .print{
   color: #ffffff;
 }

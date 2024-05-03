@@ -47,6 +47,7 @@ function Studentsidebar({ openSidebarToggle, setOpenSidebarToggle, mat}) {
                         <MdDashboardCustomize className='icon' /> Dashboard
                     </Link>
                 </li>
+               
                 <li className='sidebar-list-item'>
                     <Link to="/admin1" onClick={handleLinkClick}>
                         <PiStudentFill className='icon' /> Admins

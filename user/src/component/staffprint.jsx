@@ -57,6 +57,7 @@ function Staffprint() {
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Sex</th>
+                                    <th>Department</th>
 
                                 </tr>
                             </thead>
@@ -68,6 +69,7 @@ function Staffprint() {
                                             <td>{st.email}</td>
                                             <td>{st.phone}</td>
                                             <td>{st.sex}</td>
+                                            <td>{st.codep}</td>
                                         </tr>
 
                                     ))
