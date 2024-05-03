@@ -147,7 +147,7 @@ function App() {
     location.pathname.startsWith('/department1') ||
     location.pathname.startsWith('/assigncamarks') ||
     location.pathname.startsWith('/assignexammarks') ||
-    location.pathname.startsWith('/mypayement') ||
+    
     location.pathname.startsWith('/timetable1') ||
     location.pathname.startsWith('/transcript1') ||
     location.pathname.startsWith('/edstaffprofile') ||
@@ -165,6 +165,7 @@ function App() {
     location.pathname.startsWith('/Specialities2') ||
     location.pathname.startsWith('/timetable2') ||
     location.pathname.startsWith('/transcript2') ||
+    location.pathname.startsWith('/mypayement') ||
     location.pathname.startsWith('/editstudentprofile') ||
     location.pathname.startsWith('/Department2');
 
@@ -254,33 +255,34 @@ function App() {
 
           <Route path="/lecturer/:mat" element={<Lecturer />} />
           <Route path="/staffhome/:mat" element={<Staffhome />} />
-          <Route path="/studentlist1" element={<Studentlist1 />} />
-          <Route path="/timetable1" element={<Timetable1 />} />
-          <Route path="/admin1" element={<Admin1 />} />
-          <Route path="/staff1" element={<Staff1 />} />
-          <Route path="/mark1" element={<Mark1 />} />
-          <Route path="/specialities1" element={<Specialities1 />} />
-          <Route path="/department1" element={<Department1 />} />
-          <Route path="/transcript1" element={<Transcript1 />} />
-          <Route path="/mypayement" element={<Solvability2 />} />
+          <Route path="/studentlist1/:mat" element={<Studentlist1 />} />
+          <Route path="/timetable1/:mat" element={<Timetable1 />} />
+          <Route path="/admin1/:mat" element={<Admin1 />} />
+          <Route path="/staff1/:mat" element={<Staff1 />} />
+          <Route path="/mark1/:mat" element={<Mark1 />} />
+          <Route path="/specialities1/:mat" element={<Specialities1 />} />
+          <Route path="/department1/:mat" element={<Department1 />} />
+          <Route path="/transcript1/:mat" element={<Transcript1 />} />
+         
           <Route path="/assignexammarks/:inf" element={<Assignexammarks />} />
           <Route path="/assigncamarks/:inf" element={<Assignmark />} />
-          <Route path="/courselist1" element={<Courselist1 />} />
+          <Route path="/courselist1/:mat" element={<Courselist1 />} />
           <Route path="/edstaffprofile/:mat" element={<Editstaffprofile />} />
 
 
           <Route path="/student2/:mat" element={<Student2 />} />
           <Route path="/studenthome/:mat" element={<Studenthome />} />
-          <Route path="/Studentlist2" element={<Studentlist2 />} />
-          <Route path="/Admin2" element={<Admin2 />} />
-          <Route path="/Staff2" element={<Staff2 />} />
-          <Route path="/Mark2" element={<Mark2 />} />
-          <Route path="/Courselist2" element={<Courselist2 />} />
-          <Route path="/Specialities2" element={<Specialities2 />} />
-          <Route path="/Department2" element={<Department2 />} />
+          <Route path="/Studentlist2/:mat" element={<Studentlist2 />} />
+          <Route path="/Admin2/:mat" element={<Admin2 />} />
+          <Route path="/Staff2/:mat" element={<Staff2 />} />
+          <Route path="/Mark2/:mat" element={<Mark2 />} />
+          <Route path="/Courselist2/:mat" element={<Courselist2 />} />
+          <Route path="/Specialities2/:mat" element={<Specialities2 />} />
+          <Route path="/Department2/:mat" element={<Department2 />} />
           <Route path="/transcript2/:mat" element={<Transcript2 />} />
           <Route path="/editstudentprofile/:mat" element={<Editstudentprofile />} />
-          <Route path="/timetable2" element={<Timetable2 />} />
+          <Route path="/timetable2/:mat" element={<Timetable2 />} />
+          <Route path="/mypayement/:mat" element={<Solvability2 />} />
         </Routes>
       </Router>
     </div>

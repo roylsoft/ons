@@ -239,7 +239,7 @@ function Feesboard() {
                     <div class="row mt-1 mb d-flex justify-content-center">
                         {/* <div class="col-5 d-flex justify-content-center">Class: {speciality.title}</div> */}
                         <div class="col-2"></div>
-                        <div class="col-5 d-flex justify-content-center">The secretary</div>
+                        <div class="col-5 d-flex justify-content-center">The accountant</div>
                     </div>
                     <hr />
                     <div class="row mt mx-5 mb">

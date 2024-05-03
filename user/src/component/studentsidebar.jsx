@@ -49,48 +49,48 @@ function Studentsidebar({ openSidebarToggle, setOpenSidebarToggle, mat}) {
                 </li>
                
                 <li className='sidebar-list-item'>
-                    <Link to="/admin1" onClick={handleLinkClick}>
+                    <Link to={`/admin2/${mat}`} onClick={handleLinkClick}>
                         <PiStudentFill className='icon' /> Admins
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/studentlist2" onClick={handleLinkClick}>
+                    <Link to={`/studentlist2/${mat}`} onClick={handleLinkClick}>
                         <PiStudentFill className='icon' /> Students
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/staff1" onClick={handleLinkClick}>
+                    <Link to={`/staff2/${mat}`} onClick={handleLinkClick}>
                         <FaUserGraduate className='icon' /> Lecturers
                     </Link>
                 </li>
 
                 <li className='sidebar-list-item'>
-                    <Link to="/specialities1" onClick={handleLinkClick}>
+                    <Link to={`/specialities2/${mat}`} onClick={handleLinkClick}>
                         <BsGrid1X2Fill className='icon' /> Specialities
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/courselist2" onClick={handleLinkClick}>
+                    <Link to={`/courselist2/${mat}`} onClick={handleLinkClick}>
                         <MdOutlineClass className='icon' /> Courses
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/department1" onClick={handleLinkClick}>
+                    <Link to={`/department2/${mat}`} onClick={handleLinkClick}>
                         <FcDepartment className='icon' /> Departments
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/timetable2" onClick={handleLinkClick}>
+                    <Link to={`/timetable2/${mat}`} onClick={handleLinkClick}>
                         <MdOutlineClass className='icon' /> Time table
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/mypayement" onClick={handleLinkClick}>
+                    <Link to={`/mypayement/${mat}`} onClick={handleLinkClick}>
                         <MdOutlineClass className='icon' /> My payement
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to="/mark1" onClick={handleLinkClick}>
+                    <Link to={`/mark2/${mat}`} onClick={handleLinkClick}>
                         <ImCalculator className='icon' /> Marks
                     </Link>
                 </li>
