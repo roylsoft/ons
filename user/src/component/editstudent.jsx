@@ -9,7 +9,7 @@ function Editstudent() {
     let way = location.pathname
     let words = way.split("/")
     let mat=words.pop()
-    let route = words[words.length - 2];
+    let route = words[words.length - 1];
     const [speciality, setSpeciality] = useState([]);
     const [success, setSuccess] = useState(null)
     const Navigate = useNavigate()
@@ -85,7 +85,7 @@ function Editstudent() {
         axios.get('http://localhost:3000/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
-                    console.log(mat);
+                    
                     setSpeciality(result.data.Result)
                 } else {
                     alert(result.data.Error)

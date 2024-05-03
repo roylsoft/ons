@@ -7,9 +7,12 @@ import moment from 'moment'
 
 function Editadmin() {
 
-    const [success, setSuccess] = useState(null)
+    let way = location.pathname
+    let words = way.split("/")
+    let mat=words.pop()
+    let route = words[words.length - 1];
 
-    const { mat } = useParams()
+    const [success, setSuccess] = useState(null)
 
     const [values, setValues] = useState({
         name: "",
@@ -63,7 +66,7 @@ function Editadmin() {
             axios.put('http://localhost:3000/auth/editadmin/' + mat, values)
                 .then(result => {
                     console.log(result.data);
-                    Navigate('/home/'+mat)
+                    Navigate('/home/'+route)
                     setSuccess(result.data.Matricule)
                 })
                 .catch(err => console.log(err))

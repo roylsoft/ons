@@ -25,6 +25,10 @@ function Home(OpenSidebar) {
   const [courseTotal, setCourseTotal] = useState()
   const [admin, setadmin] = useState([])
   const {mat}=useParams()
+  const [route, setsuite] = useState("");
+  let way = location.pathname
+  let words = way.split("/")
+  let code = words.pop();
 
   useEffect(() => {
     admincount();
@@ -133,7 +137,9 @@ function Home(OpenSidebar) {
 
   useEffect(() => {
     axios.get('http://localhost:3000/auth/adminlist')
+    
       .then(result => {
+        setsuite(mat)
         if (result.data.readingStatus) {
 
           setValue(result.data.Result)
@@ -287,7 +293,7 @@ function Home(OpenSidebar) {
                       <td>{st.place}</td>
                       <td>{st.sex}</td>
                       <td>
-                        <Link to={'/editadmin/' + st.mat} className='btn btn-info btn-sm me-2 bi-pencil-square'></Link>
+                        <Link to={`/editadmin/${route}/`+ st.mat} className='btn btn-info btn-sm me-2 bi-pencil-square'></Link>
                         {/* <Link className='btn btn-danger btn-sm bi-trash' onClick={() => handelDelete(st.mat)}></Link> */}
                       </td>
                     </tr>
