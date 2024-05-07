@@ -14,6 +14,7 @@ const Adminlogin = () => {
     const [adminMat, setAdminMat] = useState("");
 
     axios.defaults.withCredentials = true
+    // window.location.reload()
     const handleSubmit = (event) => {
         event.preventDefault()
         axios.post('http://localhost:3000/auth/adminlogin', values)

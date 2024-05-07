@@ -476,7 +476,7 @@ function Studentdashboad() {
 
                     </div>
                     <hr />
-                    <div ref={pdf} style={{ width: '95%', marginLeft: '2%', marginRight: '3%', fontSynthesisWeight: 'auto', marginTop: '8%' }} className='pdf'>
+                    <div ref={pdf} style={{ width: '95%',color:'black', marginLeft: '2%', marginRight: '3%', fontSynthesisWeight: 'auto', marginTop: '8%' }} className='pdf'>
                         <div class="row mt-1 mb-2 d-flex justify-content-center">
 
                             <div class="col-5 d-flex justify-content-center">

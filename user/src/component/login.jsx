@@ -22,7 +22,6 @@ const Login = () => {
         axios.post('http://localhost:3000/student/login', values)
             .then(result => {
                 if (result.data.loginStatus) {
-
                     Navigate('/studenthome/' + result.data.mat)
                     window.location.reload()
                 } else {
