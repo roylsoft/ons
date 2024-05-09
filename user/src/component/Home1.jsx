@@ -18,7 +18,7 @@ const Home1 = () => {
   axios.defaults.withCredentials = true
   useEffect(() => {
 
-    axios.get('https://server-six-bice.vercel.app/verify')
+    axios.get('https://admin-rust-gamma.vercel.app/verify')
       .then(result => {
 
         if (result.data.Status) {

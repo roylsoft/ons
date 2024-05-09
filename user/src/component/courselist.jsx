@@ -13,7 +13,7 @@ function Courselist() {
   let code = words.pop();
 
   useEffect(()=>{
-    axios.get('https://server-six-bice.vercel.app/auth/courselist')
+    axios.get('https://admin-rust-gamma.vercel.app/auth/courselist')
     .then(result=>{
       setsuite(code)
         setValue(result.data.Result)
@@ -21,7 +21,7 @@ function Courselist() {
   },[])
 
   const handelDelete = (code) => {
-    axios.delete('https://server-six-bice.vercel.app/auth/deletecourse/'+code)
+    axios.delete('https://admin-rust-gamma.vercel.app/auth/deletecourse/'+code)
     .then(result => {
       if(result.data.deleteStatus){
         window.location.reload()

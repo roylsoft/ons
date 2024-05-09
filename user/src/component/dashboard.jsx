@@ -7,7 +7,7 @@ function Dashboard() {
     const navigate =useNavigate()
     axios.defaults.withCredentials = true
     const handlelogout =()=>{
-       axios.get('https://server-six-bice.vercel.app/auth/logout')
+       axios.get('https://admin-rust-gamma.vercel.app/auth/logout')
        .then(result=>{
         if(result.data.Status){
             navigate('/')

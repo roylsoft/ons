@@ -20,7 +20,7 @@ function Mark1() {
   })
 
   const sortMark = async () => {
-    const url = 'https://server-six-bice.vercel.app/auth/marksort/data';
+    const url = 'https://admin-rust-gamma.vercel.app/auth/marksort/data';
     try {
       const response = await axios.get(url, {
         params: {
@@ -53,7 +53,7 @@ function Mark1() {
   };
 
   useEffect(() => {
-    axios.get('https://server-six-bice.vercel.app/auth/specialities')
+    axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
       .then(result => {
         if (result.data.readingStatus) {
           setSpeciality(result.data.Result)

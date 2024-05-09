@@ -14,7 +14,7 @@ function Specialities() {
 
 
   useEffect(() => {
-    axios.get('https://server-six-bice.vercel.app/auth/specialities')
+    axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
       .then(result => {
         setsuite(code)
         setValue(result.data.Result)
@@ -24,7 +24,7 @@ function Specialities() {
       }).catch(err => console.log(err))
   }, [])
   const handelDelete = (codesp) => {
-    axios.delete('https://server-six-bice.vercel.app/auth/deletespeciality/' + codesp)
+    axios.delete('https://admin-rust-gamma.vercel.app/auth/deletespeciality/' + codesp)
       .then(result => {
         if (result.data.deleteStatus) {
           window.location.reload()

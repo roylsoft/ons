@@ -26,7 +26,7 @@ function Studentlist() {
  
 
   const sortStudent = async () => {
-    const url = 'https://server-six-bice.vercel.app/student/studentsort/data'
+    const url = 'https://admin-rust-gamma.vercel.app/student/studentsort/data'
     axios.get(url, { params: { spec: values.spec, level: values.level } }
     )
       .then(result => {
@@ -47,7 +47,7 @@ function Studentlist() {
   };
 
   const handelDelete = (mat) => {
-    axios.delete('https://server-six-bice.vercel.app/student/deletestudent/' + mat)
+    axios.delete('https://admin-rust-gamma.vercel.app/student/deletestudent/' + mat)
       .then(result => {
         if (result.data.deleteStatus) {
           window.location.reload()
@@ -58,7 +58,7 @@ function Studentlist() {
   }
 
   useEffect(() => {
-    axios.get('https://server-six-bice.vercel.app/auth/specialities')
+    axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
       .then(result => {
         if (result.data.readingStatus) {
           setsuite(mat)
@@ -168,7 +168,7 @@ function Studentlist() {
                     item.name.toLowerCase().includes(search)
                 }).map(st => (
                   <tr>
-                    <td> <img src={'https://server-six-bice.vercel.app/image/' + st.pic} alt="" className='profile_pic' /> </td>
+                    <td> <img src={'https://admin-rust-gamma.vercel.app/image/' + st.pic} alt="" className='profile_pic' /> </td>
                     <td>{st.mat}</td>
                     <td >{st.name}</td>
                     <td>{st.email}</td>

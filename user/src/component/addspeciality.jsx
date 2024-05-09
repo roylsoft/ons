@@ -43,7 +43,7 @@ function Addspeciality() {
         event.preventDefault()
         const isValid = validateForm();
         if (isValid) {
-            axios.post('https://server-six-bice.vercel.app/auth/addspeciality', values)
+            axios.post('https://admin-rust-gamma.vercel.app/auth/addspeciality', values)
                 .then(result => {
                     if (result.data.createStatus) {
                         console.log(result.data);
@@ -56,7 +56,7 @@ function Addspeciality() {
         }
     }
     useEffect(() => {
-        axios.get('https://server-six-bice.vercel.app/auth/department')
+        axios.get('https://admin-rust-gamma.vercel.app/auth/department')
             .then(result => {
                 if (result.data.readingStatus) {
                     setDepartement(result.data.Result)

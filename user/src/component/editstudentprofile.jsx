@@ -46,7 +46,7 @@ function Editstudentprofile() {
         const isValid = validateForm();
         if (isValid) {
 
-            axios.put('https://server-six-bice.vercel.app/auth/editstudent/' + mat, values)
+            axios.put('https://admin-rust-gamma.vercel.app/auth/editstudent/' + mat, values)
                 .then(result => {
                     console.log(result.data);
                     Navigate('/studenthome/'+mat)
@@ -58,7 +58,7 @@ function Editstudentprofile() {
 
 
     useEffect(() => {
-        axios.get('https://server-six-bice.vercel.app/student/student/' + mat)
+        axios.get('https://admin-rust-gamma.vercel.app/student/student/' + mat)
             .then(result => {
                 setValues({
                     ...values,
@@ -77,7 +77,7 @@ function Editstudentprofile() {
     }, [])
 
     useEffect(() => {
-        axios.get('https://server-six-bice.vercel.app/auth/specialities')
+        axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
                     setSpeciality(result.data.Result)

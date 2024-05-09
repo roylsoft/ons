@@ -44,7 +44,7 @@ function Editcourse() {
         formdata.append('name', values.name)
         formdata.append('phone', values.phone)
 
-        axios.put('https://server-six-bice.vercel.app/auth/editcourse/' + codec, values)
+        axios.put('https://admin-rust-gamma.vercel.app/auth/editcourse/' + codec, values)
             .then(result => {
                 console.log(result.data);
                 Navigate('/courselist/' + route)
@@ -55,7 +55,7 @@ function Editcourse() {
 
     useEffect(() => {
         console.log(codec)
-        axios.get('https://server-six-bice.vercel.app/auth/course/' + codec)
+        axios.get('https://admin-rust-gamma.vercel.app/auth/course/' + codec)
             .then(result => {
                 setsuite(mat)
                 setValues({
@@ -76,7 +76,7 @@ function Editcourse() {
     }, [])
 
     useEffect(() => {
-        axios.get('https://server-six-bice.vercel.app/auth/specialities')
+        axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
                     setSpeciality(result.data.Result)
@@ -87,7 +87,7 @@ function Editcourse() {
     }, [])
 
     useEffect(() => {
-        axios.get('https://server-six-bice.vercel.app/staff/staff')
+        axios.get('https://admin-rust-gamma.vercel.app/staff/staff')
             .then(result => {
                 if (result.data.readingStatus) {
                     setStaff(result.data.Result)

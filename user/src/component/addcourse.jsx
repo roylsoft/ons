@@ -54,7 +54,7 @@ function Addcourse() {
         event.preventDefault()
         const isValid = validateForm();
         if (isValid) {
-            axios.post('https://server-six-bice.vercel.app/auth/addcourse', values)
+            axios.post('https://admin-rust-gamma.vercel.app/auth/addcourse', values)
                 .then(result => {
                     if (result.data.createStatus) {
                         console.log(result.data);
@@ -71,7 +71,7 @@ function Addcourse() {
 
 
     useEffect(() => {
-        axios.get('https://server-six-bice.vercel.app/auth/specialities')
+        axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
                     setSpeciality(result.data.Result)

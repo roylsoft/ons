@@ -52,7 +52,7 @@ function Editstaffprofile() {
             formdata.append('place', values.place)
             formdata.append('sex', values.sex)
 
-            axios.put('https://server-six-bice.vercel.app/auth/editstaff/' + mat, values)
+            axios.put('https://admin-rust-gamma.vercel.app/auth/editstaff/' + mat, values)
                 .then(result => {
                     console.log(result.data);
                     Navigate('/staffhome/'+mat)
@@ -64,7 +64,7 @@ function Editstaffprofile() {
 
 
     useEffect(() => {
-        axios.get('https://server-six-bice.vercel.app/staff/staff/' + mat)
+        axios.get('https://admin-rust-gamma.vercel.app/staff/staff/' + mat)
             .then(result => {
                 setValues({
                     ...values,
