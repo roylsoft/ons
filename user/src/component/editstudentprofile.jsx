@@ -46,7 +46,7 @@ function Editstudentprofile() {
         const isValid = validateForm();
         if (isValid) {
 
-            axios.put('http://localhost:3000/auth/editstudent/' + mat, values)
+            axios.put('https://server-six-bice.vercel.app/auth/editstudent/' + mat, values)
                 .then(result => {
                     console.log(result.data);
                     Navigate('/studenthome/'+mat)
@@ -58,7 +58,7 @@ function Editstudentprofile() {
 
 
     useEffect(() => {
-        axios.get('http://localhost:3000/student/student/' + mat)
+        axios.get('https://server-six-bice.vercel.app/student/student/' + mat)
             .then(result => {
                 setValues({
                     ...values,
@@ -77,7 +77,7 @@ function Editstudentprofile() {
     }, [])
 
     useEffect(() => {
-        axios.get('http://localhost:3000/auth/specialities')
+        axios.get('https://server-six-bice.vercel.app/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
                     setSpeciality(result.data.Result)

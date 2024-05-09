@@ -10,7 +10,7 @@ function Lecturer(props) {
   const [staff, setstaff] = useState([])
   const { mat } = useParams()
   useEffect(() => {
-    axios.get('http://localhost:3000/staff/staff/' +mat)
+    axios.get('https://server-six-bice.vercel.app/staff/staff/' +mat)
       .then(result => {
         setstaff(result.data.Result[0])
       })
@@ -19,7 +19,7 @@ function Lecturer(props) {
 
   const navigate = useNavigate()
   const handlelogout = () => {
-    axios.get('http://localhost:3000/staff/logout')
+    axios.get('https://server-six-bice.vercel.app/staff/logout')
       .then(result => {
         if (result.data.Status) {
           localStorage.removeItem("valid")
@@ -37,7 +37,7 @@ function Lecturer(props) {
 
             <div className='px-2 pt-2 pb-3 border shadow-sm w-5'>
               <div className='text-center pb-1'>
-                <img src={"http://localhost:3000/image/" + staff.pic} alt="photo" className='profile_pic' />
+                <img src={"https://server-six-bice.vercel.app/image/" + staff.pic} alt="photo" className='profile_pic' />
               </div> <hr />
               <div className='d-flex justify-content-center'>
                 <div className='d-flex justify-content-center flex-column align-items-center mt-3'>

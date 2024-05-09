@@ -9,7 +9,7 @@ const Student = (props) => {
     const [student, setStudent] = useState([])
     const {mat}= useParams()
     useEffect(() => {
-        axios.get('http://localhost:3000/student/student/'+mat)
+        axios.get('https://server-six-bice.vercel.app/student/student/'+mat)
         .then(result => {
             setStudent(result.data.Result[0])
         })
@@ -18,7 +18,7 @@ const Student = (props) => {
 
     const navigate = useNavigate()
     const handlelogout =()=>{
-      axios.get('http://localhost:3000/student/logout')
+      axios.get('https://server-six-bice.vercel.app/student/logout')
       .then(result=>{
        if(result.data.Status){
         localStorage.removeItem("valid")
@@ -35,7 +35,7 @@ const Student = (props) => {
                
                 <div className='px-2 pt-2 pb-3 border shadow-sm w-5'>
                   <div className='text-center pb-1'>
-                    <img src={"http://localhost:3000/image/"+student.pic} alt="photo" className='profile_pic'/>
+                    <img src={"https://server-six-bice.vercel.app/image/"+student.pic} alt="photo" className='profile_pic'/>
                   </div> <hr />
                   <div className='d-flex justify-content-center'>
                     <div className='d-flex justify-content-center flex-column align-items-center mt-3'>

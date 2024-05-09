@@ -17,7 +17,7 @@ function Editdep() {
 
     const handleUpdate = (event) => {
         event.preventDefault()
-        axios.put('http://localhost:3000/auth/editdep/' + code, values)
+        axios.put('https://server-six-bice.vercel.app/auth/editdep/' + code, values)
             .then(result => {
                 console.log(result.data);
                 Navigate('/department/'+ route)
@@ -28,7 +28,7 @@ function Editdep() {
 
 
     useEffect(() => {
-        axios.get('http://localhost:3000/auth/department/' + code)
+        axios.get('https://server-six-bice.vercel.app/auth/department/' + code)
             .then(result => {
                 setsuite(mat)
                 setValues({

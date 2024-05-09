@@ -29,7 +29,7 @@ function Editstaff() {
     const [department, setValue] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:3000/auth/department')
+        axios.get('https://server-six-bice.vercel.app/auth/department')
             .then(result => {
                 if (result.data.readingStatus) {
                     setValue(result.data.Result)
@@ -72,7 +72,7 @@ function Editstaff() {
             formdata.append('sex', values.sex)
             formdata.append('coasthour', values.coasthour)
 
-            axios.put('http://localhost:3000/auth/editstaff/' + mat, values)
+            axios.put('https://server-six-bice.vercel.app/auth/editstaff/' + mat, values)
                 .then(result => {
                     console.log(result.data);
                     Navigate('/staff/'+route)
@@ -84,7 +84,7 @@ function Editstaff() {
 
 
     useEffect(() => {
-        axios.get('http://localhost:3000/staff/staff/' + mat)
+        axios.get('https://server-six-bice.vercel.app/staff/staff/' + mat)
             .then(result => {
                 setValues({
                     ...values,

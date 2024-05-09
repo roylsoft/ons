@@ -10,9 +10,11 @@ import cookieParser from "cookie-parser";
 
 
 
+
 const app = express()
+
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000'],
+    origin: ['http://localhost:5173', 'https://server-six-bice.vercel.app'],
     methods:[ 'POST','GET','PUT','DELETE'],
     credentials: true
 }))
@@ -23,6 +25,9 @@ app.use('/auth',adminrouter)
 app.use('/student',userrouter)
 app.use('/staff',staffrouter)
 
+
+
+
 const verifyUser = (req, res, next) => {
 const token = req.cookies.token;
 if (token) {
@@ -30,7 +35,6 @@ if (token) {
         if(err){ console.log(err); return res.json({Status: false, Error: "Wrong token"})}
         req.mat=decoded.matricule
         req.role=decoded.role
-        //console.log(req.mat+'  '+req.role);
         next()
     })
 } else {
@@ -46,4 +50,3 @@ app.listen(3000,'0.0.0.0', ()=>{
     console.log("Server is running")
  })
 
-//app.listen(3001,()=>{console.log("server running on port 3001");})

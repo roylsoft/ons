@@ -9,7 +9,7 @@ function Staff1() {
   const [value, setValue] = useState([])
 
   useEffect(()=>{
-    axios.get('http://localhost:3000/staff/staff')
+    axios.get('https://server-six-bice.vercel.app/staff/staff')
     .then(result=>{
       if (result.data.readingStatus) {
         setValue(result.data.Result)
@@ -20,7 +20,7 @@ function Staff1() {
   },[])
 
   const handelDelete = (mat) => {
-    axios.delete('http://localhost:3000/staff/deletestaff/'+mat)
+    axios.delete('https://server-six-bice.vercel.app/staff/deletestaff/'+mat)
     .then(result => {
       if(result.data.deleteStatus){
         window.location.reload()
@@ -56,7 +56,7 @@ function Staff1() {
             {
               value.map( st =>(
                 <tr>
-                  <td> <img src={'http://localhost:3000/image/' +st.pic} alt="" className='profile_pic' /> </td>
+                  <td> <img src={'https://server-six-bice.vercel.app/image/' +st.pic} alt="" className='profile_pic' /> </td>
                  
                   <td>{st.name}</td>
                   <td>{st.email}</td>

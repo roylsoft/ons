@@ -8,7 +8,7 @@ function Specialities2() {
   const [value, setValue] = useState([])
 
   useEffect(()=>{
-    axios.get('http://localhost:3000/auth/specialities')
+    axios.get('https://server-six-bice.vercel.app/auth/specialities')
     .then(result=>{
      
         setValue(result.data.Result)

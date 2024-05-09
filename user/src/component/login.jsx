@@ -19,7 +19,7 @@ const Login = () => {
     axios.defaults.withCredentials = true
     const handleSubmit = (event) => {
         event.preventDefault()
-        axios.post('http://localhost:3000/student/login', values)
+        axios.post('https://server-six-bice.vercel.app/student/login', values)
             .then(result => {
                 if (result.data.loginStatus) {
                     Navigate('/studenthome/' + result.data.mat)

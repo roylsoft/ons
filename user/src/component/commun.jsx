@@ -16,7 +16,7 @@ const Commun = () => {
     axios.defaults.withCredentials = true
     const handleSubmit = (event) => {
         event.preventDefault()
-        axios.post('http://localhost:3000/student/commun', values)
+        axios.post('https://server-six-bice.vercel.app/student/commun', values)
             .then(result => {
                 if (result.data.loginStatus) {
                     localStorage.setItem("valid", true)

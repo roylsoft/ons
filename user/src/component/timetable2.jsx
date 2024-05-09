@@ -9,7 +9,7 @@ function Timetable2() {
   const [search, setSearch] = useState("");
   const [speciality, setSpeciality] = useState([]);
   useEffect(() => {
-    axios.get('http://localhost:3000/auth/specialities')
+    axios.get('https://server-six-bice.vercel.app/auth/specialities')
       .then(result => {
         if (result.data.readingStatus) {
           setSpeciality(result.data.Result)
@@ -19,14 +19,14 @@ function Timetable2() {
       }).catch(err => console.log(err))
   }, [])
   //   useEffect(()=>{
-  //     axios.get('http://localhost:3000/auth/courselist')
+  //     axios.get('https://server-six-bice.vercel.app/auth/courselist')
   //     .then(result=>{
   //         setValue(result.data.Result)
   //     }).catch(err=>console.log(err))
   //   },[])
 
   const handelDelete = (code) => {
-    axios.delete('http://localhost:3000/auth/deletecourse/' + code)
+    axios.delete('https://server-six-bice.vercel.app/auth/deletecourse/' + code)
       .then(result => {
         if (result.data.deleteStatus) {
           window.location.reload()
@@ -41,7 +41,7 @@ function Timetable2() {
     level: ""
   })
   const timetable = async () => {
-    const url = 'http://localhost:3000/auth/timetable/data'
+    const url = 'https://server-six-bice.vercel.app/auth/timetable/data'
     axios.get(url, { params: { spec: values.spec, semester: values.semester, level: values.level } }
     )
       .then(result => {

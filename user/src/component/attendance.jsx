@@ -18,7 +18,7 @@ function Attendance() {
   const [order, setorder] = useState("ASC");
 
   const attendance = async () => {
-     const url='http://localhost:3000/student/attendance/data'
+     const url='https://server-six-bice.vercel.app/student/attendance/data'
       axios.get(url,{params:{spec:values.spec,month:values.month}}
       )
       .then(result=>{
@@ -39,7 +39,7 @@ function Attendance() {
   };
   
   const handelDelete = (mat) => {
-    axios.delete('http://localhost:3000/student/deletestudent/'+mat)
+    axios.delete('https://server-six-bice.vercel.app/student/deletestudent/'+mat)
     .then(result => {
       if(result.data.deleteStatus){
         window.location.reload()
@@ -50,7 +50,7 @@ function Attendance() {
   }
 
   useEffect(()=>{
-    axios.get('http://localhost:3000/auth/specialities')
+    axios.get('https://server-six-bice.vercel.app/auth/specialities')
     .then(result=>{
       if (result.data.readingStatus) {
         setSpeciality(result.data.Result)

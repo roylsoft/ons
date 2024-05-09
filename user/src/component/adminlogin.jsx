@@ -17,7 +17,7 @@ const Adminlogin = () => {
     // window.location.reload()
     const handleSubmit = (event) => {
         event.preventDefault()
-        axios.post('http://localhost:3000/auth/adminlogin', values)
+        axios.post('https://server-six-bice.vercel.app/auth/adminlogin', values)
             .then(result => {
                 if (result.data.loginStatus) {
                     setAdminMat(result.data.mat);

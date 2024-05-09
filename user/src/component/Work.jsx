@@ -4,8 +4,7 @@ import ChooseMeals from "../assets/t.jpg";
 import DeliveryMeals from "../assets/s.jpg";
 import DeliveryMeals1 from "../assets/d.jpg";
 import DeliveryMeal from "../assets/delivery-image.png";
-import { FcDataRecovery } from "react-icons/fc";
-import { Link, useNavigate } from "react-router-dom";
+
 
 
 

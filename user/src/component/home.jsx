@@ -85,7 +85,7 @@ function Home(OpenSidebar) {
   ];
 
   useEffect(() => {
-    axios.get('http://localhost:3000/auth/adminlist/'+mat)
+    axios.get('https://server-six-bice.vercel.app/auth/adminlist/'+mat)
       .then(result => {
         setadmin(result.data.Result)
       })
@@ -93,7 +93,7 @@ function Home(OpenSidebar) {
   }, [])
 
   const admincount = () => {
-    axios.get('http://localhost:3000/auth/countadmin')
+    axios.get('https://server-six-bice.vercel.app/auth/countadmin')
       .then(result => {
         if (result.data.Status) {
           setAdmindTotal(result.data.Result[0].admin)
@@ -101,7 +101,7 @@ function Home(OpenSidebar) {
       })
   }
   const studentcount = () => {
-    axios.get('http://localhost:3000/student/countstudent')
+    axios.get('https://server-six-bice.vercel.app/student/countstudent')
       .then(result => {
         if (result.data.Status) {
           setStudentTotal(result.data.Result[0].student)
@@ -109,7 +109,7 @@ function Home(OpenSidebar) {
       })
   }
   const specialitycount = () => {
-    axios.get('http://localhost:3000/auth/countspeciality')
+    axios.get('https://server-six-bice.vercel.app/auth/countspeciality')
       .then(result => {
         if (result.data.Status) {
           setspecialityTotal(result.data.Result[0].speciality)
@@ -117,7 +117,7 @@ function Home(OpenSidebar) {
       })
   }
   const staffcount = () => {
-    axios.get('http://localhost:3000/staff/countstaff')
+    axios.get('https://server-six-bice.vercel.app/staff/countstaff')
       .then(result => {
         if (result.data.Status) {
           setStaffTotal(result.data.Result[0].staff)
@@ -125,7 +125,7 @@ function Home(OpenSidebar) {
       })
   }
   const coursecount = () => {
-    axios.get('http://localhost:3000/auth/countcourse')
+    axios.get('https://server-six-bice.vercel.app/auth/countcourse')
       .then(result => {
         if (result.data.Status) {
           setCourseTotal(result.data.Result[0].course)
@@ -136,7 +136,7 @@ function Home(OpenSidebar) {
   const [value, setValue] = useState([])
 
   useEffect(() => {
-    axios.get('http://localhost:3000/auth/adminlist')
+    axios.get('https://server-six-bice.vercel.app/auth/adminlist')
     
       .then(result => {
         setsuite(mat)
@@ -151,7 +151,7 @@ function Home(OpenSidebar) {
   }, [])
 
   const handelDelete = (mat) => {
-    axios.delete('http://localhost:3000/auth/deleteadmin/' + mat)
+    axios.delete('https://server-six-bice.vercel.app/auth/deleteadmin/' + mat)
       .then(result => {
         if (result.data.deleteStatus) {
           window.location.reload()
@@ -281,7 +281,7 @@ function Home(OpenSidebar) {
                 {
                   admin.map(st => (
                     <tr>
-                      <td> <img src={'http://localhost:3000/image/' + st.pic} alt="" className='profile_pic' /> </td>
+                      <td> <img src={'https://server-six-bice.vercel.app/image/' + st.pic} alt="" className='profile_pic' /> </td>
                       <td>{st.mat}</td>
                       <td>{st.name}</td>
                       <td>{st.email}</td>
@@ -327,7 +327,7 @@ function Home(OpenSidebar) {
                 {
                   value.map(st => (
                     <tr>
-                      <td> <img src={'http://localhost:3000/image/' + st.pic} alt="" className='profile_pic' /> </td>
+                      <td> <img src={'https://server-six-bice.vercel.app/image/' + st.pic} alt="" className='profile_pic' /> </td>
                       <td>{st.mat}</td>
                       <td>{st.name}</td>
                       <td>{st.email}</td>

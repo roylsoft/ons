@@ -9,7 +9,7 @@ function Admin2() {
   const [value, setValue] = useState([])
 
   useEffect(()=>{
-    axios.get('http://localhost:3000/auth/admin')
+    axios.get('https://server-six-bice.vercel.app/auth/admin')
     .then(result=>{
       if (result.data.readingStatus) {
         setValue(result.data.Result)
@@ -45,7 +45,7 @@ function Admin2() {
             {
               value.map( st =>(
                 <tr>
-                  <td> <img src={'http://localhost:3000/image/' +st.pic} alt="" className='profile_pic' /> </td>
+                  <td> <img src={'https://server-six-bice.vercel.app/image/' +st.pic} alt="" className='profile_pic' /> </td>
                  
                   <td>{st.name}</td>
                   <td>{st.email}</td>

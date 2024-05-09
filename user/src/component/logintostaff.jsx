@@ -17,7 +17,7 @@ const Stafflogin = () => {
     axios.defaults.withCredentials = true
     const handleSubmit = (event) => {
         event.preventDefault()
-        axios.post('http://localhost:3000/staff/logintostaff', values)
+        axios.post('https://server-six-bice.vercel.app/staff/logintostaff', values)
             .then(result => {
                 if (result.data.loginStatus) {
                     Navigate('/staffhome/' + result.data.mat)

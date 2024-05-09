@@ -96,7 +96,7 @@ function Studentreg() {
             formdata.append('pic', values.pic)
             formdata.append('pass', values.pass)
             formdata.append('cpass', values.cpass)
-            axios.post('http://localhost:3000/student/addstudent', formdata)
+            axios.post('https://server-six-bice.vercel.app/student/addstudent', formdata)
                 .then(result => {
                     if (result.data.createStatus) {
                         console.log(result.data);
@@ -113,7 +113,7 @@ function Studentreg() {
 
 
     useEffect(() => {
-        axios.get('http://localhost:3000/auth/specialities')
+        axios.get('https://server-six-bice.vercel.app/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
                     setSpeciality(result.data.Result)
