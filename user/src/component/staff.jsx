@@ -13,7 +13,7 @@ function Staff() {
   let mat = words.pop();
 
   useEffect(() => {
-    axios.get('https://admin-rust-gamma.vercel.app/staff/staff')
+    axios.get('http://localhost:3000/staff/staff')
       .then(result => {
         if (result.data.readingStatus) {
           setsuite(mat)
@@ -25,7 +25,7 @@ function Staff() {
   }, [])
 
   const handelDelete = (mat) => {
-    axios.delete('https://admin-rust-gamma.vercel.app/staff/deletestaff/' + mat)
+    axios.delete('http://localhost:3000/staff/deletestaff/' + mat)
       .then(result => {
         if (result.data.deleteStatus) {
           window.location.reload()
@@ -66,7 +66,7 @@ function Staff() {
               {
                 value.map(st => (
                   <tr>
-                    <td> <img src={'https://admin-rust-gamma.vercel.app/image/' + st.pic} alt="" className='profile_pic' /> </td>
+                    <td> <img src={'http://localhost:3000/image/' + st.pic} alt="" className='profile_pic' /> </td>
                     <td>{st.mat}</td>
                     <td>{st.name}</td>
                     <td>{st.codep}</td>

@@ -27,7 +27,7 @@ function Solvability2() {
 
 
     const solvability = async () => {
-        const url = 'https://admin-rust-gamma.vercel.app/student/solvability/data'
+        const url = 'http://localhost:3000/student/solvability/data'
         axios.get(url, { params: { mat: values.mat } }
         )
             .then(result => {
@@ -46,14 +46,14 @@ function Solvability2() {
         try {
             const valeur = value
             // Mettre à jour la valeur dans la base de données MySQL via une requête API
-            await axios.put(`https://admin-rust-gamma.vercel.app/student/uprec`, { valeur });
+            await axios.put(`http://localhost:3000/student/uprec`, { valeur });
         } catch (error) {
             console.error(error);
         }
     };
 
     const numero = () => {
-        axios.get('https://admin-rust-gamma.vercel.app/student/number')
+        axios.get('http://localhost:3000/student/number')
             .then(result => {
                 if (result.data.readingStatus) {
                     update(result.data.Result[0].rec + 1)
@@ -77,7 +77,7 @@ function Solvability2() {
 
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
+        axios.get('http://localhost:3000/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
                     setSpeciality(result.data.Result)
@@ -111,7 +111,7 @@ function Solvability2() {
             const colone = field
             console.log(mat + " " + colone + " " + valeur);
             // Mettre à jour la valeur dans la base de données MySQL via une requête API
-            await axios.put(`https://admin-rust-gamma.vercel.app/student/solvability/${mat}`, { colone, valeur, codesp: values.codesp });
+            await axios.put(`http://localhost:3000/student/solvability/${mat}`, { colone, valeur, codesp: values.codesp });
 
             // Mettre à jour les données localement
             setValue(prevValue =>
@@ -166,7 +166,7 @@ function Solvability2() {
                             <p>REPUBLIC OF CAMEROON <br /><i>Peace-Work-Fatherland</i> <br />***** <br />MINISTRY OF HIGHER EDUCATION<br />*****<br />UNIVERSITY OF BAMENDA <br /> <i>Training - Pobity - Entrepreneurship</i> <br /> <br /> <b><h6>Receipt {num} </h6></b></p>
                         </div>
                         <div class="col-2 d-flex justify-content-center">
-                            <img src={'https://admin-rust-gamma.vercel.app/image/Screenshot_20240323-102722 (1).png'} alt="" className='logo' />
+                            <img src={'http://localhost:3000/image/Screenshot_20240323-102722 (1).png'} alt="" className='logo' />
                         </div>
                         <div class="col-5 d-flex justify-content-center">
                             <p>NFONAP-HIEPS<br /><i>Training-development-expertise</i><br />*****<br />The Dean's Office <br />***** <br />P.O Box:2368 Messa-Yaounde <br />E-mail: <u>info@nfonap.education</u> <br />Registration: <u>www.nfonap.net</u><br />website: <u>www.nfonap.education</u> <br />Tel: <u>675550570 / 672545135</u></p>

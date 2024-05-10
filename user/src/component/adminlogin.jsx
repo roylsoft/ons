@@ -17,7 +17,7 @@ const Adminlogin = () => {
     // window.location.reload()
     const handleSubmit = (event) => {
         event.preventDefault()
-        axios.post('https://admin-rust-gamma.vercel.app/auth/adminlogin', values)
+        axios.post('http://localhost:3000/auth/adminlogin', values)
             .then(result => {
                 if (result.data.loginStatus) {
                     setAdminMat(result.data.mat);

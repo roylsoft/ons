@@ -96,7 +96,7 @@ function Studentreg() {
             formdata.append('pic', values.pic)
             formdata.append('pass', values.pass)
             formdata.append('cpass', values.cpass)
-            axios.post('https://admin-rust-gamma.vercel.app/student/addstudent', formdata)
+            axios.post('http://localhost:3000/student/addstudent', formdata)
                 .then(result => {
                     if (result.data.createStatus) {
                         console.log(result.data);
@@ -113,7 +113,7 @@ function Studentreg() {
 
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
+        axios.get('http://localhost:3000/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
                     setSpeciality(result.data.Result)

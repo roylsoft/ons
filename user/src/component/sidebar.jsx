@@ -23,7 +23,7 @@ function Sidebar({ openSidebarToggle, setOpenSidebarToggle, mat }) {
     const navigate = useNavigate()
     axios.defaults.withCredentials = true
     const handlelogout = () => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/logout')
+        axios.get('http://localhost:3000/auth/logout')
             .then(result => {
                 if (result.data.Status) {
                     navigate('/')
@@ -40,7 +40,7 @@ function Sidebar({ openSidebarToggle, setOpenSidebarToggle, mat }) {
         <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive" : ""}>
             <div className='sidebar-title'>
                 <div className='sidebar-brand'>
-                    <img src={'https://admin-rust-gamma.vercel.app/image/Screenshot_20240323-102722 (1).png'}
+                    <img src={'http://localhost:3000/image/Screenshot_20240323-102722 (1).png'}
                         alt="" className='logo' />
                     NHIEPS
                 </div>

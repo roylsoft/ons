@@ -15,7 +15,7 @@ function Mark() {
   })
 
   const sortMark = async () => {
-    const url = 'https://admin-rust-gamma.vercel.app/auth/marksort/data';
+    const url = 'http://localhost:3000/auth/marksort/data';
     try {
       const response = await axios.get(url, {
         params: {
@@ -45,7 +45,7 @@ function Mark() {
   };
 
   useEffect(() => {
-    axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
+    axios.get('http://localhost:3000/auth/specialities')
       .then(result => {
         if (result.data.readingStatus) {
           setSpeciality(result.data.Result)
@@ -70,7 +70,7 @@ function Mark() {
     } else {
       const updatedRow = data[rowindex];
 
-      const url = 'https://admin-rust-gamma.vercel.app/auth/updatemark/inf';
+      const url = 'http://localhost:3000/auth/updatemark/inf';
       axios
         .get(url, {
           params: {

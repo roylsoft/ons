@@ -63,7 +63,7 @@ function Editadmin() {
             formdata.append('place', values.place)
             formdata.append('sex', values.sex)
 
-            axios.put('https://admin-rust-gamma.vercel.app/auth/editadmin/' + mat, values)
+            axios.put('http://localhost:3000/auth/editadmin/' + mat, values)
                 .then(result => {
                     console.log(result.data);
                     Navigate('/home/'+route)
@@ -75,7 +75,7 @@ function Editadmin() {
 
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/adminlist/' + mat)
+        axios.get('http://localhost:3000/auth/adminlist/' + mat)
             .then(result => {
                 setValues({
                     ...values,

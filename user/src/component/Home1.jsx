@@ -18,7 +18,7 @@ const Home1 = () => {
   axios.defaults.withCredentials = true
   useEffect(() => {
 
-    axios.get('https://admin-rust-gamma.vercel.app/verify')
+    axios.get('http://localhost:3000/verify')
       .then(result => {
 
         if (result.data.Status) {

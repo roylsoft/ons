@@ -149,7 +149,6 @@ function App() {
     location.pathname.startsWith('/department1') ||
     location.pathname.startsWith('/assigncamarks') ||
     location.pathname.startsWith('/assignexammarks') ||
-
     location.pathname.startsWith('/timetable1') ||
     location.pathname.startsWith('/transcript1') ||
     location.pathname.startsWith('/edstaffprofile') ||
@@ -162,7 +161,7 @@ function App() {
     location.pathname.startsWith('/Studentlist2') ||
     location.pathname.startsWith('/Admin2') ||
     location.pathname.startsWith('/Staff2') ||
-    location.pathname.startsWith('/Mark2') ||
+    location.pathname.startsWith('/Marks2') ||
     location.pathname.startsWith('/Courselist2') ||
     location.pathname.startsWith('/Specialities2') ||
     location.pathname.startsWith('/timetable2') ||

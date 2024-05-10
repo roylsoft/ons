@@ -9,7 +9,7 @@ function Staff2() {
   const [value, setValue] = useState([])
 
   useEffect(()=>{
-    axios.get('https://admin-rust-gamma.vercel.app/staff/staff')
+    axios.get('http://localhost:3000/staff/staff')
     .then(result=>{
       if (result.data.readingStatus) {
         setValue(result.data.Result)
@@ -45,7 +45,7 @@ function Staff2() {
             {
               value.map( st =>(
                 <tr>
-                  <td> <img src={'https://admin-rust-gamma.vercel.app/image/' +st.pic} alt="" className='profile_pic' /> </td>
+                  <td> <img src={'http://localhost:3000/image/' +st.pic} alt="" className='profile_pic' /> </td>
                   
                   <td>{st.name}</td>
                   <td>{st.email}</td>

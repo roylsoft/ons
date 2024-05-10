@@ -19,7 +19,7 @@ const Loginbank = () => {
     axios.defaults.withCredentials = true
     const handleSubmit = (event) => {
         event.preventDefault()
-        axios.post('https://admin-rust-gamma.vercel.app/auth/loginbank', values)
+        axios.post('http://localhost:3000/auth/loginbank', values)
             .then(result => {
                 if (result.data.loginStatus) {
                     Navigate('/frombanker')

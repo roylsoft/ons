@@ -22,7 +22,7 @@ function Assignexammarks() {
   let mat = loc.replace(/^\/assignexammarks\//, "")
   console.log(mat);
   const sortMark = async () => {
-    const url = 'https://admin-rust-gamma.vercel.app/auth/sortmark/data';
+    const url = 'http://localhost:3000/auth/sortmark/data';
     try {
       const response = await axios.get(url, {
         params: {
@@ -59,7 +59,7 @@ function Assignexammarks() {
   };
 
   useEffect(() => {
-    axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
+    axios.get('http://localhost:3000/auth/specialities')
       .then(result => {
         if (result.data.readingStatus) {
           setSpeciality(result.data.Result)
@@ -85,7 +85,7 @@ function Assignexammarks() {
     } else {
       const updatedRow = data[rowindex];
       console.log("Updated row:", updatedRow);
-      const url = 'https://admin-rust-gamma.vercel.app/auth/lectupdatemark/inf';
+      const url = 'http://localhost:3000/auth/lectupdatemark/inf';
       axios
         .get(url, {
           params: {

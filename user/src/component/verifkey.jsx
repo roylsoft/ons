@@ -86,7 +86,7 @@ const Verifkey = () => {
     const [department, setValue] = useState([])
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/department')
+        axios.get('http://localhost:3000/auth/department')
             .then(result => {
                 if (result.data.readingStatus) {
                     setValue(result.data.Result)
@@ -99,7 +99,7 @@ const Verifkey = () => {
     axios.defaults.withCredentials = true
     const handleSubmit = (event) => {
         event.preventDefault()
-        axios.post('https://admin-rust-gamma.vercel.app/staff/verifkey', values)
+        axios.post('http://localhost:3000/staff/verifkey', values)
             .then(result => {
                 if (result.data.loginStatus) {
                     const isValid = validateForm();
@@ -118,7 +118,7 @@ const Verifkey = () => {
                         formdata.append('pic', values.pic)
                         formdata.append('pass', values.pass)
                         formdata.append('cpass', values.cpass)
-                        axios.post('https://admin-rust-gamma.vercel.app/staff/addstaff', formdata)
+                        axios.post('http://localhost:3000/staff/addstaff', formdata)
                             .then(result => {
                                 if (result.data.createStatus) {
                                     console.log(result.data);

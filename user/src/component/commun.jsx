@@ -16,7 +16,7 @@ const Commun = () => {
     axios.defaults.withCredentials = true
     const handleSubmit = (event) => {
         event.preventDefault()
-        axios.post('https://admin-rust-gamma.vercel.app/student/commun', values)
+        axios.post('http://localhost:3000/student/commun', values)
             .then(result => {
                 if (result.data.loginStatus) {
                     localStorage.setItem("valid", true)

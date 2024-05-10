@@ -36,7 +36,7 @@ function Addbanker() {
         event.preventDefault()
         const isValid = validateForm();
         if (isValid) {
-            axios.post('https://admin-rust-gamma.vercel.app/auth/addbanker', values)
+            axios.post('http://localhost:3000/auth/addbanker', values)
                 .then(result => {
                     if (result.data.createStatus) {
                         console.log(result.data);

@@ -9,7 +9,7 @@ function Timetable2() {
   const [search, setSearch] = useState("");
   const [speciality, setSpeciality] = useState([]);
   useEffect(() => {
-    axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
+    axios.get('http://localhost:3000/auth/specialities')
       .then(result => {
         if (result.data.readingStatus) {
           setSpeciality(result.data.Result)
@@ -19,14 +19,14 @@ function Timetable2() {
       }).catch(err => console.log(err))
   }, [])
   //   useEffect(()=>{
-  //     axios.get('https://admin-rust-gamma.vercel.app/auth/courselist')
+  //     axios.get('http://localhost:3000/auth/courselist')
   //     .then(result=>{
   //         setValue(result.data.Result)
   //     }).catch(err=>console.log(err))
   //   },[])
 
   const handelDelete = (code) => {
-    axios.delete('https://admin-rust-gamma.vercel.app/auth/deletecourse/' + code)
+    axios.delete('http://localhost:3000/auth/deletecourse/' + code)
       .then(result => {
         if (result.data.deleteStatus) {
           window.location.reload()
@@ -41,7 +41,7 @@ function Timetable2() {
     level: ""
   })
   const timetable = async () => {
-    const url = 'https://admin-rust-gamma.vercel.app/auth/timetable/data'
+    const url = 'http://localhost:3000/auth/timetable/data'
     axios.get(url, { params: { spec: values.spec, semester: values.semester, level: values.level } }
     )
       .then(result => {

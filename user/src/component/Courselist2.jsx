@@ -8,14 +8,14 @@ function Courselist2() {
   const [value, setValue] = useState([])
 
   useEffect(()=>{
-    axios.get('https://admin-rust-gamma.vercel.app/auth/courselist')
+    axios.get('http://localhost:3000/auth/courselist')
     .then(result=>{
         setValue(result.data.Result)
     }).catch(err=>console.log(err))
   },[])
 
   const handelDelete = (code) => {
-    axios.delete('https://admin-rust-gamma.vercel.app/auth/deletecourse/'+code)
+    axios.delete('http://localhost:3000/auth/deletecourse/'+code)
     .then(result => {
       if(result.data.deleteStatus){
         window.location.reload()

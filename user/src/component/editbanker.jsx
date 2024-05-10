@@ -13,7 +13,7 @@ function Editbanker() {
     const [Error, setError] = useState()
     const handleUpdate = (event) => {
         event.preventDefault()
-        axios.put('https://admin-rust-gamma.vercel.app/auth/editbanker/' + values.caisse, values)
+        axios.put('http://localhost:3000/auth/editbanker/' + values.caisse, values)
             .then(result => {
                 if (result.data.createStatus) {
                     Navigate('/solvability')

@@ -85,7 +85,7 @@ function Home(OpenSidebar) {
   ];
 
   useEffect(() => {
-    axios.get('https://admin-rust-gamma.vercel.app/auth/adminlist/'+mat)
+    axios.get('http://localhost:3000/auth/adminlist/'+mat)
       .then(result => {
         setadmin(result.data.Result)
       })
@@ -93,7 +93,7 @@ function Home(OpenSidebar) {
   }, [])
 
   const admincount = () => {
-    axios.get('https://admin-rust-gamma.vercel.app/auth/countadmin')
+    axios.get('http://localhost:3000/auth/countadmin')
       .then(result => {
         if (result.data.Status) {
           setAdmindTotal(result.data.Result[0].admin)
@@ -101,7 +101,7 @@ function Home(OpenSidebar) {
       })
   }
   const studentcount = () => {
-    axios.get('https://admin-rust-gamma.vercel.app/student/countstudent')
+    axios.get('http://localhost:3000/student/countstudent')
       .then(result => {
         if (result.data.Status) {
           setStudentTotal(result.data.Result[0].student)
@@ -109,7 +109,7 @@ function Home(OpenSidebar) {
       })
   }
   const specialitycount = () => {
-    axios.get('https://admin-rust-gamma.vercel.app/auth/countspeciality')
+    axios.get('http://localhost:3000/auth/countspeciality')
       .then(result => {
         if (result.data.Status) {
           setspecialityTotal(result.data.Result[0].speciality)
@@ -117,7 +117,7 @@ function Home(OpenSidebar) {
       })
   }
   const staffcount = () => {
-    axios.get('https://admin-rust-gamma.vercel.app/staff/countstaff')
+    axios.get('http://localhost:3000/staff/countstaff')
       .then(result => {
         if (result.data.Status) {
           setStaffTotal(result.data.Result[0].staff)
@@ -125,7 +125,7 @@ function Home(OpenSidebar) {
       })
   }
   const coursecount = () => {
-    axios.get('https://admin-rust-gamma.vercel.app/auth/countcourse')
+    axios.get('http://localhost:3000/auth/countcourse')
       .then(result => {
         if (result.data.Status) {
           setCourseTotal(result.data.Result[0].course)
@@ -136,7 +136,7 @@ function Home(OpenSidebar) {
   const [value, setValue] = useState([])
 
   useEffect(() => {
-    axios.get('https://admin-rust-gamma.vercel.app/auth/adminlist')
+    axios.get('http://localhost:3000/auth/adminlist')
     
       .then(result => {
         setsuite(mat)
@@ -151,7 +151,7 @@ function Home(OpenSidebar) {
   }, [])
 
   const handelDelete = (mat) => {
-    axios.delete('https://admin-rust-gamma.vercel.app/auth/deleteadmin/' + mat)
+    axios.delete('http://localhost:3000/auth/deleteadmin/' + mat)
       .then(result => {
         if (result.data.deleteStatus) {
           window.location.reload()
@@ -281,7 +281,7 @@ function Home(OpenSidebar) {
                 {
                   admin.map(st => (
                     <tr>
-                      <td> <img src={'https://admin-rust-gamma.vercel.app/image/' + st.pic} alt="" className='profile_pic' /> </td>
+                      <td> <img src={'http://localhost:3000/image/' + st.pic} alt="" className='profile_pic' /> </td>
                       <td>{st.mat}</td>
                       <td>{st.name}</td>
                       <td>{st.email}</td>
@@ -327,7 +327,7 @@ function Home(OpenSidebar) {
                 {
                   value.map(st => (
                     <tr>
-                      <td> <img src={'https://admin-rust-gamma.vercel.app/image/' + st.pic} alt="" className='profile_pic' /> </td>
+                      <td> <img src={'http://localhost:3000/image/' + st.pic} alt="" className='profile_pic' /> </td>
                       <td>{st.mat}</td>
                       <td>{st.name}</td>
                       <td>{st.email}</td>
