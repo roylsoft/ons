@@ -40,7 +40,7 @@ function Sidebar({ openSidebarToggle, setOpenSidebarToggle, mat }) {
         <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive" : ""}>
             <div className='sidebar-title'>
                 <div className='sidebar-brand'>
-                    <img src={'https://admin-rust-gamma.vercel.app/image/Screenshot_20240323-102722 (1).png'}
+                    <img src={'https://admin-rust-gamma.vercel.app/Screenshot_20240323-102722 (1).png'}
                         alt="" className='logo' />
                     NHIEPS
                 </div>

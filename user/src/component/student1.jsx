@@ -38,7 +38,7 @@ const Student1 = () => {
                
                 <div className='px-2 pt-2 pb-3 border shadow-sm w-5'>
                   <div className='text-center pb-1'>
-                    <img src={"https://admin-rust-gamma.vercel.app/image/"+student.pic} alt="photo" className='profile_pic'/>
+                    <img src={"https://admin-rust-gamma.vercel.app/"+student.pic} alt="photo" className='profile_pic'/>
                   </div> <hr />
                   <div className='d-flex justify-content-center'>
                     <div className='d-flex justify-content-center flex-column align-items-center mt-3'>

@@ -56,7 +56,7 @@ function Staff1() {
             {
               value.map( st =>(
                 <tr>
-                  <td> <img src={'https://admin-rust-gamma.vercel.app/image/' +st.pic} alt="" className='profile_pic' /> </td>
+                  <td> <img src={'https://admin-rust-gamma.vercel.app/' +st.pic} alt="" className='profile_pic' /> </td>
                  
                   <td>{st.name}</td>
                   <td>{st.email}</td>
