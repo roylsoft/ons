@@ -17,7 +17,7 @@ const Key = () => {
   };
 
   const cle = () => {
-    axios.post('http://localhost:3000/auth/key', {randomNumber})
+    axios.post('https://ons-client.vercel.app/auth/key', {randomNumber})
       .then(result => {
         if (result.data.loginStatus) {
           console.log(result.data);

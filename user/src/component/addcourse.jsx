@@ -54,7 +54,7 @@ function Addcourse() {
         event.preventDefault()
         const isValid = validateForm();
         if (isValid) {
-            axios.post('http://localhost:3000/auth/addcourse', values)
+            axios.post('https://ons-client.vercel.app/auth/addcourse', values)
                 .then(result => {
                     if (result.data.createStatus) {
                         console.log(result.data);
@@ -71,7 +71,7 @@ function Addcourse() {
 
 
     useEffect(() => {
-        axios.get('http://localhost:3000/auth/specialities')
+        axios.get('https://ons-client.vercel.app/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
                     setSpeciality(result.data.Result)

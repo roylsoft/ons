@@ -79,7 +79,7 @@ function Addattendance() {
         event.preventDefault()
         const isValid = validateForm();
         if (isValid) {
-            axios.post('http://localhost:3000/student/addattendance', values)
+            axios.post('https://ons-client.vercel.app/student/addattendance', values)
                 .then(result => {
                     if (result.data.createStatus) {
                         console.log(result.data);
@@ -94,7 +94,7 @@ function Addattendance() {
 
 
     useEffect(() => {
-        axios.get('http://localhost:3000/auth/specialities')
+        axios.get('https://ons-client.vercel.app/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
                     setSpeciality(result.data.Result)
@@ -105,7 +105,7 @@ function Addattendance() {
     }, [])
 
     useEffect(() => {
-        axios.get('http://localhost:3000/staff/staff')
+        axios.get('https://ons-client.vercel.app/staff/staff')
             .then(result => {
                 if (result.data.readingStatus) {
                     console.log(result);
@@ -118,7 +118,7 @@ function Addattendance() {
 
     let navigate = useNavigate()
     const handlelogout = () => {
-        axios.get('http://localhost:3000/auth/logout')
+        axios.get('https://ons-client.vercel.app/auth/logout')
             .then(result => {
                 if (result.data.Status) {
                     navigate('/')

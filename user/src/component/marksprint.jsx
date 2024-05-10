@@ -23,7 +23,7 @@ function Markprint() {
     })
 
     const sortMark = async () => {
-        const url = 'http://localhost:3000/auth/marksort/data';
+        const url = 'https://ons-client.vercel.app/auth/marksort/data';
         try {
             const response = await axios.get(url, {
                 params: {
@@ -56,7 +56,7 @@ function Markprint() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:3000/auth/specialities')
+        axios.get('https://ons-client.vercel.app/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
                     setSpeciality(result.data.Result)
@@ -212,7 +212,7 @@ function Markprint() {
                                 <p>REPUBLIC OF CAMEROON <br /><i>Peace-Work-Fatherland</i> <br />***** <br />MINISTRY OF HIGHER EDUCATION<br />*****<br />UNIVERSITY OF BAMENDA <br /> <i>Training - Pobity - Entrepreneurship</i></p>
                             </div>
                             <div class="col-2 d-flex justify-content-center">
-                                <img src={'http://localhost:3000/image/Screenshot_20240323-102722 (1).png'} alt="" className='logo' />
+                                <img src={'https://ons-client.vercel.app/image/Screenshot_20240323-102722 (1).png'} alt="" className='logo' />
                             </div>
                             <div class="col-5 d-flex justify-content-center">
                                 <p>NFONAP-HIEPS<br /><i>Training-development-expertise</i><br />*****<br />The Dean's Office <br />***** <br />P.O Box:2368 Messa-Yaounde <br />E-mail: <u>info@nfonap.education</u> <br />Registration: <u>www.nfonap.net</u><br />website: <u>www.nfonap.education</u> <br />Tel: <u>675550570 / 672545135</u></p>

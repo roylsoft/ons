@@ -18,7 +18,7 @@ const Home1 = () => {
   axios.defaults.withCredentials = true
   useEffect(() => {
 
-    axios.get('http://localhost:3000/verify')
+    axios.get('https://ons-client.vercel.app/verify')
       .then(result => {
 
         if (result.data.Status) {
@@ -33,9 +33,10 @@ const Home1 = () => {
         }
       }).catch(err => console.log(err))
   }, [])
+  
   return (
     <div className="home-container App">
-      <Navbar />
+      <Navbar /> 
       <div className="home-banner-container">
 
         <div className="home-text-section">

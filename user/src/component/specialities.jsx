@@ -14,7 +14,7 @@ function Specialities() {
 
 
   useEffect(() => {
-    axios.get('http://localhost:3000/auth/specialities')
+    axios.get('https://ons-client.vercel.app/auth/specialities')
       .then(result => {
         setsuite(code)
         setValue(result.data.Result)
@@ -24,7 +24,7 @@ function Specialities() {
       }).catch(err => console.log(err))
   }, [])
   const handelDelete = (codesp) => {
-    axios.delete('http://localhost:3000/auth/deletespeciality/' + codesp)
+    axios.delete('https://ons-client.vercel.app/auth/deletespeciality/' + codesp)
       .then(result => {
         if (result.data.deleteStatus) {
           window.location.reload()

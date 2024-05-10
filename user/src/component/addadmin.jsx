@@ -98,7 +98,7 @@ function Addadmin() {
             formdata.append('pic', values.pic)
             formdata.append('pass', values.pass)
             formdata.append('cpass', values.cpass)
-            axios.post('http://localhost:3000/auth/addadmin', formdata)
+            axios.post('https://ons-client.vercel.app/auth/addadmin', formdata)
                 .then(result => {
                     if (result.data.createStatus) {
                         console.log(result.data);

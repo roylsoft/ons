@@ -51,7 +51,7 @@ function Editstudent() {
         const isValid = validateForm();
         if (isValid) {
             
-            axios.put('http://localhost:3000/auth/editstudent/' + mat, values)
+            axios.put('https://ons-client.vercel.app/auth/editstudent/' + mat, values)
                 .then(result => {
                     console.log(result.data);
                     Navigate('/studentlist/' + route)
@@ -63,7 +63,7 @@ function Editstudent() {
 
 
     useEffect(() => {
-        axios.get('http://localhost:3000/student/student/' + mat)
+        axios.get('https://ons-client.vercel.app/student/student/' + mat)
             .then(result => {
                 setValues({
                     ...values,
@@ -82,7 +82,7 @@ function Editstudent() {
     }, [])
 
     useEffect(() => {
-        axios.get('http://localhost:3000/auth/specialities')
+        axios.get('https://ons-client.vercel.app/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
                     

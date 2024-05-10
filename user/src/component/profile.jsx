@@ -9,7 +9,7 @@ function Profile(props) {
   const [admin, setadmin] = useState([])
   const { mat } = useParams()
   useEffect(() => {
-    axios.get('http://localhost:3000/auth/adminlist/'+mat)
+    axios.get('https://ons-client.vercel.app/auth/adminlist/'+mat)
       .then(result => {
         setadmin(result.data.Result[0])
       })
@@ -17,7 +17,7 @@ function Profile(props) {
   }, [])
   const navigate = useNavigate()
   const handlelogout = () => {
-    axios.get('http://localhost:3000/auth/logout')
+    axios.get('https://ons-client.vercel.app/auth/logout')
       .then(result => {
         if (result.data.Status) {
           localStorage.removeItem("valid")
@@ -36,7 +36,7 @@ function Profile(props) {
 
             <div className='px-2 pt-2 pb-3 border shadow-sm w-5'>
               <div className='text-center pb-1'>
-                <img src={"http://localhost:3000/image/" + admin.pic} alt="photo" className='profile_pic' />
+                <img src={"https://ons-client.vercel.app/image/" + admin.pic} alt="photo" className='profile_pic' />
               </div> <hr />
               <div className='d-flex justify-content-center'>
                 <div className='d-flex justify-content-center flex-column align-items-center mt-3'>

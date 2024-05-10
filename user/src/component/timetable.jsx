@@ -9,7 +9,7 @@ function Timetable() {
   const [speciality, setSpeciality] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/auth/specialities')
+    axios.get('https://ons-client.vercel.app/auth/specialities')
       .then(result => {
         if (result.data.readingStatus) {
           setSpeciality(result.data.Result);
@@ -27,7 +27,7 @@ function Timetable() {
   });
 
   const timetable = async () => {
-    const url = 'http://localhost:3000/auth/timetable/data';
+    const url = 'https://ons-client.vercel.app/auth/timetable/data';
     axios.get(url, { params: { spec: values.spec, semester: values.semester, level: values.level } })
       .then(result => {
         if (result.data.readingStatus) {
@@ -50,7 +50,7 @@ function Timetable() {
       const colone = field
       console.log(colone + " " + valeur);
       // Mettre à jour la valeur dans la base de données MySQL via une requête API
-      await axios.put(`http://localhost:3000/auth/updatecourse/${code}`, { colone, valeur });
+      await axios.put(`https://ons-client.vercel.app/auth/updatecourse/${code}`, { colone, valeur });
 
       // Mettre à jour les données localement
       setValue(prevValue =>

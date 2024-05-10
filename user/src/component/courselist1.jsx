@@ -8,14 +8,14 @@ function Courselist1() {
   const [value, setValue] = useState([])
 
   useEffect(()=>{
-    axios.get('http://localhost:3000/auth/courselist')
+    axios.get('https://ons-client.vercel.app/auth/courselist')
     .then(result=>{
         setValue(result.data.Result)
     }).catch(err=>console.log(err))
   },[])
 
   const handelDelete = (code) => {
-    axios.delete('http://localhost:3000/auth/deletecourse/'+code)
+    axios.delete('https://ons-client.vercel.app/auth/deletecourse/'+code)
     .then(result => {
       if(result.data.deleteStatus){
         window.location.reload()

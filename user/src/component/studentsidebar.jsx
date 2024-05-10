@@ -18,7 +18,7 @@ function Studentsidebar({ openSidebarToggle, setOpenSidebarToggle, mat}) {
     const navigate = useNavigate()
     axios.defaults.withCredentials = true
     const handlelogout = () => {
-        axios.get('http://localhost:3000/auth/logout')
+        axios.get('https://ons-client.vercel.app/auth/logout')
             .then(result => {
                 if (result.data.Status) {
                     navigate('/')
@@ -35,7 +35,7 @@ function Studentsidebar({ openSidebarToggle, setOpenSidebarToggle, mat}) {
         <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive" : ""}>
             <div className='sidebar-title'>
                 <div className='sidebar-brand'>
-                    <img src={'http://localhost:3000/image/Screenshot_20240323-102722 (1).png'} alt="" className='logo' />
+                    <img src={'https://ons-client.vercel.app/image/Screenshot_20240323-102722 (1).png'} alt="" className='logo' />
                     NHIEPS
                 </div>
                 <span className='icon close_icon' onClick={() => setOpenSidebarToggle(!openSidebarToggle)}>X</span>

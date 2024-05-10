@@ -22,7 +22,7 @@ function Assignmark() {
   let mat = loc.replace(/^\/assigncamarks\//, "")
   console.log(mat);
   const sortMark = async () => {
-    const url = 'http://localhost:3000/auth/sortmark/data';
+    const url = 'https://ons-client.vercel.app/auth/sortmark/data';
     try {
       const response = await axios.get(url, {
         params: {
@@ -59,7 +59,7 @@ function Assignmark() {
   };
 
   useEffect(() => {
-    axios.get('http://localhost:3000/auth/specialities')
+    axios.get('https://ons-client.vercel.app/auth/specialities')
       .then(result => {
         if (result.data.readingStatus) {
           setSpeciality(result.data.Result)
@@ -85,7 +85,7 @@ function Assignmark() {
     } else {
       const updatedRow = data[rowindex];
       console.log("Updated row:", updatedRow);
-      const url = 'http://localhost:3000/auth/lectupdatemark/inf';
+      const url = 'https://ons-client.vercel.app/auth/lectupdatemark/inf';
       axios
         .get(url, {
           params: {

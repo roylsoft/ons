@@ -8,7 +8,7 @@ function Department1() {
   const [value, setValue] = useState([])
 
   useEffect(()=>{
-    axios.get('http://localhost:3000/auth/department')
+    axios.get('https://ons-client.vercel.app/auth/department')
     .then(result=>{
       if (result.data.readingStatus) {
         setValue(result.data.Result)
