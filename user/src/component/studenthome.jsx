@@ -40,7 +40,7 @@ function Studentdashboad() {
 
     const sutudentinf = () => {
 
-        axios.get('https://ons-client.vercel.app/student/student/' + matri)
+        axios.get('https://admin-rust-gamma.vercel.app/student/student/' + matri)
             .then(result => {
                 let niv = result.data.Result[0].level
                 setStudent(result.data.Result[0])
@@ -61,7 +61,7 @@ function Studentdashboad() {
 
 
     const numero = () => {
-        axios.get('https://ons-client.vercel.app/student/number')
+        axios.get('https://admin-rust-gamma.vercel.app/student/number')
             .then(result => {
                 if (result.data.readingStatus) {
                     update(result.data.Result[0].trans + 1)
@@ -78,7 +78,7 @@ function Studentdashboad() {
         try {
             const valeur = value
             // Mettre à jour la valeur dans la base de données MySQL via une requête API
-            await axios.put(`https://ons-client.vercel.app/student/uptrans`, { valeur });
+            await axios.put(`https://admin-rust-gamma.vercel.app/student/uptrans`, { valeur });
         } catch (error) {
             console.error(error);
         }
@@ -89,7 +89,7 @@ function Studentdashboad() {
         numero()
         sutudentinf()
         update(num)
-        axios.post('https://ons-client.vercel.app/auth/transcript1', values)
+        axios.post('https://admin-rust-gamma.vercel.app/auth/transcript1', values)
             .then(result => {
                 if (result.data) {
                     console.log(result.data.result);
@@ -107,7 +107,7 @@ function Studentdashboad() {
             })
             .catch(err => console.log(err))
 
-        axios.post('https://ons-client.vercel.app/auth/transcript2', values)
+        axios.post('https://admin-rust-gamma.vercel.app/auth/transcript2', values)
             .then(result => {
                 if (result.data) {
                     console.log(result.data.result);
@@ -231,7 +231,7 @@ function Studentdashboad() {
     }, [])
 
     useEffect(() => {
-        axios.get('https://ons-client.vercel.app/student/student/' + mat)
+        axios.get('https://admin-rust-gamma.vercel.app/student/student/' + mat)
             .then(result => {
                 setstudent(result.data.Result)
             })
@@ -284,7 +284,7 @@ function Studentdashboad() {
     ];
 
     const admincount = () => {
-        axios.get('https://ons-client.vercel.app/auth/countadmin')
+        axios.get('https://admin-rust-gamma.vercel.app/auth/countadmin')
             .then(result => {
                 if (result.data.Status) {
                     setAdmindTotal(result.data.Result[0].admin)
@@ -292,7 +292,7 @@ function Studentdashboad() {
             })
     }
     const studentcount = () => {
-        axios.get('https://ons-client.vercel.app/student/countstudent')
+        axios.get('https://admin-rust-gamma.vercel.app/student/countstudent')
             .then(result => {
                 if (result.data.Status) {
                     setStudentTotal(result.data.Result[0].student)
@@ -300,7 +300,7 @@ function Studentdashboad() {
             })
     }
     const specialitycount = () => {
-        axios.get('https://ons-client.vercel.app/auth/countspeciality')
+        axios.get('https://admin-rust-gamma.vercel.app/auth/countspeciality')
             .then(result => {
                 if (result.data.Status) {
                     setspecialityTotal(result.data.Result[0].speciality)
@@ -308,7 +308,7 @@ function Studentdashboad() {
             })
     }
     const staffcount = () => {
-        axios.get('https://ons-client.vercel.app/staff/countstaff')
+        axios.get('https://admin-rust-gamma.vercel.app/staff/countstaff')
             .then(result => {
                 if (result.data.Status) {
                     setStaffTotal(result.data.Result[0].staff)
@@ -316,7 +316,7 @@ function Studentdashboad() {
             })
     }
     const coursecount = () => {
-        axios.get('https://ons-client.vercel.app/auth/countcourse')
+        axios.get('https://admin-rust-gamma.vercel.app/auth/countcourse')
             .then(result => {
                 if (result.data.Status) {
                     setCourseTotal(result.data.Result[0].course)
@@ -441,7 +441,7 @@ function Studentdashboad() {
                                 {
                                     studentinf.map(st => (
                                         <tr>
-                                            <td> <img src={'https://ons-client.vercel.app/image/' + st.pic} alt="" className='profile_pic' /> </td>
+                                            <td> <img src={'https://admin-rust-gamma.vercel.app/image/' + st.pic} alt="" className='profile_pic' /> </td>
                                             <td>{st.mat}</td>
                                             <td >{st.name}</td>
                                             <td>{st.email}</td>
@@ -483,7 +483,7 @@ function Studentdashboad() {
                                 <p>REPUBLIC OF CAMEROON <br /><i>Peace-Work-Fatherland</i> <br />***** <br />MINISTRY OF HIGHER EDUCATION<br />*****<br />UNIVERSITY OF BAMENDA <br /> <i>Training - Pobity - Entrepreneurship</i></p>
                             </div>
                             <div class="col-2 d-flex justify-content-center">
-                                <img src={'https://ons-client.vercel.app/image/Screenshot_20240323-102722 (1).png'} alt="" className='logo' />
+                                <img src={'https://admin-rust-gamma.vercel.app/image/Screenshot_20240323-102722 (1).png'} alt="" className='logo' />
                             </div>
                             <div class="col-5 d-flex justify-content-center">
                                 <p>NFONAP-HIEPS<br /><i>Training-development-expertise</i><br />*****<br />The Dean's Office <br />***** <br />P.O Box:2368 Messa-Yaounde <br />E-mail: <u>info@nfonap.education</u> <br />Registration: <u>www.nfonap.net</u><br />website: <u>www.nfonap.education</u> <br />Tel: <u>675550570 / 672545135</u></p>
@@ -504,7 +504,7 @@ function Studentdashboad() {
                                 <strong><i>ANNUAL TRANSCRIPT</i> <br /> {num}/CM/UBA/NHIEPS/{student.dep}/{student.spec} </strong>
                             </div>
                             <div class="col-5 d-flex justify-content-center">
-                                <img src={`https://ons-client.vercel.app/image/${student.pic}`}
+                                <img src={`https://admin-rust-gamma.vercel.app/image/${student.pic}`}
                                     alt="" className='logo' />
                             </div>
                         </div>

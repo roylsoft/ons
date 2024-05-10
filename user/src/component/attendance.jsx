@@ -18,7 +18,7 @@ function Attendance() {
   const [order, setorder] = useState("ASC");
 
   const attendance = async () => {
-     const url='https://ons-client.vercel.app/student/attendance/data'
+     const url='https://admin-rust-gamma.vercel.app/student/attendance/data'
       axios.get(url,{params:{spec:values.spec,month:values.month}}
       )
       .then(result=>{
@@ -39,7 +39,7 @@ function Attendance() {
   };
   
   const handelDelete = (mat) => {
-    axios.delete('https://ons-client.vercel.app/student/deletestudent/'+mat)
+    axios.delete('https://admin-rust-gamma.vercel.app/student/deletestudent/'+mat)
     .then(result => {
       if(result.data.deleteStatus){
         window.location.reload()
@@ -50,7 +50,7 @@ function Attendance() {
   }
 
   useEffect(()=>{
-    axios.get('https://ons-client.vercel.app/auth/specialities')
+    axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
     .then(result=>{
       if (result.data.readingStatus) {
         setSpeciality(result.data.Result)

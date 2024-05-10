@@ -17,7 +17,7 @@ function Editdep() {
 
     const handleUpdate = (event) => {
         event.preventDefault()
-        axios.put('https://ons-client.vercel.app/auth/editdep/' + code, values)
+        axios.put('https://admin-rust-gamma.vercel.app/auth/editdep/' + code, values)
             .then(result => {
                 console.log(result.data);
                 Navigate('/department/'+ route)
@@ -28,7 +28,7 @@ function Editdep() {
 
 
     useEffect(() => {
-        axios.get('https://ons-client.vercel.app/auth/department/' + code)
+        axios.get('https://admin-rust-gamma.vercel.app/auth/department/' + code)
             .then(result => {
                 setsuite(mat)
                 setValues({

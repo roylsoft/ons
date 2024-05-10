@@ -14,7 +14,7 @@ function Payement() {
   const [order, setorder] = useState("ASC");
 
   const payement = async () => {
-     const url='https://ons-client.vercel.app/student/payement/data'
+     const url='https://admin-rust-gamma.vercel.app/student/payement/data'
       axios.get(url,{params:{month:values.month}}
       )
       .then(result=>{
@@ -34,7 +34,7 @@ function Payement() {
   };
 
   useEffect(()=>{
-    axios.get('https://ons-client.vercel.app/auth/specialities')
+    axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
     .then(result=>{
       if (result.data.readingStatus) {
         setSpeciality(result.data.Result)
@@ -67,7 +67,7 @@ function Payement() {
         const colone=field
         console.log(code +" "+colone+" "+valeur);
       // Mettre à jour la valeur dans la base de données MySQL via une requête API
-      await axios.put(`https://ons-client.vercel.app/student/sign/${code}`, { colone, valeur, month:values.month });
+      await axios.put(`https://admin-rust-gamma.vercel.app/student/sign/${code}`, { colone, valeur, month:values.month });
 
       // Mettre à jour les données localement
       setValue(prevValue =>

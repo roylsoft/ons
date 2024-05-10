@@ -81,7 +81,7 @@ function Staffdashboad() {
 
     const [staff, setstaff] = useState([])
     useEffect(() => {
-        axios.get('https://ons-client.vercel.app/staff/staff/' + mat)
+        axios.get('https://admin-rust-gamma.vercel.app/staff/staff/' + mat)
             .then(result => {
                 // console.log(result.data)
                 setstaff(result.data.Result[0])
@@ -90,7 +90,7 @@ function Staffdashboad() {
     }, [])
 
     const admincount = () => {
-        axios.get('https://ons-client.vercel.app/auth/countadmin')
+        axios.get('https://admin-rust-gamma.vercel.app/auth/countadmin')
             .then(result => {
                 if (result.data.Status) {
                     setAdmindTotal(result.data.Result[0].admin)
@@ -98,7 +98,7 @@ function Staffdashboad() {
             })
     }
     const studentcount = () => {
-        axios.get('https://ons-client.vercel.app/student/countstudent')
+        axios.get('https://admin-rust-gamma.vercel.app/student/countstudent')
             .then(result => {
                 if (result.data.Status) {
                     setStudentTotal(result.data.Result[0].student)
@@ -106,7 +106,7 @@ function Staffdashboad() {
             })
     }
     const specialitycount = () => {
-        axios.get('https://ons-client.vercel.app/auth/countspeciality')
+        axios.get('https://admin-rust-gamma.vercel.app/auth/countspeciality')
             .then(result => {
                 if (result.data.Status) {
                     setspecialityTotal(result.data.Result[0].speciality)
@@ -114,7 +114,7 @@ function Staffdashboad() {
             })
     }
     const staffcount = () => {
-        axios.get('https://ons-client.vercel.app/staff/countstaff')
+        axios.get('https://admin-rust-gamma.vercel.app/staff/countstaff')
             .then(result => {
                 if (result.data.Status) {
                     setStaffTotal(result.data.Result[0].staff)
@@ -122,7 +122,7 @@ function Staffdashboad() {
             })
     }
     const coursecount = () => {
-        axios.get('https://ons-client.vercel.app/auth/countcourse')
+        axios.get('https://admin-rust-gamma.vercel.app/auth/countcourse')
             .then(result => {
                 if (result.data.Status) {
                     setCourseTotal(result.data.Result[0].course)
@@ -131,7 +131,7 @@ function Staffdashboad() {
     }
     const [value, setValue] = useState([])
     const mycourses = () => {
-        axios.get('https://ons-client.vercel.app/auth/courselist/' + mat)
+        axios.get('https://admin-rust-gamma.vercel.app/auth/courselist/' + mat)
             .then(result => {
                 if (result.data.readingStatus) {
                     setValue(result.data.Result)
@@ -149,7 +149,7 @@ function Staffdashboad() {
 
     axios.defaults.withCredentials = true
     const handlelogout = () => {
-        axios.get('https://ons-client.vercel.app/auth/logout')
+        axios.get('https://admin-rust-gamma.vercel.app/auth/logout')
             .then(result => {
                 if (result.data.Status) {
                     navigate('/')
@@ -160,7 +160,7 @@ function Staffdashboad() {
     const [lecturer, setlecturer] = useState([])
 
     useEffect(() => {
-        axios.get('https://ons-client.vercel.app/staff/staff/' + mat)
+        axios.get('https://admin-rust-gamma.vercel.app/staff/staff/' + mat)
             .then(result => {
                 setlecturer(result.data.Result)
             })
@@ -294,7 +294,7 @@ function Staffdashboad() {
                                     {
                                         lecturer.map(st => (
                                             <tr>
-                                                <td> <img src={'https://ons-client.vercel.app/image/' + st.pic} alt="" className='profile_pic' /> </td>
+                                                <td> <img src={'https://admin-rust-gamma.vercel.app/image/' + st.pic} alt="" className='profile_pic' /> </td>
                                                 <td>{st.mat}</td>
                                                 <td>{st.name}</td>
                                                 <td>{st.email}</td>

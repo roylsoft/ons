@@ -12,7 +12,7 @@ function Department() {
   const [value, setValue] = useState([])
 
   useEffect(()=>{
-    axios.get('https://ons-client.vercel.app/auth/department')
+    axios.get('https://admin-rust-gamma.vercel.app/auth/department')
     .then(result=>{
       if (result.data.readingStatus) {
         setsuite(code)

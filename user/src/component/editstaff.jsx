@@ -29,7 +29,7 @@ function Editstaff() {
     const [department, setValue] = useState([])
 
     useEffect(() => {
-        axios.get('https://ons-client.vercel.app/auth/department')
+        axios.get('https://admin-rust-gamma.vercel.app/auth/department')
             .then(result => {
                 if (result.data.readingStatus) {
                     setValue(result.data.Result)
@@ -72,7 +72,7 @@ function Editstaff() {
             formdata.append('sex', values.sex)
             formdata.append('coasthour', values.coasthour)
 
-            axios.put('https://ons-client.vercel.app/auth/editstaff/' + mat, values)
+            axios.put('https://admin-rust-gamma.vercel.app/auth/editstaff/' + mat, values)
                 .then(result => {
                     console.log(result.data);
                     Navigate('/staff/'+route)
@@ -84,7 +84,7 @@ function Editstaff() {
 
 
     useEffect(() => {
-        axios.get('https://ons-client.vercel.app/staff/staff/' + mat)
+        axios.get('https://admin-rust-gamma.vercel.app/staff/staff/' + mat)
             .then(result => {
                 setValues({
                     ...values,

@@ -79,7 +79,7 @@ function Addattendance() {
         event.preventDefault()
         const isValid = validateForm();
         if (isValid) {
-            axios.post('https://ons-client.vercel.app/student/addattendance', values)
+            axios.post('https://admin-rust-gamma.vercel.app/student/addattendance', values)
                 .then(result => {
                     if (result.data.createStatus) {
                         console.log(result.data);
@@ -94,7 +94,7 @@ function Addattendance() {
 
 
     useEffect(() => {
-        axios.get('https://ons-client.vercel.app/auth/specialities')
+        axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
                     setSpeciality(result.data.Result)
@@ -105,7 +105,7 @@ function Addattendance() {
     }, [])
 
     useEffect(() => {
-        axios.get('https://ons-client.vercel.app/staff/staff')
+        axios.get('https://admin-rust-gamma.vercel.app/staff/staff')
             .then(result => {
                 if (result.data.readingStatus) {
                     console.log(result);
@@ -118,7 +118,7 @@ function Addattendance() {
 
     let navigate = useNavigate()
     const handlelogout = () => {
-        axios.get('https://ons-client.vercel.app/auth/logout')
+        axios.get('https://admin-rust-gamma.vercel.app/auth/logout')
             .then(result => {
                 if (result.data.Status) {
                     navigate('/')

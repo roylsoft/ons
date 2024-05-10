@@ -27,7 +27,7 @@ function Editspec() {
         formdata.append('title', values.title)
         formdata.append('codep', values.codep)
 
-        axios.put('https://ons-client.vercel.app/auth/editspec/' + code, values)
+        axios.put('https://admin-rust-gamma.vercel.app/auth/editspec/' + code, values)
             .then(result => {
               
                 Navigate('/specialities/'+route)
@@ -38,7 +38,7 @@ function Editspec() {
 
 
     useEffect(() => {
-        axios.get('https://ons-client.vercel.app/auth/specialities/' + code)
+        axios.get('https://admin-rust-gamma.vercel.app/auth/specialities/' + code)
             .then(result => {
                 setsuite(mat)
                 setValues({
@@ -50,7 +50,7 @@ function Editspec() {
             }).catch(err => console.log(err))
     }, [])
     useEffect(() => {
-        axios.get('https://ons-client.vercel.app/auth/department/')
+        axios.get('https://admin-rust-gamma.vercel.app/auth/department/')
             .then(result => {
                 if (result.data.readingStatus) {
                     setDepartment(result.data.Result)

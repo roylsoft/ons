@@ -31,7 +31,7 @@ function Addstaff() {
     const [department, setValue] = useState([])
 
     useEffect(() => {
-        axios.get('https://ons-client.vercel.app/auth/department')
+        axios.get('https://admin-rust-gamma.vercel.app/auth/department')
             .then(result => {
                 if (result.data.readingStatus) {
                     setValue(result.data.Result)
@@ -109,7 +109,7 @@ function Addstaff() {
             formdata.append('pic', values.pic)
             formdata.append('pass', values.pass)
             formdata.append('cpass', values.cpass)
-            axios.post('https://ons-client.vercel.app/staff/addstaff', formdata)
+            axios.post('https://admin-rust-gamma.vercel.app/staff/addstaff', formdata)
                 .then(result => {
                     if (result.data.createStatus) {
                         console.log(result.data);

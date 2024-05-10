@@ -60,7 +60,7 @@ function Editstudentprofile() {
             formdata.append('sex', values.sex)
             formdata.append('pic', values.pic)
 
-            axios.put('https://ons-client.vercel.app/student/editstudent/' + mat, formdata)
+            axios.put('https://admin-rust-gamma.vercel.app/student/editstudent/' + mat, formdata)
                 .then(result => {
                     console.log(result.data);
                     Navigate('/student/' + result.data.mat)
@@ -72,7 +72,7 @@ function Editstudentprofile() {
 
 
     useEffect(() => {
-        axios.get('https://ons-client.vercel.app/student/student/' + mat)
+        axios.get('https://admin-rust-gamma.vercel.app/student/student/' + mat)
             .then(result => {
                 setValues({
                     ...values,
@@ -91,7 +91,7 @@ function Editstudentprofile() {
     }, [])
 
     useEffect(() => {
-        axios.get('https://ons-client.vercel.app/auth/specialities')
+        axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
                     setSpeciality(result.data.Result)

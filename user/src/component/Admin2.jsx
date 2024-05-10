@@ -9,7 +9,7 @@ function Admin2() {
   const [value, setValue] = useState([])
 
   useEffect(()=>{
-    axios.get('https://ons-client.vercel.app/auth/admin')
+    axios.get('https://admin-rust-gamma.vercel.app/auth/admin')
     .then(result=>{
       if (result.data.readingStatus) {
         setValue(result.data.Result)
@@ -45,7 +45,7 @@ function Admin2() {
             {
               value.map( st =>(
                 <tr>
-                  <td> <img src={'https://ons-client.vercel.app/image/' +st.pic} alt="" className='profile_pic' /> </td>
+                  <td> <img src={'https://admin-rust-gamma.vercel.app/image/' +st.pic} alt="" className='profile_pic' /> </td>
                  
                   <td>{st.name}</td>
                   <td>{st.email}</td>
