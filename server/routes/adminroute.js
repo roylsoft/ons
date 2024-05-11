@@ -13,7 +13,7 @@ const router = express.Router()
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
 <<<<<<< HEAD
-        cb(null, '../public')
+        cb(null, 'public')
 =======
         cb(null, 'public')
 >>>>>>> fbe8c367bbd08ac9594a2fe04b3af9b6617d1093
@@ -995,6 +995,7 @@ router.get('/specialities/:code', (req, res) => {
             return res.json({ readingStatus: true, Result: result })
         }
     })
+
 
 })
 
