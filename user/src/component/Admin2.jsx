@@ -24,7 +24,7 @@ function Admin2() {
     <main className='main-container'>
       <div className='px-2 mt-3'>
         <div className='d-flex justify-content-center'>
-            <h3>Our Lecturers</h3>
+            <h3>Our Administration</h3>
         </div>
         <hr />
        <div className='mt-2 ms-1 '>
