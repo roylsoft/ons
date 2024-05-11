@@ -12,11 +12,7 @@ const router = express.Router()
 //handle images
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-<<<<<<< HEAD
-        cb(null, 'public')
-=======
-        cb(null, 'public')
->>>>>>> fbe8c367bbd08ac9594a2fe04b3af9b6617d1093
+        cb(null, '../public')
     },
     filename: (req, file, cb) => {
         cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname))
