@@ -476,7 +476,7 @@ function Studentdashboad() {
 
                     </div>
                     <hr />
-                    <div ref={pdf} style={{ width: '95%',color:'black', marginLeft: '2%', marginRight: '3%', fontSynthesisWeight: 'auto', marginTop: '8%' }} className='pdf'>
+                    <div ref={pdf} style={{ width: '95%',backgroundColor:'white',color:'black', marginLeft: '2%', marginRight: '3%', fontSynthesisWeight: 'auto', marginTop: '8%' }} className='pdf'>
                         <div class="row mt-1 mb-2 d-flex justify-content-center">
 
                             <div class="col-5 d-flex justify-content-center">
@@ -525,33 +525,33 @@ function Studentdashboad() {
                         <div className='d-flex justify-content-center'>
                             <h6>First semester</h6>
                         </div>
-                        <div className='mt-1  ms-1 '>
+                        <div className='mt-1 ms-1 '>
                             <Table striped bordered hover responsive>
-                                <thead>
+                                <thead >
                                     <tr >
-                                        <th>Course</th>
-                                        <th>Title</th>
-                                        <th>Credit</th>
-                                        <th>CA/30</th>
-                                        <th>NS/70</th>
-                                        <th>AVG/100</th>
-                                        <th>QM</th>
-                                        <th>Grade</th>
-                                        <th>Obs</th>
+                                        <th style={{backgroundColor:'black',color:'white'}}>Course</th>
+                                        <th style={{backgroundColor:'#000000',color:'white'}}>Title</th>
+                                        <th style={{backgroundColor:'#000000',color:'white'}}>Credit</th>
+                                        <th style={{backgroundColor:'#000000',color:'white'}}>CA/30</th>
+                                        <th style={{backgroundColor:'#000000',color:'white'}}>NS/70</th>
+                                        <th style={{backgroundColor:'#000000',color:'white'}}>AVG/100</th>
+                                        <th style={{backgroundColor:'#000000',color:'white'}}>QM</th>
+                                        <th style={{backgroundColor:'#000000',color:'white'}}>Grade</th>
+                                        <th style={{backgroundColor:'#000000',color:'white'}}>Obs</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {semester1.map((sp, index) => (
                                         <tr key={index} style={index === 0 ? { color: 'white' } : null}>
-                                            <td>{sp.code}</td>
-                                            <td>{sp.title}</td>
+                                            <td style={{backgroundColor:'#263043',color:'white'}}>{sp.code}</td>
+                                            <td style={{backgroundColor:'#363a42',color:'white'}}>{sp.title}</td>
                                             <td>{sp.credit}</td>
                                             <td>{sp.ca}</td>
                                             <td>{sp.ns}</td>
-                                            <td>{sp.avg}</td>
+                                            <td style={{backgroundColor:'#263043',color:'white'}}>{sp.avg}</td>
                                             <td>{sp.qm}</td>
                                             <td>{sp.grade}</td>
-                                            <td>{sp.obs}</td>
+                                            <td style={{backgroundColor:'#263043',color:'white'}}>{sp.obs}</td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -562,30 +562,30 @@ function Studentdashboad() {
                             <Table striped bordered hover responsive>
                                 <thead>
                                     <tr>
-                                        <th>Course</th>
-                                        <th>Title</th>
-                                        <th>Credit</th>
-                                        <th>CA/30</th>
-                                        <th>NS/70</th>
-                                        <th>AVG/100</th>
-                                        <th>QM</th>
-                                        <th>Grade</th>
-                                        <th>Obs</th>
+                                        <th style={{backgroundColor:'#000000',color:'white'}}>Course</th>
+                                        <th style={{backgroundColor:'#000000',color:'white'}}>Title</th>
+                                        <th style={{backgroundColor:'#000000',color:'white'}}>Credit</th>
+                                        <th style={{backgroundColor:'#000000',color:'white'}}>CA/30</th>
+                                        <th style={{backgroundColor:'#000000',color:'white'}}>NS/70</th>
+                                        <th style={{backgroundColor:'#000000',color:'white'}}>AVG/100</th>
+                                        <th style={{backgroundColor:'#000000',color:'white'}}>QM</th>
+                                        <th style={{backgroundColor:'#000000',color:'white'}}>Grade</th>
+                                        <th style={{backgroundColor:'#000000',color:'white'}}>Obs</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {
                                         semester2.map(sp => (
                                             <tr>
-                                                <td>{sp.code}</td>
-                                                <td>{sp.title}</td>
+                                                <td style={{backgroundColor:'#263043',color:'white'}}>{sp.code}</td>
+                                                <td style={{backgroundColor:'#363a42',color:'white'}}>{sp.title}</td>
                                                 <td>{sp.credit}</td>
                                                 <td>{sp.ca}</td>
                                                 <td>{sp.ns}</td>
-                                                <td>{sp.avg}</td>
+                                                <td style={{backgroundColor:'#263043',color:'white'}}>{sp.avg}</td>
                                                 <td>{sp.qm}</td>
                                                 <td>{sp.grade}</td>
-                                                <td>{sp.obs}</td>
+                                                <td style={{backgroundColor:'#263043',color:'white'}}>{sp.obs}</td>
                                             </tr>
                                         ))
                                     }

@@ -128,9 +128,6 @@ function Assignmark() {
           <div class="row mt-1 mb-2">
 
             <div class="col mt-1 mb-2">
-              <p><h5>Marks list ==== </h5></p>
-            </div>
-            <div class="col mt-1 mb-2">
               <p><h5>Speciality: </h5></p>
             </div>
 
@@ -167,11 +164,8 @@ function Assignmark() {
           </div>
         </div>
         <form action="" onSubmit={handleSubmit}>
-          <div class="row mt-1 mb-2">
-            <div class="col">
-              <p><h5>Choose the list to display:</h5></p>
-            </div>
-
+          <div class="row mt-1 mb-2 form-group">
+            
             <div class="col">
               <select type='select' name="spec" onChange={(e) => setValues({ ...values, spec: e.target.value })} className='form-control'>
                 <option value="">-- Select speciality/field--</option>
@@ -181,6 +175,7 @@ function Assignmark() {
               </select>
 
             </div>
+            <br />
             <div class="col">
               <select type="select" onChange={(e) => setValues({ ...values, level: e.target.value })} name='level' autoComplete='off' placeholder='choose your level' className='form-control'>
                 <option value="">-- Select level--</option>
@@ -195,6 +190,7 @@ function Assignmark() {
               </select>
 
             </div>
+            <br />
 
             {/* <div class="col">
               <select type="select" onChange={(e) => setValues({ ...values, session: e.target.value })} name='session' autoComplete='off' placeholder='choose your session' className='form-control'>
@@ -227,20 +223,18 @@ function Assignmark() {
               </select>
 
             </div>
+            <br />
             <div class="col"> <button type='submit' className='btn btn-success'>Display</button></div>
 
           </div>
         </form>
         <div class="row mt-1 mb-2">
 
-          <div class="col mt-1 mb-2">
-            <p><h5>Enter a word to locate a specific student: </h5></p>
-          </div>
-
-          <div class="col mt-1 mb-2">
+          
+          <div class="col-6 mt-1 mb-2">
             <input type="text" class="form-control"
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search..." />
+              placeholder="Search student..." />
           </div>
 
         </div>

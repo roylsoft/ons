@@ -90,7 +90,7 @@ function Studentsidebar({ openSidebarToggle, setOpenSidebarToggle, mat}) {
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to={`/Mark2/${mat}`} onClick={handleLinkClick}>
+                    <Link to={`/Marks2/${mat}`} onClick={handleLinkClick}>
                         <ImCalculator className='icon' /> Marks
                     </Link>
                 </li>

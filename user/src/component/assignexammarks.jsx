@@ -128,9 +128,6 @@ function Assignexammarks() {
           <div class="row mt-1 mb-2">
 
             <div class="col mt-1 mb-2">
-              <p><h5>Marks list ==== </h5></p>
-            </div>
-            <div class="col mt-1 mb-2">
               <p><h5>Speciality: </h5></p>
             </div>
 
@@ -167,20 +164,18 @@ function Assignexammarks() {
           </div>
         </div>
         <form action="" onSubmit={handleSubmit}>
-          <div class="row mt-1 mb-2">
-            <div class="col">
-              <p><h5>Choose the list to display:</h5></p>
-            </div>
-
+          <div class="row mt-1 mb-2 form-group">
+            
             <div class="col">
               <select type='select' name="spec" onChange={(e) => setValues({ ...values, spec: e.target.value })} className='form-control'>
-                <option value="">-- Select speciality/field--</option>
+                <option value="">-- Select speciality --</option>
                 {speciality.map(sp => (
                   <option key={sp.codesp} value={sp.codesp}>{sp.title}</option>
                 ))}
               </select>
 
             </div>
+            <br />
             <div class="col">
               <select type="select" onChange={(e) => setValues({ ...values, level: e.target.value })} name='level' autoComplete='off' placeholder='choose your level' className='form-control'>
                 <option value="">-- Select level--</option>
@@ -195,16 +190,9 @@ function Assignexammarks() {
               </select>
 
             </div>
+            <br />
 
-            {/* <div class="col">
-              <select type="select" onChange={(e) => setValues({ ...values, session: e.target.value })} name='session' autoComplete='off' placeholder='choose your session' className='form-control'>
-                <option value="">-- Select session--</option>
-                <option value="CA">CA</option>
-                <option value="EXAM">EXAM</option>
-
-              </select>
-
-            </div> */}
+           
             <div class="col">
               <select type="select" onChange={(e) => setValues({ ...values, semester: e.target.value })} name='semester' autoComplete='off' placeholder='choose your semester' className='form-control'>
                 <option value="">-- Select semester--</option>
@@ -227,20 +215,18 @@ function Assignexammarks() {
               </select>
 
             </div>
+            <br />
             <div class="col"> <button type='submit' className='btn btn-success'>Display</button></div>
 
           </div>
         </form>
         <div class="row mt-1 mb-2">
 
-          <div class="col mt-1 mb-2">
-            <p><h5>Enter a word to locate a specific student: </h5></p>
-          </div>
-
-          <div class="col mt-1 mb-2">
+          
+          <div class="col-6 mx-3 mt-1 mb-2">
             <input type="text" class="form-control"
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search..." />
+              placeholder="Search student..." />
           </div>
 
         </div>

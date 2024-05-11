@@ -54,7 +54,7 @@ function Trancript() {
             .then(result => {
                 if (result.data.readingStatus) {
                     update(result.data.Result[0].trans + 1)
-                    let n=result.data.Result[0].trans + 1
+                    let n = result.data.Result[0].trans + 1
                     const num = "N°28020103" + n
                     setnum(num)
                 } else {
@@ -67,7 +67,7 @@ function Trancript() {
         try {
             const valeur = value
             // Mettre à jour la valeur dans la base de données MySQL via une requête API
-            await axios.put(`https://admin-rust-gamma.vercel.app/student/uptrans`, {valeur});
+            await axios.put(`https://admin-rust-gamma.vercel.app/student/uptrans`, { valeur });
         } catch (error) {
             console.error(error);
         }
@@ -224,7 +224,7 @@ function Trancript() {
                     </form>
                 </div>
                 <hr />
-                <div ref={pdf} style={{ width: '95%', marginLeft: '2%', marginRight: '3%', marginTop: '8%' }}>
+                <div ref={pdf} style={{ width: '95%',backgroundColor:'white',color:'black', marginLeft: '2%', marginRight: '3%', fontSynthesisWeight: 'auto', marginTop: '8%' }}>
                     <div class="row mt-1 mb-2 d-flex justify-content-center">
                         <div class="col-5 d-flex justify-content-center">
                             <p>REPUBLIC OF CAMEROON <br /><i>Peace-Work-Fatherland</i> <br />***** <br />MINISTRY OF HIGHER EDUCATION<br />*****<br />UNIVERSITY OF BAMENDA <br /> <i>Training - Pobity - Entrepreneurship</i></p>
@@ -272,36 +272,33 @@ function Trancript() {
                     </div>
                     <div className='mt-1  ms-1 '>
                         <Table striped bordered hover responsive>
-                            <thead>
-                                <tr>
-                                    <th>Course</th>
-                                    <th>Title</th>
-                                    <th>Credit</th>
-                                    <th>CA/30</th>
-                                    <th>NS/70</th>
-                                    <th>AVG/100</th>
-                                    <th>QM</th>
-                                    <th>Grade</th>
-                                    <th>Obs</th>
+                            <thead >
+                                <tr >
+                                    <th style={{ backgroundColor: 'black', color: 'white' }}>Course</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>Title</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>Credit</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>CA/30</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>NS/70</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>AVG/100</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>QM</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>Grade</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>Obs</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {
-                                    semester1.map(sp => (
-                                        <tr>
-                                            <td>{sp.code}</td>
-                                            <td>{sp.title}</td>
-                                            <td>{sp.credit}</td>
-                                            <td>{sp.ca}</td>
-                                            <td>{sp.ns}</td>
-                                            <td>{sp.avg}</td>
-                                            <td>{sp.qm}</td>
-                                            <td>{sp.grade}</td>
-                                            <td>{sp.obs}</td>
-                                        </tr>
-                                    ))
-                                }
-
+                                {semester1.map((sp, index) => (
+                                    <tr key={index} style={index === 0 ? { color: 'white' } : null}>
+                                        <td style={{ backgroundColor: '#263043', color: 'white' }}>{sp.code}</td>
+                                        <td style={{ backgroundColor: '#363a42', color: 'white' }}>{sp.title}</td>
+                                        <td>{sp.credit}</td>
+                                        <td>{sp.ca}</td>
+                                        <td>{sp.ns}</td>
+                                        <td style={{ backgroundColor: '#263043', color: 'white' }}>{sp.avg}</td>
+                                        <td>{sp.qm}</td>
+                                        <td>{sp.grade}</td>
+                                        <td style={{ backgroundColor: '#263043', color: 'white' }}>{sp.obs}</td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </Table>
                         <div className='d-flex justify-content-center'>
@@ -310,30 +307,30 @@ function Trancript() {
                         <Table striped bordered hover responsive>
                             <thead>
                                 <tr>
-                                    <th>Course</th>
-                                    <th>Title</th>
-                                    <th>Credit</th>
-                                    <th>CA/30</th>
-                                    <th>NS/70</th>
-                                    <th>AVG/100</th>
-                                    <th>QM</th>
-                                    <th>Grade</th>
-                                    <th>Obs</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>Course</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>Title</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>Credit</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>CA/30</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>NS/70</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>AVG/100</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>QM</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>Grade</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>Obs</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
                                     semester2.map(sp => (
                                         <tr>
-                                            <td>{sp.code}</td>
-                                            <td>{sp.title}</td>
+                                            <td style={{ backgroundColor: '#263043', color: 'white' }}>{sp.code}</td>
+                                            <td style={{ backgroundColor: '#363a42', color: 'white' }}>{sp.title}</td>
                                             <td>{sp.credit}</td>
                                             <td>{sp.ca}</td>
                                             <td>{sp.ns}</td>
-                                            <td>{sp.avg}</td>
+                                            <td style={{ backgroundColor: '#263043', color: 'white' }}>{sp.avg}</td>
                                             <td>{sp.qm}</td>
                                             <td>{sp.grade}</td>
-                                            <td>{sp.obs}</td>
+                                            <td style={{ backgroundColor: '#263043', color: 'white' }}>{sp.obs}</td>
                                         </tr>
                                     ))
                                 }

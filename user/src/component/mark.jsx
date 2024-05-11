@@ -106,24 +106,22 @@ function Mark() {
   return (
     <main className='main-container'>
       <div className='px-2 mt-3'>
-        <form action="" onSubmit={handleSubmit}>
-          <div class="row mt-1 mb-2">
-            <div class="col">
-              <p><h5>Choose the list to display :</h5></p>
-            </div>
-
+      <form action="" onSubmit={handleSubmit}>
+          <div class="row mt-1 mb-2 form-group">
+           
             <div class="col">
               <select type='select' name="spec" onChange={(e) => setValues({ ...values, spec: e.target.value })} className='form-control'>
-                <option value="">-- Select speciality/field--</option>
+                <option value="">-- Speciality --</option>
                 {speciality.map(sp => (
                   <option key={sp.codesp} value={sp.codesp}>{sp.title}</option>
                 ))}
               </select>
 
             </div>
+            <br />
             <div class="col">
               <select type="select" onChange={(e) => setValues({ ...values, level: e.target.value })} name='level' autoComplete='off' placeholder='choose your level' className='form-control'>
-                <option value="">-- Select level--</option>
+                <option value="">-- Level --</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -135,9 +133,21 @@ function Mark() {
               </select>
 
             </div>
+            <br />
+
+            <div class="col">
+              <select type="select" onChange={(e) => setValues({ ...values, session: e.target.value })} name='session' autoComplete='off' placeholder='choose your session' className='form-control'>
+                <option value="">-- Session --</option>
+                <option value="CA">CA</option>
+                <option value="EXAM">EXAM</option>
+
+              </select>
+
+            </div>
+            <br />
             <div class="col">
               <select type="select" onChange={(e) => setValues({ ...values, semester: e.target.value })} name='semester' autoComplete='off' placeholder='choose your semester' className='form-control'>
-                <option value="">-- Select semester--</option>
+                <option value="">-- Semester --</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -155,27 +165,17 @@ function Mark() {
                 <option value="15">15</option>
                 <option value="16">16</option>
               </select>
-
+              
             </div>
-            <div class="col">
-              <select type="select" onChange={(e) => setValues({ ...values, session: e.target.value })} name='session' autoComplete='off' placeholder='choose your session' className='form-control'>
-                <option value="">-- Select session--</option>
-                <option value="CA">CA</option>
-                <option value="EXAM">EXAM</option>
-
-              </select>
-
-            </div>
+            <br />
             <div class="col"> <button type='submit' className='btn btn-success'>Display</button></div>
-
+            
+            
           </div>
         </form>
         <div className='d-flex justify-content-center'>
           <div class="row mt-1 mb-2">
 
-            <div class="col mt-1 mb-2">
-              <p><h5>Marks list ==== </h5></p>
-            </div>
             <div class="col mt-1 mb-2">
               <p><h5>Speciality: </h5></p>
             </div>
@@ -214,14 +214,11 @@ function Mark() {
         </div>
         <div class="row mt-1 mb-2">
 
-          <div class="col mt-1 mb-2">
-            <p><h5>Enter a word to locate a specific student: </h5></p>
-          </div>
 
-          <div class="col mt-1 mb-2">
+          <div class="col-4 mt-1 mb-2">
             <input type="text" class="form-control"
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search..." />
+              placeholder="Search Student..." />
           </div>
 
           <div class="col mt-1 mb-2">

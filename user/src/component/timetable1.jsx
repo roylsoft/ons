@@ -62,57 +62,58 @@ function Timetable1 () {
                   <h3>Time table</h3>
               </div>
               <div class="row mt-1 mb-2">
-                  <form action="" onSubmit={handleSubmit}>
-                      <div class="row mt-1 mb-2">
-                          <div class="col">
-                              <p><h5>Choose the list to display :</h5></p>
-                          </div>
+          <form action="" onSubmit={handleSubmit}>
+            <div class="row mt-1 mb-2 form-group">
 
-                          <div class="col">
-                              <select type='select' name="spec" onChange={(e) => setValues({ ...values, spec: e.target.value })} className='form-control'>
-                                  <option value="">-- Select speciality/field--</option>
-                                  {speciality.map(sp => (
-                                      <option key={sp.codesp} value={sp.codesp}>{sp.title}</option>
-                                  ))}
-                              </select>
+              <div class="col">
+                <select type='select' name="spec" onChange={(e) => setValues({ ...values, spec: e.target.value })} className='form-control'>
+                  <option value="">-- Select speciality/field--</option>
+                  {speciality.map(sp => (
+                    <option key={sp.codesp} value={sp.codesp}>{sp.title}</option>
+                  ))}
+                </select>
 
-                          </div>
-                          <div class="col">
-                              <select type="select" onChange={(e) => setValues({ ...values, level: e.target.value })} name='level' autoComplete='off' placeholder='choose your level' className='form-control'>
-                                  <option value="">-- Select level--</option>
-                                  <option value="1">1</option>
-                                  <option value="2">2</option>
-                                  <option value="3">3</option>
-                                  <option value="4">4</option>
-                                  <option value="5">5</option>
-                                  <option value="6">6</option>
-                                  <option value="7">7</option>
-                                  <option value="8">8</option>
-                              </select>
-
-                          </div>
-                          <div class='col'>
-                              <select type="select" value={values.semester} onChange={(e) => setValues({ ...values, semester: e.target.value })} name='semester' autoComplete='off' placeholder='choose semester' className='form-control rounded-0'>
-                                  <option value="">-- Select semester--</option>
-                                  <option value="1">1</option>
-                                  <option value="2">2</option>
-                                  <option value="3">3</option>
-                                  <option value="4">4</option>
-                                  <option value="5">5</option>
-                                  <option value="6">6</option>
-                                  <option value="7">7</option>
-                                  <option value="8">8</option>
-                                  <option value="9">9</option>
-                                  <option value="10">10</option>
-                                  <option value="11">11</option>
-                                  <option value="12">12</option>
-                              </select>
-                          </div>
-                          <div class="col"> <button type='submit' className='btn btn-success'>Display</button></div>
-                      </div>
-                  </form>
-                  
               </div>
+              <br />
+              <div class="col">
+                <select type="select" onChange={(e) => setValues({ ...values, level: e.target.value })} name='level' autoComplete='off' placeholder='choose your level' className='form-control'>
+                  <option value="">-- Select level--</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                </select>
+
+              </div>
+              <br />
+              <div class='col'>
+                <select type="select" value={values.semester} onChange={(e) => setValues({ ...values, semester: e.target.value })} name='semester' autoComplete='off' placeholder='choose semester' className='form-control'>
+                  <option value="">-- Select semester--</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+              </div>
+              <br />
+              <div class="col"> <button type='submit' className='btn btn-success'>Display</button></div>
+            </div>
+          </form>
+
+         
+        </div>
               <hr />
               <div ref={pdf} style={{ width: '95%', marginLeft: '2%', marginRight: '3%', marginTop: '8%' }}>
                   <div class="row mt-1 mb-2 d-flex justify-content-center">

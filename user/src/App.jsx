@@ -286,7 +286,7 @@ function App() {
             <Route path="/Studentlist2/:mat" element={<Studentlist2 />} />
             <Route path="/Admin2/:mat" element={<Admin2 />} />
             <Route path="/Staff2/:mat" element={<Staff2 />} />
-            <Route path="/Mark2/:mat" element={<Mark2 />} />
+            <Route path="/Marks2/:mat" element={<Mark2 />} />
             <Route path="/Courselist2/:mat" element={<Courselist2 />} />
             <Route path="/Specialities2/:mat" element={<Specialities2 />} />
             <Route path="/Department2/:mat" element={<Department2 />} />

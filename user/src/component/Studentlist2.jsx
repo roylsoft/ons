@@ -86,20 +86,18 @@ function Studentprint2() {
                     <h3>Students list</h3>
                 </div>
                 <form action="" onSubmit={handleSubmit}>
-                    <div class="row mt-1 mb-2">
-                        <div class="col">
-                            <p><h5>Choose the list to display :</h5></p>
-                        </div>
-
+                    <div class="row mt-1 mb-2 form-group">
+                       
                         <div class="col">
                             <select type='select' name="spec" onChange={(e) => setValues({ ...values, spec: e.target.value })} className='form-control'>
-                                <option value="">-- Select speciality/field--</option>
+                                <option value="">-- Select speciality--</option>
                                 {speciality.map(sp => (
                                     <option key={sp.codesp} value={sp.codesp}>{sp.title}</option>
                                 ))}
                             </select>
 
                         </div>
+                        <br />
                         <div class="col">
                             <select type="select" onChange={(e) => setValues({ ...values, level: e.target.value })} name='level' autoComplete='off' placeholder='choose your level' className='form-control'>
                                 <option value="">-- Select level--</option>
@@ -114,20 +112,17 @@ function Studentprint2() {
                             </select>
 
                         </div>
+                        <br />
                         <div class="col"> <button type='submit' className='btn btn-success'>Display</button></div>
                     </div>
                 </form>
 
                 <div class="row mt-1 mb-2">
 
-                    <div class="col mt-1 mb-2">
-                        <p><h5>Enter a word to locate a specific student: </h5></p>
-                    </div>
-
-                    <div class="col mt-1 mb-2">
+                    <div class="col-5 mx-3 mt-1 mb-2">
                         <input type="text" class="form-control"
                             onChange={(e) => setSearch(e.target.value)}
-                            placeholder="Search..." />
+                            placeholder="Search student..." />
                     </div>
                 </div>
                 <hr />
