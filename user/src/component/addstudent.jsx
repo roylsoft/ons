@@ -78,19 +78,7 @@ function Addstudent() {
 
         if (isValid) {
             event.preventDefault()
-            const formdata = new FormData()
-            formdata.append('name', values.name)
-            formdata.append('email', values.email)
-            formdata.append('phone', values.phone)
-            formdata.append('spec', values.spec)
-            formdata.append('level', values.level)
-            formdata.append('birth', values.birth)
-            formdata.append('place', values.place)
-            formdata.append('sex', values.sex)
-            formdata.append('pic', values.pic)
-            formdata.append('pass', values.pass)
-            formdata.append('cpass', values.cpass)
-            axios.post('https://admin-rust-gamma.vercel.app/student/addstudent', formdata)
+            axios.post('https://admin-rust-gamma.vercel.app/student/addstudent', values)
                 .then(result => {
                     if (result.data.createStatus) {
                         console.log(result.data);
@@ -102,7 +90,6 @@ function Addstudent() {
                     }
                 })
                 .catch(err => console.log(err))
-            console.log(formdata);
         }
     };
     useEffect(() => {
