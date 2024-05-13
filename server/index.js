@@ -21,7 +21,6 @@ app.use(cors({
 app.use(express.json())
 app.use(cookieParser())
 app.use(express.static('public/image'))
-app.use(express.static('public'))
 app.use('/auth',adminrouter)
 app.use('/student',userrouter)
 app.use('/staff',staffrouter)
