@@ -49,33 +49,33 @@ function Studentsidebar({ openSidebarToggle, setOpenSidebarToggle, mat}) {
                 </li>
                
                 <li className='sidebar-list-item'>
-                    <Link to={`/Admin2/${mat}`} onClick={handleLinkClick}>
+                    <Link to={`/admin2/${mat}`} onClick={handleLinkClick}>
                         <PiStudentFill className='icon' /> Admins
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to={`/Studentlist2/${mat}`} onClick={handleLinkClick}>
+                    <Link to={`/studentlist2/${mat}`} onClick={handleLinkClick}>
                         <PiStudentFill className='icon' /> Students
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to={`/Staff2/${mat}`} onClick={handleLinkClick}>
+                    <Link to={`/staff2/${mat}`} onClick={handleLinkClick}>
                         <FaUserGraduate className='icon' /> Lecturers
                     </Link>
                 </li>
 
                 <li className='sidebar-list-item'>
-                    <Link to={`/Specialities2/${mat}`} onClick={handleLinkClick}>
+                    <Link to={`/specialities2/${mat}`} onClick={handleLinkClick}>
                         <BsGrid1X2Fill className='icon' /> Specialities
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to={`/Courselist2/${mat}`} onClick={handleLinkClick}>
+                    <Link to={`/courselist2/${mat}`} onClick={handleLinkClick}>
                         <MdOutlineClass className='icon' /> Courses
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to={`/Department2/${mat}`} onClick={handleLinkClick}>
+                    <Link to={`/department2/${mat}`} onClick={handleLinkClick}>
                         <FcDepartment className='icon' /> Departments
                     </Link>
                 </li>

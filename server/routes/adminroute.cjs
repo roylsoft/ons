@@ -419,7 +419,6 @@ adminrouter.post('/addspeciality', async (req, res) => {
         const com = "select * from specialities where codesp=? and title=?";
         const result = await connection.query(com, [req.body.codesp, req.body.title]);
         if (result.results.length > 0) {
-
             return res.json({ createStatus: false, Error: 'This speciality already exist' });
         } else {
             let tab = req.body.codesp + "2024_2025EXAM";
