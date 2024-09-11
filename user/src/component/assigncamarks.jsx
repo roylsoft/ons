@@ -124,6 +124,9 @@ function Assignmark() {
           <div class="row mt-1 mb-2">
 
             <div class="col mt-1 mb-2">
+              <p><h5>Marks list ==== </h5></p>
+            </div>
+            <div class="col mt-1 mb-2">
               <p><h5>Speciality: </h5></p>
             </div>
 
