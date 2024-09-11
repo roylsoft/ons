@@ -9,7 +9,9 @@ import { useReactToPrint } from 'react-to-print';
 function Salaryprint() {
     const [data, setdata] = useState([])
     const [values, setValues] = useState({
-        month: ""
+        month: "",
+        cle: "",
+        branch: ""
     })
     const [value, setValue] = useState([]);
 
@@ -18,17 +20,22 @@ function Salaryprint() {
     const [order, setorder] = useState("ASC");
 
     const payement = async () => {
-        const url = 'https://admin-rust-gamma.vercel.app/student/payement/data'
-        axios.get(url, { params: { month: values.month } }
-        )
-            .then(result => {
-
-                if (result.data.readingStatus) {
-                    setValue(result.data.Result)
-                } else {
-                    alert(result.data.Error)
-                }
-            }).catch(err => console.log(err))
+        const k = "1910sourceeva1606"
+        const k1 = "1910sourceVally1606"
+        if (values.cle === k || values.cle === k1) {
+            const url = 'http://localhost:3001/auth/payement/data'
+            axios.get(url, { params: { month: values.month, branch: values.branch } }
+            )
+                .then(result => {
+                    if (result.data.readingStatus) {
+                        setValue(result.data.Result)
+                    } else {
+                        alert(result.data.Error)
+                    }
+                }).catch(err => console.log(err))
+        } else {
+            alert("Sorry you are not allowed to access this session!")
+        }
 
     };
 
@@ -38,7 +45,7 @@ function Salaryprint() {
     };
 
     const handelDelete = (mat) => {
-        axios.delete('https://admin-rust-gamma.vercel.app/student/deletestudent/' + mat)
+        axios.delete('http://localhost:3001/auth/deletestudent/' + mat)
             .then(result => {
                 if (result.data.deleteStatus) {
                     window.location.reload()
@@ -49,10 +56,12 @@ function Salaryprint() {
     }
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
+        axios.get('http://localhost:3001/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
-                    setSpeciality(result.data.Result)
+                    const specialityArray = Object.values(result.data.Result);
+                    const special = specialityArray[0]
+                    setSpeciality(special)
                 } else {
                     alert(result.data.Error)
                 }
@@ -82,7 +91,7 @@ function Salaryprint() {
             const colone = field
             console.log(code + " " + colone + " " + valeur);
             // Mettre à jour la valeur dans la base de données MySQL via une requête API
-            await axios.put(`https://admin-rust-gamma.vercel.app/student/sign/${code}`, { colone, valeur, month: values.month });
+            await axios.put(`http://localhost:3001/auth/sign/${code}`, { colone, valeur, month: values.month });
 
             // Mettre à jour les données localement
             setValue(prevValue =>
@@ -111,46 +120,51 @@ function Salaryprint() {
                     <h3>Lecturers salaries</h3>
                 </div>
                 <form action="" onSubmit={handleSubmit}>
-                    <div class="row mt-1 mb-2">
-                        <div class="col">
-                            <p><h5>Choose the speciality and the month:</h5></p>
-                        </div>
 
-                        <div class="col">
-                            <select type="select" onChange={(e) => setValues({ ...values, month: e.target.value })} name='month' autoComplete='off' placeholder='choose your level' className='form-control'>
-                                <option value="">-- Month --</option>
-                                <option value="01">January</option>
-                                <option value="02">February</option>
-                                <option value="03">March</option>
-                                <option value="04">April</option>
-                                <option value="05">May</option>
-                                <option value="06">Jun</option>
-                                <option value="07">July</option>
-                                <option value="08">August</option>
-                                <option value="09">September</option>
-                                <option value="10">October</option>
-                                <option value="11">November</option>
-                                <option value="12">December</option>
-                            </select>
 
-                        </div>
-                        <div class="col"> <button type='submit' className='btn btn-success'>Display</button></div>
+                    <div class="form-group">
+                        <select type="select" onChange={(e) => setValues({ ...values, month: e.target.value })} name='month' autoComplete='off' placeholder='choose your level' className='form-control'>
+                            <option value="">-- Select the Month --</option>
+                            <option value="01">January</option>
+                            <option value="02">February</option>
+                            <option value="03">March</option>
+                            <option value="04">April</option>
+                            <option value="05">May</option>
+                            <option value="06">Jun</option>
+                            <option value="07">July</option>
+                            <option value="08">August</option>
+                            <option value="09">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                        <select type="select" onChange={(e) => setValues({ ...values, branch: e.target.value })}
+                            name='branch' autoComplete='off' placeholder='choose your branch' className='form-control rounded-2'>
+                            <option value="">-- Select Branch--</option>
+                            <option value="Madagascar">Madagascar(Main)</option>
+                            <option value="Odza">Odza</option>
+                            <option value="Olembe">Olembe</option>
+                            <option value="Ngousso">Ngousso</option>
+                            <option value="Bafia">Bafia</option>
+                            <option value="Maroua">Maroua</option>
+                            <option value="Foumbot">Foumbot</option>
+                            <option value="Nkambe">Nkambe</option>
+                            <option value="Douala">Douala</option>
+                        </select>
+
+                        <label htmlFor="cle"><strong>Admin key:</strong></label>
+                        <input type="text" onChange={(e) => setValues({ ...values, cle: e.target.value })}
+                            name='cle' autoComplete='off' placeholder='Enter key'
+                            className='form-control rounded-0' />
+                        <div class="col"> <button type='submit' className='secondary-button'>Display</button></div>
 
                     </div>
+
+
+
                 </form>
 
-                <div class="row mt-1 mb-2">
 
-                    <div class="col-5 mt-1 mb-2">
-                        <p><h5>You can enter an ID to locate a specific lecturer: </h5></p>
-                    </div>
-
-                    <div class="col-3 mt-1 mb-2">
-                        <input type="text" class="form-control"
-                            onChange={(e) => setSearch(e.target.value)}
-                            placeholder="Search..." />
-                    </div>
-                </div>
                 <hr />
                 <div ref={pdf} style={{ width: '95%', marginLeft: '2%', marginRight: '3%', marginTop: '8%' }}>
                     <div class="row mt-1 mb-2 d-flex justify-content-center">
@@ -158,7 +172,7 @@ function Salaryprint() {
                             <p>REPUBLIC OF CAMEROON <br /><i>Peace-Work-Fatherland</i> <br />***** <br />MINISTRY OF HIGHER EDUCATION<br />*****<br />UNIVERSITY OF BAMENDA <br /> <i>Training - Pobity - Entrepreneurship</i></p>
                         </div>
                         <div class="col-2 d-flex justify-content-center">
-                            <img src={'https://admin-rust-gamma.vercel.app/Screenshot_20240323-102722 (1).png'} alt="" className='logo' />
+                            <img src={'../../public/nfonap.png.png'} alt="" className='logo' />
                         </div>
                         <div class="col-5 d-flex justify-content-center">
                             <p>NFONAP-HIEPS<br /><i>Training-development-expertise</i><br />*****<br />The Dean's Office <br />***** <br />P.O Box:2368 Messa-Yaounde <br />E-mail: <u>info@nfonap.education</u> <br />Registration: <u>www.nfonap.net</u><br />website: <u>www.nfonap.education</u> <br />Tel: <u>675550570 / 672545135</u></p>
@@ -180,14 +194,7 @@ function Salaryprint() {
                                     value={values.month}
                                 />
                             </div>
-                            <div class="col mt-1 mb-2">
-                                {/* <p><h5>Level: </h5></p> */}
-                            </div>
-                            <div class="col mt-1 mb-2">
-                                {/* <input type="text" class="form-control"
-                                    value={values.level}
-                                /> */}
-                            </div>
+
                         </div>
                     </div>
                     <hr />
@@ -215,7 +222,7 @@ function Salaryprint() {
                                             item : item.lecturer.toLowerCase().includes(search) ||
                                             item.codesp.toLowerCase().includes(search) ||
                                             item.code.toLowerCase().includes(search)
-                                    }).map(st => (
+                                    }).sort((a, b) => a.name.localeCompare(b.name)).map(st => (
                                         <tr key={st.code}>
                                             <td>{st.lecturer}</td>
                                             <td>{st.name}</td>
@@ -242,7 +249,7 @@ function Salaryprint() {
                     </div>
                 </div>
                 <div class="d-md-flex justify-content-md-end">
-                    <button type='submit' className='btn btn-success' onClick={generatePdf}>
+                    <button type='submit' className='secondary-button' onClick={generatePdf}>
                         <FiPrinter className='card_icon' /> Download PDF
                     </button>
                 </div>

@@ -15,6 +15,8 @@ function Addcourse() {
         credit: "",
         speciality: "",
         level: "",
+        branch: "",
+        year: "",
         type: ""
 
     })
@@ -54,11 +56,11 @@ function Addcourse() {
         event.preventDefault()
         const isValid = validateForm();
         if (isValid) {
-            axios.post('https://admin-rust-gamma.vercel.app/auth/addcourse', values)
+            axios.post('http://localhost:3001/auth/addcourse', values)
                 .then(result => {
                     if (result.data.createStatus) {
                         console.log(result.data);
-                        Navigate('/courselist/'+code)
+                        Navigate('/courselist/' + code)
                         setSuccess(result.data.Matricule)
 
                     } else {
@@ -71,9 +73,10 @@ function Addcourse() {
 
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
+        axios.get('http://localhost:3001/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
+
                     setSpeciality(result.data.Result)
                 } else {
                     alert(result.data.Error)
@@ -155,13 +158,43 @@ function Addcourse() {
                             })} name='type' autoComplete='off' placeholder='choose your level'
                                 className='form-control rounded-0'>
                                 <option value="">-- Select --</option>
-                                <option value="general">general</option>
-                                <option value="special">special</option>
+                                <option value="fondamental">fondamental</option>
+                                <option value="professional">professional</option>
+                                <option value="transversal">transversal</option>
+                                <option value="cross-sectional">cross-sectional</option>
                             </select>
                             {errors.type && <div className="error-message">{errors.type}</div>}
                         </div>
                         <br />
-                        <button className='btn btn-success w-100 rounded-5 mb-2'>Create</button>
+                        <div className='mb-1 form-group'>
+                            <label htmlFor="branch"><strong>Branch<span className='start'>*</span></strong></label>
+                            <select type="select" onChange={(e) => setValues({ ...values, branch: e.target.value })}
+                                name='branch' autoComplete='off' placeholder='choose your branch' className='form-control rounded-2'>
+                                <option value="">-- Select  the Branch--</option>
+                                <option value="Madagascar">Madagascar(Main)</option>
+                                <option value="Odza">Odza</option>
+                                <option value="Olembe">Olembe</option>
+                                <option value="Ngousso">Ngousso</option>
+                                <option value="Bafia">Bafia</option>
+                                <option value="Maroua">Maroua</option>
+                                <option value="Foumbot">Foumbot</option>
+                                <option value="Nkambe">Nkambe</option>
+                                <option value="Douala">Douala</option>
+                            </select>
+                            <select type="select" onChange={(e) => setValues({ ...values, year: e.target.value })}
+                                name='year' autoComplete='off' placeholder='academic year' className='form-control rounded-2'>
+                                <option value="">-- Select  the academic year--</option>
+                                <option value="2024_2025">2024/2025</option>
+                                <option value="2025_2026">2025/2026</option>
+                                <option value="2026_2027">2026/2027</option>
+                                <option value="2027_2028">2027/2028</option>
+                                <option value="2028_2029">2028/2029</option>
+                            </select>
+
+                        </div>
+                        <button className='secondary-button rounded-5 mb-2'>Create</button>
+
+
                     </form>
                 </div>
             </div>

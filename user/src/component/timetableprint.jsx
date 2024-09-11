@@ -11,9 +11,10 @@ function Timetableprint() {
     const [search, setSearch] = useState("");
     const [speciality, setSpeciality] = useState([]);
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
+        axios.get('http://localhost:3001/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
+
                     setSpeciality(result.data.Result)
                 } else {
                     alert(result.data.Error)
@@ -28,7 +29,7 @@ function Timetableprint() {
         level: ""
     })
     const timetable = async () => {
-        const url = 'https://admin-rust-gamma.vercel.app/auth/timetable/data'
+        const url = 'http://localhost:3001/auth/timetable/data'
         axios.get(url, { params: { spec: values.spec, semester: values.semester, level: values.level } }
         )
             .then(result => {
@@ -63,12 +64,10 @@ function Timetableprint() {
                 </div>
                 <div class="row mt-1 mb-2">
                     <form action="" onSubmit={handleSubmit}>
-                        <div class="row mt-1 mb-2">
-                            <div class="col">
-                                <p><h5>Choose the list to display :</h5></p>
-                            </div>
+                        <div class="row mt-1 mb-2 form-group">
 
-                            <div class="col">
+
+                            <div class=" form-group">
                                 <select type='select' name="spec" onChange={(e) => setValues({ ...values, spec: e.target.value })} className='form-control'>
                                     <option value="">-- Select speciality/field--</option>
                                     {speciality.map(sp => (
@@ -76,8 +75,6 @@ function Timetableprint() {
                                     ))}
                                 </select>
 
-                            </div>
-                            <div class="col">
                                 <select type="select" onChange={(e) => setValues({ ...values, level: e.target.value })} name='level' autoComplete='off' placeholder='choose your level' className='form-control'>
                                     <option value="">-- Select level--</option>
                                     <option value="1">1</option>
@@ -89,9 +86,6 @@ function Timetableprint() {
                                     <option value="7">7</option>
                                     <option value="8">8</option>
                                 </select>
-
-                            </div>
-                            <div class='col'>
                                 <select type="select" value={values.semester} onChange={(e) => setValues({ ...values, semester: e.target.value })} name='semester' autoComplete='off' placeholder='choose semester' className='form-control rounded-0'>
                                     <option value="">-- Select semester--</option>
                                     <option value="1">1</option>
@@ -107,19 +101,25 @@ function Timetableprint() {
                                     <option value="11">11</option>
                                     <option value="12">12</option>
                                 </select>
+                                <select type="select" onChange={(e) => setValues({ ...values, branch: e.target.value })}
+                                    name='branch' autoComplete='off' placeholder='choose your branch' className='form-control rounded-2'>
+                                    <option value="">-- Select Branch--</option>
+                                    <option value="Madagascar">Madagascar(Main)</option>
+                                    <option value="Odza">Odza</option>
+                                    <option value="Olembe">Olembe</option>
+                                    <option value="Ngousso">Ngousso</option>
+                                    <option value="Bafia">Bafia</option>
+                                    <option value="Maroua">Maroua</option>
+                                    <option value="Foumbot">Foumbot</option>
+                                    <option value="Nkambe">Nkambe</option>
+                                    <option value="Douala">Douala</option>
+                                </select>
                             </div>
-                            <div class="col"> <button type='submit' className='btn btn-success'>Display</button></div>
+                            <div class="d-flex justify-content-md-end"> <button type='submit' className='secondary-button'>Display</button></div>
+
                         </div>
                     </form>
-                    <div class="col mt-1 mb-2">
-                        <p><h5>Enter a word to locate a specific student: </h5></p>
-                    </div>
 
-                    <div class="col mt-1 mb-2">
-                        <input type="text" class="form-control"
-                            onChange={(e) => setSearch(e.target.value)}
-                            placeholder="Search..." />
-                    </div>
                 </div>
                 <hr />
                 <div ref={pdf} style={{ width: '95%', marginLeft: '2%', marginRight: '3%', marginTop: '8%' }}>
@@ -128,41 +128,38 @@ function Timetableprint() {
                             <p>REPUBLIC OF CAMEROON <br /><i>Peace-Work-Fatherland</i> <br />***** <br />MINISTRY OF HIGHER EDUCATION<br />*****<br />UNIVERSITY OF BAMENDA <br /> <i>Training - Pobity - Entrepreneurship</i></p>
                         </div>
                         <div class="col-2 d-flex justify-content-center">
-                            <img src={'https://admin-rust-gamma.vercel.app/Screenshot_20240323-102722 (1).png'} alt="" className='logo' />
+                            <img src={'../../public/nfonap.png.png'} alt="" className='logo' />
                         </div>
                         <div class="col-5 d-flex justify-content-center">
                             <p>NFONAP-HIEPS<br /><i>Training-development-expertise</i><br />*****<br />The Dean's Office <br />***** <br />P.O Box:2368 Messa-Yaounde <br />E-mail: <u>info@nfonap.education</u> <br />Registration: <u>www.nfonap.net</u><br />website: <u>www.nfonap.education</u> <br />Tel: <u>675550570 / 672545135</u></p>
                         </div>
                     </div>
                     <div class='d-flex justify-content-center'>
-                                <p><h5>Time table </h5></p>
+                        <p><h5>Time table </h5></p>
                     </div>
                     <div class='d-flex justify-content-center'>
                         <div class="row mt-1 mb-2">
                             <div class="col mt-1 mb-2">
                                 <p><h5>Speciality: </h5></p>
-                            </div>
-                            <div class="col mt-1 mb-2">
                                 <input type="text" class="form-control "
                                     value={values.spec}
                                 />
                             </div>
-                            <div class="col mt-1 mb-2">
+
+                            <div class="col-3 mt-1 mb-2">
                                 <p><h5>Level: </h5></p>
-                            </div>
-                            <div class="col mt-1 mb-2">
                                 <input type="text" class="form-control"
                                     value={values.level}
                                 />
                             </div>
-                            <div class="col mt-1 mb-2">
-                                <p><h5>Semester: </h5></p>
-                            </div>
-                            <div class="col mt-1 mb-2">
+
+                            <div class="col-3 mt-1 mb-2">
+                                <p><h5>Semester</h5></p>
                                 <input type="text" class="form-control"
                                     value={values.semester}
                                 />
                             </div>
+
                         </div>
                     </div>
                     <hr />
@@ -199,7 +196,7 @@ function Timetableprint() {
                 </div>
             </div>
             <div class="d-md-flex justify-content-md-end">
-                <button type='submit' className='btn btn-success' onClick={generatePdf}>
+                <button type='submit' className='secondary-button' onClick={generatePdf}>
                     <FiPrinter className='card_icon' /> Download PDF
                 </button>
             </div>

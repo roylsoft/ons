@@ -12,6 +12,8 @@ function Studentprint() {
     const [value, setValue] = useState([])
     const [data, setdata] = useState([])
     const [values, setValues] = useState({
+        branch: "",
+        year: "",
         spec: "",
         level: ""
     })
@@ -22,8 +24,8 @@ function Studentprint() {
     const [order, setorder] = useState("ASC");
 
     const sortStudent = async () => {
-        const url = 'https://admin-rust-gamma.vercel.app/student/studentsort/data'
-        axios.get(url, { params: { spec: values.spec, level: values.level } }
+        const url = 'http://localhost:3001/auth/studentsort/data'
+        axios.get(url, { params: { spec: values.spec, level: values.level, branch: values.branch, year: values.year } }
         )
             .then(result => {
 
@@ -44,9 +46,10 @@ function Studentprint() {
     };
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
+        axios.get('http://localhost:3001/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
+
                     setSpeciality(result.data.Result)
                 } else {
                     alert(result.data.Error)
@@ -86,12 +89,9 @@ function Studentprint() {
                     <h3>Students list</h3>
                 </div>
                 <form action="" onSubmit={handleSubmit}>
-                    <div class="row mt-1 mb-2">
-                        <div class="col">
-                            <p><h5>Choose the list to display :</h5></p>
-                        </div>
+                    <div class="row mt-1 mb-2 form-group">
 
-                        <div class="col">
+                        <div class="form-group">
                             <select type='select' name="spec" onChange={(e) => setValues({ ...values, spec: e.target.value })} className='form-control'>
                                 <option value="">-- Select speciality/field--</option>
                                 {speciality.map(sp => (
@@ -99,8 +99,6 @@ function Studentprint() {
                                 ))}
                             </select>
 
-                        </div>
-                        <div class="col">
                             <select type="select" onChange={(e) => setValues({ ...values, level: e.target.value })} name='level' autoComplete='off' placeholder='choose your level' className='form-control'>
                                 <option value="">-- Select level--</option>
                                 <option value="1">1</option>
@@ -113,23 +111,33 @@ function Studentprint() {
                                 <option value="8">8</option>
                             </select>
 
+                            <select type="select" onChange={(e) => setValues({ ...values, branch: e.target.value })}
+                                name='branch' autoComplete='off' placeholder='choose your branch' className='form-control rounded-2'>
+                                <option value="">-- Select Branch--</option>
+                                <option value="Madagascar">Madagascar(Main)</option>
+                                <option value="Odza">Odza</option>
+                                <option value="Olembe">Olembe</option>
+                                <option value="Ngousso">Ngousso</option>
+                                <option value="Bafia">Bafia</option>
+                                <option value="Maroua">Maroua</option>
+                                <option value="Foumbot">Foumbot</option>
+                                <option value="Nkambe">Nkambe</option>
+                                <option value="Douala">Douala</option>
+                            </select>
+                            <select type="select" onChange={(e) => setValues({ ...values, year: e.target.value })}
+                                name='year' autoComplete='off' placeholder='academic year' className='form-control rounded-2'>
+                                <option value="">-- Select the academic year --</option>
+                                <option value="2024_2025">2024/2025</option>
+                                <option value="2025_2026">2025/2026</option>
+                                <option value="2026_2027">2026/2027</option>
+                                <option value="2027_2028">2027/2028</option>
+                                <option value="2028_2029">2028/2029</option>
+                            </select>
+
                         </div>
-                        <div class="col"> <button type='submit' className='btn btn-success'>Display</button></div>
+                        <div class="col"> <button type='submit' className='secondary-button'>Display</button></div>
                     </div>
                 </form>
-
-                <div class="row mt-1 mb-2">
-
-                    <div class="col mt-1 mb-2">
-                        <p><h5>Enter a word to locate a specific student: </h5></p>
-                    </div>
-
-                    <div class="col mt-1 mb-2">
-                        <input type="text" class="form-control"
-                            onChange={(e) => setSearch(e.target.value)}
-                            placeholder="Search..." />
-                    </div>
-                </div>
                 <hr />
                 <div ref={pdf} style={{ width: '95%', marginLeft: '2%', marginRight: '3%', marginTop: '8%' }}>
                     <div class="row mt-1 mb-2 d-flex justify-content-center">
@@ -137,7 +145,7 @@ function Studentprint() {
                             <p>REPUBLIC OF CAMEROON <br /><i>Peace-Work-Fatherland</i> <br />***** <br />MINISTRY OF HIGHER EDUCATION<br />*****<br />UNIVERSITY OF BAMENDA <br /> <i>Training - Pobity - Entrepreneurship</i></p>
                         </div>
                         <div class="col-2 d-flex justify-content-center">
-                            <img src={'https://admin-rust-gamma.vercel.app/Screenshot_20240323-102722 (1).png'} alt="" className='logo' />
+                            <img src={'../../public/nfonap.png.png'} alt="" className='logo' />
                         </div>
                         <div class="col-5 d-flex justify-content-center">
                             <p>NFONAP-HIEPS<br /><i>Training-development-expertise</i><br />*****<br />The Dean's Office <br />***** <br />P.O Box:2368 Messa-Yaounde <br />E-mail: <u>info@nfonap.education</u> <br />Registration: <u>www.nfonap.net</u><br />website: <u>www.nfonap.education</u> <br />Tel: <u>675550570 / 672545135</u></p>
@@ -147,32 +155,28 @@ function Studentprint() {
                     <div class='d-flex justify-content-center'>
                         <div class="row mt-1 mb-2">
                             <div class="col mt-1 mb-2">
-                                <p><h5>Speciality: </h5></p>
-                            </div>
-                            <div class="col mt-1 mb-2">
-                                <input type="text" class="form-control "
+                                <p><h5>Speciality: </h5></p><input type="text" class="form-control "
                                     value={values.spec}
                                 />
                             </div>
+
                             <div class="col mt-1 mb-2">
-                                <p><h5>Level: </h5></p>
-                            </div>
-                            <div class="col mt-1 mb-2">
-                                <input type="text" class="form-control"
+                                <p><h5>Level: </h5></p> <input type="text" class="form-control"
                                     value={values.level}
                                 />
                             </div>
+
                         </div>
                     </div>
                     <div className='mt-2 ms-1 '>
                         <Table striped bordered hover responsive>
                             <thead>
                                 <tr>
-                                   
+
                                     <th>Matricule</th>
                                     <th className='bi-sort-up-alt' onClick={() => sorting("name")}>Name</th>
                                     <th>Email</th>
-                                 
+
                                     <th className='bi-filter' onClick={() => sorting("sex")}>Sex</th>
                                 </tr>
                             </thead>
@@ -182,9 +186,9 @@ function Studentprint() {
                                         return search.toLowerCase() === "" ?
                                             item : item.mat.toLowerCase().includes(search) ||
                                             item.name.toLowerCase().includes(search)
-                                    }).map(st => (
+                                    }).sort((a, b) => a.name.localeCompare(b.name)).map(st => (
                                         <tr>
-                                            {/* <td> <img src={'https://admin-rust-gamma.vercel.app/' + st.pic} alt="" className='profile_pic' /> </td> */}
+                                            {/* <td><img src={'https://server.nfonap.com/' + st.pic} alt="" className='profile_pic' /> </td> */}
                                             <td>{st.mat}</td>
                                             <td >{st.name}</td>
                                             <td>{st.email}</td>
@@ -199,7 +203,7 @@ function Studentprint() {
                 </div>
 
                 <div class="d-md-flex justify-content-md-end">
-                    <button type='submit' className='btn btn-success' onClick={generatePdf}>
+                    <button type='submit' className='secondary-button' onClick={generatePdf}>
                         <FiPrinter className='card_icon' /> Download PDF
                     </button>
                 </div>

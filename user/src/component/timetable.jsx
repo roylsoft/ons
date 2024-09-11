@@ -9,7 +9,7 @@ function Timetable() {
   const [speciality, setSpeciality] = useState([]);
 
   useEffect(() => {
-    axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
+    axios.get('http://localhost:3001/auth/specialities')
       .then(result => {
         if (result.data.readingStatus) {
           setSpeciality(result.data.Result);
@@ -26,8 +26,19 @@ function Timetable() {
     level: ""
   });
 
+  useEffect(() => {
+    axios.get('http://localhost:3001/auth/staff')
+      .then(result => {
+        if (result.data.readingStatus) {
+          setStaff(result.data.Result)
+        } else {
+          alert(result.data.Error)
+        }
+      }).catch(err => console.log(err))
+  }, [])
+
   const timetable = async () => {
-    const url = 'https://admin-rust-gamma.vercel.app/auth/timetable/data';
+    const url = 'http://localhost:3001/auth/timetable/data';
     axios.get(url, { params: { spec: values.spec, semester: values.semester, level: values.level } })
       .then(result => {
         if (result.data.readingStatus) {
@@ -50,7 +61,7 @@ function Timetable() {
       const colone = field
       console.log(colone + " " + valeur);
       // Mettre à jour la valeur dans la base de données MySQL via une requête API
-      await axios.put(`https://admin-rust-gamma.vercel.app/auth/updatecourse/${code}`, { colone, valeur });
+      await axios.put(`http://localhost:3001/auth/updatecourse/${code}`, { colone, valeur });
 
       // Mettre à jour les données localement
       setValue(prevValue =>
@@ -64,7 +75,7 @@ function Timetable() {
   };
 
   return (
-    
+
     <main className='main-container'>
       <div className='px-2 mt-3'>
         <div className='d-flex justify-content-center'>
@@ -72,10 +83,7 @@ function Timetable() {
         </div>
         <div class="row mt-1 mb-2">
           <form action="" onSubmit={handleSubmit}>
-            <div class="row mt-1 mb-2">
-              <div class="col">
-                <p><h5>Choose the list to display :</h5></p>
-              </div>
+            <div class="row mt-1 mb-2 form-group">
 
               <div class="col">
                 <select type='select' name="spec" onChange={(e) => setValues({ ...values, spec: e.target.value })} className='form-control'>
@@ -86,6 +94,7 @@ function Timetable() {
                 </select>
 
               </div>
+              <br />
               <div class="col">
                 <select type="select" onChange={(e) => setValues({ ...values, level: e.target.value })} name='level' autoComplete='off' placeholder='choose your level' className='form-control'>
                   <option value="">-- Select level--</option>
@@ -100,6 +109,7 @@ function Timetable() {
                 </select>
 
               </div>
+              <br />
               <div class='col'>
                 <select type="select" value={values.semester} onChange={(e) => setValues({ ...values, semester: e.target.value })} name='semester' autoComplete='off' placeholder='choose semester' className='form-control'>
                   <option value="">-- Select semester--</option>
@@ -117,23 +127,22 @@ function Timetable() {
                   <option value="12">12</option>
                 </select>
               </div>
-              <div class="col"> <button type='submit' className='btn btn-success'>Display</button></div>
+              <br />
+              <div class="col"> <button type='submit' className='secondary-button'>Display</button></div>
             </div>
           </form>
-          <div class="col mt-1 mb-2">
-            <p><h5>Enter a word to locate a specific student: </h5></p>
-          </div>
 
-          <div class="col mt-1 mb-2">
+
+          <div class="col-5 mx-3 mt-1 mb-2">
             <input type="text" class="form-control"
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search..." />
+              placeholder="Search by Code, Title , Lecturer or Banch..." />
           </div>
 
           <div class="col mt-1 mb-2">
             <p><h5> </h5></p>
           </div>
-          {/* <div class="col"><Link to='/addstudent' className='btn btn-success'></Link></div> */}
+
         </div>
         <hr />
         <div className='mt-3  ms-1 '>
@@ -145,15 +154,17 @@ function Timetable() {
                 <th className='bi-sort-up-alt' onClick={() => sorting("day")}>Day</th>
                 <th>period</th>
                 <th>Lecturer</th>
+                <th>Branch</th>
+
               </tr>
             </thead>
             <tbody>
               {value
                 .filter(item => search.toLowerCase() === "" ||
-                
                   item.title.toLowerCase().includes(search) ||
                   item.code.toLowerCase().includes(search) ||
-                  item.mat.toLowerCase().includes(search))
+                  item.name?.toLowerCase().includes(search) ||
+                  item.branch.toLowerCase().includes(search))
                 .map(sp => (
                   <tr key={sp.code}>
                     <td>{sp.code}</td>
@@ -175,12 +186,10 @@ function Timetable() {
                       />
                     </td>
                     <td>
-                      <input
-                        type="text"
-                        value={sp.mat}
-                        onChange={(e) => handleCellChange(sp.code, 'mat', e.target.value)}
-                        onBlur={(e) => handleCellChange(sp.code, 'mat', e.target.value)}
-                      />
+                      {sp.name}
+                    </td>
+                    <td>
+                      {sp.branch}
                     </td>
                   </tr>
                 ))}

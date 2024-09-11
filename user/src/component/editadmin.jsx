@@ -38,10 +38,6 @@ function Editadmin() {
             newErrors.email = 'Invalid email address';
         }
 
-        // if (!/^[0-9]{10}$/.test(values.phone)) {
-        //     newErrors.phone = 'Invalid phone number';
-        // }
-
         setErrors(newErrors);
 
         return Object.keys(newErrors).length === 0; // Return true if there are no errors
@@ -63,7 +59,7 @@ function Editadmin() {
             formdata.append('place', values.place)
             formdata.append('sex', values.sex)
 
-            axios.put('https://admin-rust-gamma.vercel.app/auth/editadmin/' + mat, values)
+            axios.put('http://localhost:3001/auth/editadmin/' + mat, values)
                 .then(result => {
                     console.log(result.data);
                     Navigate('/home/'+route)
@@ -75,7 +71,7 @@ function Editadmin() {
 
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/adminlist/' + mat)
+        axios.get('http://localhost:3001/auth/adminlist/' + mat)
             .then(result => {
                 setValues({
                     ...values,
@@ -116,7 +112,7 @@ function Editadmin() {
                             <input type="number" value={values.phone} onChange={(e) => setValues({ ...values, phone: e.target.value })}
                                 name='phone' placeholder='Enter your phone number'
                                 className='form-control rounded-2' />
-                            {/* {errors.phone && <div className="error-message">{errors.phone}</div>} */}
+                        
                             <label htmlFor="grade"><strong>Grade:</strong></label>
                             <input type="text" value={values.grade} onChange={(e) => setValues({ ...values, grade: e.target.value })}
                                 name='grade' autoComplete='off' placeholder='Your grade' className='form-control rounded-2' />
@@ -129,7 +125,7 @@ function Editadmin() {
                             <input type="text" value={values.idcard} onChange={(e) => setValues({ ...values, idcard: e.target.value })}
                                 name='idcard' autoComplete='off' placeholder='Your ID card goes here' className='form-control rounded-2' />
                             <label htmlFor="birth"><strong>Birth:</strong></label>
-                            <input type="date" value={values.birth} onChange={(e) => setValues({ ...values, birth: moment(e.target.value).format("DD/MM/YYYY") })}
+                            <input type="date" value={values.birth} onChange={(e) => setValues({ ...values, birth: moment(e.target.value).format("YYYY-MM-DD") })}
                                 name='birth' placeholder='' className='form-control rounded-2' />
                         </div>
 
@@ -137,7 +133,7 @@ function Editadmin() {
 
                             <label htmlFor="place"><strong>Place:</strong></label>
                             <input type="text" value={values.place} onChange={(e) => setValues({ ...values, place: e.target.value })}
-                                name='place' autoComplete='off' placeholder='Your place of borwn' className='form-control rounded-2' />
+                                name='place' autoComplete='off' placeholder='Your birth place' className='form-control rounded-2' />
                             <label htmlFor="role"><strong>Role:</strong></label>
                             <input type="text" value={values.role} onChange={(e) => setValues({ ...values, role: e.target.value })}
                                 name='role' autoComplete='off' placeholder='Your responsability' className='form-control rounded-2' />
@@ -152,7 +148,7 @@ function Editadmin() {
                                 <option value="F">Female</option>
                                 <option value="M">Male</option>
                             </select>
-                            <button className='btn btn-success w-100 rounded-5 mb-2'>Save</button>
+                            <button className='secondary-button rounded-5 mb-2'>Save</button>
 
                         </div>
 

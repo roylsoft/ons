@@ -9,7 +9,7 @@ import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Resp
 import { FaUserGraduate } from "react-icons/fa6";
 import { PiStudentFill } from "react-icons/pi";
 import { BsGrid1X2Fill } from 'react-icons/bs'
-import { MdOutlineClass, MdDashboardCustomize } from "react-icons/md";
+import { MdOutlineClass } from "react-icons/md";
 import { useReactToPrint } from 'react-to-print'
 import { FiPrinter } from "react-icons/fi";
 import { MdDescription } from "react-icons/md";
@@ -24,7 +24,8 @@ function Studentdashboad() {
     const [semester1, setsemester1] = useState([])
     const [semester2, setsemester2] = useState([])
     const [values, setValues] = useState({
-        mat: mat
+        mat: mat,
+        year: ""
     })
 
     const currentYear = new Date().getFullYear();
@@ -40,7 +41,7 @@ function Studentdashboad() {
 
     const sutudentinf = () => {
 
-        axios.get('https://admin-rust-gamma.vercel.app/student/student/' + matri)
+        axios.get('http://localhost:3001/auth/student/' + matri)
             .then(result => {
                 let niv = result.data.Result[0].level
                 setStudent(result.data.Result[0])
@@ -61,7 +62,7 @@ function Studentdashboad() {
 
 
     const numero = () => {
-        axios.get('https://admin-rust-gamma.vercel.app/student/number')
+        axios.get('http://localhost:3001/auth/number')
             .then(result => {
                 if (result.data.readingStatus) {
                     update(result.data.Result[0].trans + 1)
@@ -78,7 +79,7 @@ function Studentdashboad() {
         try {
             const valeur = value
             // Mettre à jour la valeur dans la base de données MySQL via une requête API
-            await axios.put(`https://admin-rust-gamma.vercel.app/student/uptrans`, { valeur });
+            await axios.put(`http://localhost:3001/auth/uptrans`, { valeur });
         } catch (error) {
             console.error(error);
         }
@@ -89,7 +90,7 @@ function Studentdashboad() {
         numero()
         sutudentinf()
         update(num)
-        axios.post('https://admin-rust-gamma.vercel.app/auth/transcript1', values)
+        axios.post('http://localhost:3001/auth/transcript1', values)
             .then(result => {
                 if (result.data) {
                     console.log(result.data.result);
@@ -107,7 +108,7 @@ function Studentdashboad() {
             })
             .catch(err => console.log(err))
 
-        axios.post('https://admin-rust-gamma.vercel.app/auth/transcript2', values)
+        axios.post('http://localhost:3001/auth/transcript2', values)
             .then(result => {
                 if (result.data) {
                     console.log(result.data.result);
@@ -231,7 +232,7 @@ function Studentdashboad() {
     }, [])
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/student/student/' + mat)
+        axios.get('http://localhost:3001/auth/student/' + mat)
             .then(result => {
                 setstudent(result.data.Result)
             })
@@ -284,7 +285,7 @@ function Studentdashboad() {
     ];
 
     const admincount = () => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/countadmin')
+        axios.get('http://localhost:3001/auth/countadmin')
             .then(result => {
                 if (result.data.Status) {
                     setAdmindTotal(result.data.Result[0].admin)
@@ -292,7 +293,7 @@ function Studentdashboad() {
             })
     }
     const studentcount = () => {
-        axios.get('https://admin-rust-gamma.vercel.app/student/countstudent')
+        axios.get('http://localhost:3001/auth/countstudent')
             .then(result => {
                 if (result.data.Status) {
                     setStudentTotal(result.data.Result[0].student)
@@ -300,7 +301,7 @@ function Studentdashboad() {
             })
     }
     const specialitycount = () => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/countspeciality')
+        axios.get('http://localhost:3001/auth/countspeciality')
             .then(result => {
                 if (result.data.Status) {
                     setspecialityTotal(result.data.Result[0].speciality)
@@ -308,7 +309,7 @@ function Studentdashboad() {
             })
     }
     const staffcount = () => {
-        axios.get('https://admin-rust-gamma.vercel.app/staff/countstaff')
+        axios.get('http://localhost:3001/auth/countstaff')
             .then(result => {
                 if (result.data.Status) {
                     setStaffTotal(result.data.Result[0].staff)
@@ -316,7 +317,7 @@ function Studentdashboad() {
             })
     }
     const coursecount = () => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/countcourse')
+        axios.get('http://localhost:3001/auth/countcourse')
             .then(result => {
                 if (result.data.Status) {
                     setCourseTotal(result.data.Result[0].course)
@@ -421,7 +422,7 @@ function Studentdashboad() {
             </div>
             <div className='px-2 mt-4 pt-3'>
                 <div className='px-2 mt-4 pt-3'>
-                    <Link to='' className='btn btn-success'>My informations</Link>
+                    <Link to='' className='secondary-button'>My informations</Link>
                     <div className='mt-2 ms-1 '>
                         <Table striped bordered hover variant="dark" responsive>
                             <thead>
@@ -441,7 +442,7 @@ function Studentdashboad() {
                                 {
                                     studentinf.map(st => (
                                         <tr>
-                                            <td> <img src={'https://admin-rust-gamma.vercel.app/' + st.pic} alt="" className='profile_pic' /> </td>
+                                            <td><img src={'https://server.nfonap.com/' + st.pic} alt="" className='profile_pic' /> </td>
                                             <td>{st.mat}</td>
                                             <td >{st.name}</td>
                                             <td>{st.email}</td>
@@ -466,24 +467,37 @@ function Studentdashboad() {
 
                 </div>
                 <div className='px-2 mt-3'>
+
                     <div class="row mt-1 mb-2">
-
                         <div class="row mt-1 mb-2">
-
-                            <div class="col-3"> <button onClick={handleSubmit} className='btn btn-success'><MdDescription className='icon' />Generate my transcript</button></div>
-
+                            <form action="" onSubmit={handleSubmit}>
+                                <div class="mt-1 mb-2 form-group">
+                                    
+                                    <label htmlFor="year"><strong>Academic year<span className='start'>*</span></strong></label>
+                                    <select type="select" onChange={(e) => setValues({ ...values, year: e.target.value })}
+                                        name='year' autoComplete='off' placeholder='academic year' className='form-control rounded-2'>
+                                        <option value="">-- Select  the academic year--</option>
+                                        <option value="2024_2025">2024/2025</option>
+                                        <option value="2025_2026">2025/2026</option>
+                                        <option value="2026_2027">2026/2027</option>
+                                        <option value="2027_2028">2027/2028</option>
+                                        <option value="2028_2029">2028/2029</option>
+                                    </select>
+                                    <div class="col-3"> <button onClick={handleSubmit} className='secondary-button'><MdDescription className='icon' />Generate my transcript</button></div>
+                                </div>
+                            </form>
                         </div>
-
                     </div>
+
                     <hr />
-                    <div ref={pdf} style={{ width: '95%',color:'black', marginLeft: '2%', marginRight: '3%', fontSynthesisWeight: 'auto', marginTop: '8%' }} className='pdf'>
+                    <div ref={pdf} style={{ width: '95%', backgroundColor: 'white', color: 'black', marginLeft: '2%', marginRight: '3%', fontSynthesisWeight: 'auto', marginTop: '8%' }} className='pdf'>
                         <div class="row mt-1 mb-2 d-flex justify-content-center">
 
                             <div class="col-5 d-flex justify-content-center">
                                 <p>REPUBLIC OF CAMEROON <br /><i>Peace-Work-Fatherland</i> <br />***** <br />MINISTRY OF HIGHER EDUCATION<br />*****<br />UNIVERSITY OF BAMENDA <br /> <i>Training - Pobity - Entrepreneurship</i></p>
                             </div>
                             <div class="col-2 d-flex justify-content-center">
-                                <img src={'https://admin-rust-gamma.vercel.app/Screenshot_20240323-102722 (1).png'} alt="" className='logo' />
+                                <img src={'../../public/home-banner-image-MzdQIPbC.png'} alt="" className='logo' />
                             </div>
                             <div class="col-5 d-flex justify-content-center">
                                 <p>NFONAP-HIEPS<br /><i>Training-development-expertise</i><br />*****<br />The Dean's Office <br />***** <br />P.O Box:2368 Messa-Yaounde <br />E-mail: <u>info@nfonap.education</u> <br />Registration: <u>www.nfonap.net</u><br />website: <u>www.nfonap.education</u> <br />Tel: <u>675550570 / 672545135</u></p>
@@ -495,7 +509,7 @@ function Studentdashboad() {
                         <div class="row mt-1 mb-2 d-flex justify-content-center">
                             <div class="col-5 d-flex justify-content-center">
                                 Full name: {student.name} <br />
-                                Date of birth: {moment(student.birth).format("DD/MM/YYYY")}<br />
+                                Date of birth: {moment(student.birth).format("YYYY-MM-DD")}<br />
                                 Place of birth: {student.place} <br />
                                 Gender: {student.sex}<br />
                                 Student UID : {mat}
@@ -504,9 +518,9 @@ function Studentdashboad() {
                                 <strong><i>ANNUAL TRANSCRIPT</i> <br /> {num}/CM/UBA/NHIEPS/{student.dep}/{student.spec} </strong>
                             </div>
                             <div class="col-5 d-flex justify-content-center">
-                                <img src={`https://admin-rust-gamma.vercel.app/${student.pic}`}
-                                    alt="" className='logo' />
-                            </div>
+                            <img src={`https://server.nfonap.com/${student.pic}`}
+                                alt="" className='logo' />
+                        </div>
                         </div>
                         <hr />
                         <div class="row mt-1 mb-2 d-flex justify-content-center">
@@ -525,33 +539,33 @@ function Studentdashboad() {
                         <div className='d-flex justify-content-center'>
                             <h6>First semester</h6>
                         </div>
-                        <div className='mt-1  ms-1 '>
+                        <div className='mt-1 ms-1 '>
                             <Table striped bordered hover responsive>
-                                <thead>
+                                <thead >
                                     <tr >
-                                        <th>Course</th>
-                                        <th>Title</th>
-                                        <th>Credit</th>
-                                        <th>CA/30</th>
-                                        <th>NS/70</th>
-                                        <th>AVG/100</th>
-                                        <th>QM</th>
-                                        <th>Grade</th>
-                                        <th>Obs</th>
+                                        <th style={{ backgroundColor: 'black', color: 'white' }}>Course</th>
+                                        <th style={{ backgroundColor: '#000000', color: 'white' }}>Title</th>
+                                        <th style={{ backgroundColor: '#000000', color: 'white' }}>Credit</th>
+                                        <th style={{ backgroundColor: '#000000', color: 'white' }}>CA/30</th>
+                                        <th style={{ backgroundColor: '#000000', color: 'white' }}>NS/70</th>
+                                        <th style={{ backgroundColor: '#000000', color: 'white' }}>AVG/100</th>
+                                        <th style={{ backgroundColor: '#000000', color: 'white' }}>QM</th>
+                                        <th style={{ backgroundColor: '#000000', color: 'white' }}>Grade</th>
+                                        <th style={{ backgroundColor: '#000000', color: 'white' }}>Obs</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {semester1.map((sp, index) => (
                                         <tr key={index} style={index === 0 ? { color: 'white' } : null}>
-                                            <td>{sp.code}</td>
-                                            <td>{sp.title}</td>
+                                            <td style={{ backgroundColor: '#263043', color: 'white' }}>{sp.code}</td>
+                                            <td style={{ backgroundColor: '#363a42', color: 'white' }}>{sp.title}</td>
                                             <td>{sp.credit}</td>
                                             <td>{sp.ca}</td>
                                             <td>{sp.ns}</td>
-                                            <td>{sp.avg}</td>
+                                            <td style={{ backgroundColor: '#263043', color: 'white' }}>{sp.avg}</td>
                                             <td>{sp.qm}</td>
                                             <td>{sp.grade}</td>
-                                            <td>{sp.obs}</td>
+                                            <td style={{ backgroundColor: '#263043', color: 'white' }}>{sp.obs}</td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -562,30 +576,30 @@ function Studentdashboad() {
                             <Table striped bordered hover responsive>
                                 <thead>
                                     <tr>
-                                        <th>Course</th>
-                                        <th>Title</th>
-                                        <th>Credit</th>
-                                        <th>CA/30</th>
-                                        <th>NS/70</th>
-                                        <th>AVG/100</th>
-                                        <th>QM</th>
-                                        <th>Grade</th>
-                                        <th>Obs</th>
+                                        <th style={{ backgroundColor: '#000000', color: 'white' }}>Course</th>
+                                        <th style={{ backgroundColor: '#000000', color: 'white' }}>Title</th>
+                                        <th style={{ backgroundColor: '#000000', color: 'white' }}>Credit</th>
+                                        <th style={{ backgroundColor: '#000000', color: 'white' }}>CA/30</th>
+                                        <th style={{ backgroundColor: '#000000', color: 'white' }}>NS/70</th>
+                                        <th style={{ backgroundColor: '#000000', color: 'white' }}>AVG/100</th>
+                                        <th style={{ backgroundColor: '#000000', color: 'white' }}>QM</th>
+                                        <th style={{ backgroundColor: '#000000', color: 'white' }}>Grade</th>
+                                        <th style={{ backgroundColor: '#000000', color: 'white' }}>Obs</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {
                                         semester2.map(sp => (
                                             <tr>
-                                                <td>{sp.code}</td>
-                                                <td>{sp.title}</td>
+                                                <td style={{ backgroundColor: '#263043', color: 'white' }}>{sp.code}</td>
+                                                <td style={{ backgroundColor: '#363a42', color: 'white' }}>{sp.title}</td>
                                                 <td>{sp.credit}</td>
                                                 <td>{sp.ca}</td>
                                                 <td>{sp.ns}</td>
-                                                <td>{sp.avg}</td>
+                                                <td style={{ backgroundColor: '#263043', color: 'white' }}>{sp.avg}</td>
                                                 <td>{sp.qm}</td>
                                                 <td>{sp.grade}</td>
-                                                <td>{sp.obs}</td>
+                                                <td style={{ backgroundColor: '#263043', color: 'white' }}>{sp.obs}</td>
                                             </tr>
                                         ))
                                     }
@@ -612,7 +626,7 @@ function Studentdashboad() {
                         </div>
                     </div>
                     <div class="d-md-flex justify-content-md-end">
-                        <button type='submit' className='btn btn-success' onClick={generatePdf}>
+                        <button type='submit' className='secondary-button' onClick={generatePdf}>
                             <FiPrinter className='card_icon' /> Download PDF
                         </button>
                     </div>

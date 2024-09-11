@@ -9,7 +9,7 @@ function Staff1() {
   const [value, setValue] = useState([])
 
   useEffect(()=>{
-    axios.get('https://admin-rust-gamma.vercel.app/staff/staff')
+    axios.get('http://localhost:3001/auth/staff')
     .then(result=>{
       if (result.data.readingStatus) {
         setValue(result.data.Result)
@@ -20,7 +20,7 @@ function Staff1() {
   },[])
 
   const handelDelete = (mat) => {
-    axios.delete('https://admin-rust-gamma.vercel.app/staff/deletestaff/'+mat)
+    axios.delete('http://localhost:3001/auth/deletestaff/'+mat)
     .then(result => {
       if(result.data.deleteStatus){
         window.location.reload()
@@ -49,19 +49,21 @@ function Staff1() {
               <th>Phone</th>
              
               <th>Sex</th>
+              <th>Branch</th>
             
             </tr>
           </thead>
           <tbody>
             {
-              value.map( st =>(
+              value.sort((a, b) => a.name.localeCompare(b.name)).map( st =>(
                 <tr>
-                  <td> <img src={'https://admin-rust-gamma.vercel.app/' +st.pic} alt="" className='profile_pic' /> </td>
+                  <td><img src={'https://server.nfonap.com/' +st.pic} alt="" className='profile_pic' /> </td>
                  
                   <td>{st.name}</td>
                   <td>{st.email}</td>
                   <td>{st.phone}</td>
                   <td>{st.sex}</td>
+                  <td>{st.branch}</td>
                  
                 </tr>
              

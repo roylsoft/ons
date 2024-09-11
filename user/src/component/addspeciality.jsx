@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 
 function Addspeciality() {
 
-    const [route, setsuite] = useState("");
     let way = location.pathname
     let words = way.split("/")
     let code = words.pop();
@@ -43,11 +42,11 @@ function Addspeciality() {
         event.preventDefault()
         const isValid = validateForm();
         if (isValid) {
-            axios.post('https://admin-rust-gamma.vercel.app/auth/addspeciality', values)
+            axios.post('http://localhost:3001/auth/addspeciality', values)
                 .then(result => {
                     if (result.data.createStatus) {
                         console.log(result.data);
-                        Navigate('/specialities/'+ code)
+                        Navigate('/specialities/' + code)
                     } else {
                         setError(result.data.Error)
                     }
@@ -56,7 +55,7 @@ function Addspeciality() {
         }
     }
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/department')
+        axios.get('http://localhost:3001/auth/department')
             .then(result => {
                 if (result.data.readingStatus) {
                     setDepartement(result.data.Result)
@@ -79,14 +78,14 @@ function Addspeciality() {
                         <div className='mb-3'>
                             <label htmlFor="codesp"><strong>Speciality code:</strong></label>
                             <input type="text" onChange={(e) => setValues({ ...values, codesp: e.target.value })}
-                                name='codesp' autoComplete='off' placeholder='Enter your matricule'
+                                name='codesp' autoComplete='off' placeholder='Enter the code'
                                 className='form-control rounded-0' />
                             {errors.codesp && <div className="error-message">{errors.codesp}</div>}
                         </div>
                         <div className='mb-3'>
-                            <label htmlFor="title"><strong>Name:</strong></label>
+                            <label htmlFor="title"><strong>Title:</strong></label>
                             <input type="text" onChange={(e) => setValues({ ...values, title: e.target.value })}
-                                name='title' placeholder='Enter your password'
+                                name='title' placeholder='Enter the title'
                                 className='form-control rounded-0' />
                             {errors.title && <div className="error-message">{errors.title}</div>}
                         </div>
@@ -102,7 +101,7 @@ function Addspeciality() {
                             </select>
                             {errors.codep && <div className="error-message">{errors.codep}</div>}
                         </div>
-                        <button type='submit' className='btn btn-success w-100 round-5 mb-2'>Create</button>
+                        <button type='submit' className='secondary-button round-5 mb-2'>Create</button>
 
                     </form>
                 </div>

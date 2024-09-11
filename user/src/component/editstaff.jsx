@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react'
 import "./style.css"
 import axios from "axios"
 import { useNavigate, useParams } from 'react-router-dom'
+import moment from 'moment';
 
 function Editstaff() {
 
 
     const Navigate = useNavigate()
+    const [suite, setsuite] = useState(null)
     let way = location.pathname
     let words = way.split("/")
     let mat=words.pop()
-    let route = words[words.length - 2];
+    let route = words[words.length - 1];
     const [values, setValues] = useState({
         name: "",
         email: "",
@@ -22,17 +24,19 @@ function Editstaff() {
         place: "",
         sex: "",
         coasthour: "",
+        branch: "",
         pic: ""
 
     })
 
     const [department, setValue] = useState([])
 
-    useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/department')
+   useEffect(() => {
+        axios.get('http://localhost:3001/auth/department')
             .then(result => {
                 if (result.data.readingStatus) {
-                    setValue(result.data.Result)
+                   
+                    setValue(result.data.Result) 
                 } else {
                     alert(result.data.Error)
                 }
@@ -42,15 +46,11 @@ function Editstaff() {
     const [errors, setErrors] = useState({});
     const validateForm = () => {
         const newErrors = {};
-        // Perform validation for each field
+       
         if (!/^\S+@\S+\.\S+$/.test(values.email)) {
             newErrors.email = 'Invalid email address';
         }
-
-        // if (!/^[0-9]{10}$/.test(values.phone)) {
-        //     newErrors.phone = 'Invalid phone number';
-        // }
-
+       
         setErrors(newErrors);
 
         return Object.keys(newErrors).length === 0; // Return true if there are no errors
@@ -62,6 +62,7 @@ function Editstaff() {
         if (isValid) {
             const formdata = new FormData()
             formdata.append('name', values.name)
+            formdata.append('branch', values.branch)
             formdata.append('email', values.email)
             formdata.append('codep', values.codep)
             formdata.append('phone', values.phone)
@@ -72,10 +73,10 @@ function Editstaff() {
             formdata.append('sex', values.sex)
             formdata.append('coasthour', values.coasthour)
 
-            axios.put('https://admin-rust-gamma.vercel.app/auth/editstaff/' + mat, values)
+            axios.put('http://localhost:3001/auth/editstaff/' + mat, values)
                 .then(result => {
                     console.log(result.data);
-                    Navigate('/staff/'+route)
+                    Navigate('/staff/'+suite)
 
                 })
                 .catch(err => console.log(err))
@@ -84,12 +85,14 @@ function Editstaff() {
 
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/staff/staff/' + mat)
+        axios.get('http://localhost:3001/auth/staff/' + mat)
             .then(result => {
+                setsuite(route)
                 setValues({
                     ...values,
                     name: result.data.Result[0].name,
                     email: result.data.Result[0].email,
+                    branch: result.data.Result[0].branch,
                     codep: result.data.Result[0].codep,
                     phone: result.data.Result[0].phone,
                     grade: result.data.Result[0].grade,
@@ -139,14 +142,14 @@ function Editstaff() {
                             <input type="text" value={values.idcard} onChange={(e) => setValues({ ...values, idcard: e.target.value })}
                                 name='idcard' autoComplete='off' placeholder='Your ID card goes here' className='form-control rounded-0' />
                             <label htmlFor="birth"><strong>Birth:</strong></label>
-                            <input type="date" value={values.birth} onChange={(e) => setValues({ ...values, birth: moment(e.target.value).format("DD/MM/YYYY") })}
+                            <input type="date" value={values.birth} onChange={(e) => setValues({ ...values, birth: moment(e.target.value).format("YYYY-MM-DD") })}
                                 name='birth' placeholder='' className='form-control rounded-0' />
                         </div>
 
                         <div className='mb-3 form-group'>
                             <label htmlFor="place"><strong>Place :</strong></label>
                             <input type="text" value={values.place} onChange={(e) => setValues({ ...values, place: e.target.value })}
-                                name='place' autoComplete='off' placeholder='Your place of borwn' className='form-control rounded-0' />
+                                name='place' autoComplete='off' placeholder='Your birth place' className='form-control rounded-0' />
                             <label htmlFor="sex"><strong>Sex:</strong></label>
                             <select type="select" value={values.sex} onChange={(e) => setValues({ ...values, sex: e.target.value })}
                                 name='sex' autoComplete='off' placeholder='choose your gender' className='form-control rounded-0'>
@@ -156,7 +159,7 @@ function Editstaff() {
 
                             </select>
                         </div>
-                        <div className='mb-3 form-group'>
+                        <div className='mb-2 form-group'>
                             <label htmlFor="coasthour"><strong>Hourly gain:</strong></label>
                             <input type="text" value={values.coasthour} onChange={(e) => setValues({ ...values, coasthour: e.target.value })}
                                 name='coasthour' autoComplete='off' placeholder='hourly gain' className='form-control rounded-0' />
@@ -169,8 +172,26 @@ function Editstaff() {
                                 ))}
                             </select>
                             {errors.codep && <div className="error-message">{errors.codep}</div>}
-                            <button className='btn btn-success w-100 round-0 mb-2 form-control'>Save</button>
+                           
+                            
                         </div>
+                        <div className='form-group'>
+                            <label htmlFor="branch"><strong>Branch<span className='start'>*</span></strong></label>
+                            <select type="select" onChange={(e) => setValues({ ...values, branch: e.target.value })}
+                                name='branch' autoComplete='off' placeholder='choose your branch' className='form-control rounded-2'>
+                                <option value="">-- Select  the Branch--</option>
+                                <option value="Madagascar">Madagascar(Main)</option>
+                                <option value="Odza">Odza</option>
+                                <option value="Olembe">Olembe</option>
+                                <option value="Ngousso">Ngousso</option>
+                                <option value="Bafia">Bafia</option>
+                                <option value="Maroua">Maroua</option>
+                                <option value="Foumbot">Foumbot</option>
+                                <option value="Nkambe">Nkambe</option>
+                                <option value="Douala">Douala</option>
+                            </select>
+                            <button className='secondary-button round-0 mb-2 form-control'>Save</button>
+                            </div>
                     </form>
                 </div>
             </div>

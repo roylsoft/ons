@@ -24,8 +24,9 @@ function Home(OpenSidebar) {
   const [specialityTotal, setspecialityTotal] = useState()
   const [courseTotal, setCourseTotal] = useState()
   const [admin, setadmin] = useState([])
-  const {mat}=useParams()
+  const { mat } = useParams()
   const [route, setsuite] = useState("");
+  
   let way = location.pathname
   let words = way.split("/")
   let code = words.pop();
@@ -85,15 +86,17 @@ function Home(OpenSidebar) {
   ];
 
   useEffect(() => {
-    axios.get('https://admin-rust-gamma.vercel.app/auth/adminlist/'+mat)
+    axios.get('http://localhost:3001/auth/adminlist/' + mat)
       .then(result => {
+
         setadmin(result.data.Result)
-      })
-      .catch(err => console.log(err))
+      }).catch(err => console.log(err))
   }, [])
 
+  console.log(admin);
+
   const admincount = () => {
-    axios.get('https://admin-rust-gamma.vercel.app/auth/countadmin')
+    axios.get('http://localhost:3001/auth/countadmin')
       .then(result => {
         if (result.data.Status) {
           setAdmindTotal(result.data.Result[0].admin)
@@ -101,7 +104,7 @@ function Home(OpenSidebar) {
       })
   }
   const studentcount = () => {
-    axios.get('https://admin-rust-gamma.vercel.app/student/countstudent')
+    axios.get('http://localhost:3001/auth/countstudent')
       .then(result => {
         if (result.data.Status) {
           setStudentTotal(result.data.Result[0].student)
@@ -109,7 +112,7 @@ function Home(OpenSidebar) {
       })
   }
   const specialitycount = () => {
-    axios.get('https://admin-rust-gamma.vercel.app/auth/countspeciality')
+    axios.get('http://localhost:3001/auth/countspeciality')
       .then(result => {
         if (result.data.Status) {
           setspecialityTotal(result.data.Result[0].speciality)
@@ -117,7 +120,7 @@ function Home(OpenSidebar) {
       })
   }
   const staffcount = () => {
-    axios.get('https://admin-rust-gamma.vercel.app/staff/countstaff')
+    axios.get('http://localhost:3001/auth/countstaff')
       .then(result => {
         if (result.data.Status) {
           setStaffTotal(result.data.Result[0].staff)
@@ -125,7 +128,7 @@ function Home(OpenSidebar) {
       })
   }
   const coursecount = () => {
-    axios.get('https://admin-rust-gamma.vercel.app/auth/countcourse')
+    axios.get('http://localhost:3001/auth/countcourse')
       .then(result => {
         if (result.data.Status) {
           setCourseTotal(result.data.Result[0].course)
@@ -136,13 +139,14 @@ function Home(OpenSidebar) {
   const [value, setValue] = useState([])
 
   useEffect(() => {
-    axios.get('https://admin-rust-gamma.vercel.app/auth/adminlist')
-    
+    axios.get('http://localhost:3001/auth/adminlist')
+
       .then(result => {
         setsuite(mat)
         if (result.data.readingStatus) {
-
-          setValue(result.data.Result)
+          const specialityArray = Object.values(result.data.Result);
+          const special = specialityArray
+          setValue(special)
 
         } else {
           alert(result.data.Error)
@@ -150,8 +154,10 @@ function Home(OpenSidebar) {
       }).catch(err => console.log(err))
   }, [])
 
+  console.log(value);
+
   const handelDelete = (mat) => {
-    axios.delete('https://admin-rust-gamma.vercel.app/auth/deleteadmin/' + mat)
+    axios.delete('http://localhost:3001/auth/deleteadmin/' + mat)
       .then(result => {
         if (result.data.deleteStatus) {
           window.location.reload()
@@ -163,195 +169,195 @@ function Home(OpenSidebar) {
 
 
   return (
-      <main className='main-container'>
-         
-        <div className='main-title'>
-          <h5>DASHBOARD</h5>
+    <main className='main-container'>
+
+      <div className='main-title'>
+        <h5>DASHBOARD</h5>
+      </div>
+
+      <div className='main-cards'>
+        <div className='card'>
+          <div className='card-inner'>
+            <h5>Admins</h5>
+            <FaUserTie className='card_icon' />
+          </div><hr />
+          <h4>{adminTotal}</h4>
+        </div>
+        <div className='card'>
+          <div className='card-inner'>
+            <h5>Lecturers</h5>
+            <FaUserGraduate className='card_icon' />
+          </div><hr />
+          <h4>{staffTotal}</h4>
+        </div>
+        <div className='card'>
+          <div className='card-inner'>
+            <h5>Students</h5>
+            <PiStudentFill className='card_icon' />
+          </div><hr />
+          <h4>{studentTotal}</h4>
+        </div>
+        <div className='card'>
+          <div className='card-inner'>
+            <h5>Fields</h5>
+            <BsGrid1X2Fill className='card_icon' />
+          </div><hr />
+          <h4>{specialityTotal}</h4>
+        </div>
+        <div className='card'>
+          <div className='card-inner'>
+            <h5>Courses</h5>
+            <MdOutlineClass className='card_icon' />
+          </div><hr />
+          <h4>{courseTotal}</h4>
         </div>
 
-        <div className='main-cards'>
-          <div className='card'>
-            <div className='card-inner'>
-              <h5>Admins</h5>
-              <FaUserTie className='card_icon' />
-            </div><hr />
-            <h4>{adminTotal}</h4>
-          </div>
-          <div className='card'>
-            <div className='card-inner'>
-              <h5>Lecturers</h5>
-              <FaUserGraduate className='card_icon' />
-            </div><hr />
-            <h4>{staffTotal}</h4>
-          </div>
-          <div className='card'>
-            <div className='card-inner'>
-              <h5>Students</h5>
-              <PiStudentFill className='card_icon' />
-            </div><hr />
-            <h4>{studentTotal}</h4>
-          </div>
-          <div className='card'>
-            <div className='card-inner'>
-              <h5>Fields</h5>
-              <BsGrid1X2Fill className='card_icon' />
-            </div><hr />
-            <h4>{specialityTotal}</h4>
-          </div>
-          <div className='card'>
-            <div className='card-inner'>
-              <h5>Courses</h5>
-              <MdOutlineClass className='card_icon' />
-            </div><hr />
-            <h4>{courseTotal}</h4>
-          </div>
+      </div>
 
+      <div className='charts'>
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart
+            width={500}
+            height={300}
+            data={data}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="pv" fill="#8884d8" />
+            <Bar dataKey="uv" fill="#82ca9d" />
+          </BarChart>
+        </ResponsiveContainer>
+
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart
+            width={500}
+            height={300}
+            data={data}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
+            <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+          </LineChart>
+        </ResponsiveContainer>
+
+      </div>
+      <div className='px-2 mt-4 pt-3'>
+        <div className='d-flex justify-content-center'>
+          <h5>Our Administration</h5>
         </div>
+        <Link to=" " className='secondary-button'>My profile</Link>
+        <div className='mt-2 ms-1 '>
+          <Table striped bordered hover variant="dark" responsive>
+            <thead>
+              <tr>
+                <th>Picture</th>
+                <th>Matricule</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Role</th>
+                <th>Grade</th>
+                <th>ID card</th>
+                <th>Birth</th>
+                <th>Place</th>
+                <th>Sex</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                admin.map(st => (
+                  <tr>
+                    <td><img src={'https://server.nfonap.com/' + st.pic} alt="" className='profile_pic' /> </td>
+                    <td>{st.mat}</td>
+                    <td>{st.name}</td>
+                    <td>{st.email}</td>
+                    <td>{st.phone}</td>
+                    <td>{st.role}</td>
+                    <td>{st.grade}</td>
+                    <td>{st.idcard}</td>
+                    <td>{moment(st.birth).format("YYYY/MM/DD")}</td>
+                    <td>{st.place}</td>
+                    <td>{st.sex}</td>
+                    <td>
+                      <Link to={`/editadmin/${route}/` + st.mat} className='btn btn-info btn-sm me-2 bi-pencil-square'></Link>
+                      {/* <Link className='btn btn-danger btn-sm bi-trash' onClick={() => handelDelete(st.mat)}></Link> */}
+                    </td>
+                  </tr>
 
-        <div className='charts'>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              width={500}
-              height={300}
-              data={data}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="pv" fill="#8884d8" />
-              <Bar dataKey="uv" fill="#82ca9d" />
-            </BarChart>
-          </ResponsiveContainer>
-
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart
-              width={500}
-              height={300}
-              data={data}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-              <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-            </LineChart>
-          </ResponsiveContainer>
-
+                ))
+              }
+            </tbody>
+          </Table>
         </div>
-        <div className='px-2 mt-4 pt-3'>
-          <div className='d-flex justify-content-center'>
-            <h5>Our Administration</h5>
-          </div>
-          <Link to=" " className='btn btn-success'>My profile</Link>
-          <div className='mt-2 ms-1 '>
-            <Table striped bordered hover variant="dark" responsive>
-              <thead>
-                <tr>
-                  <th>Picture</th>
-                  <th>Matricule</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Role</th>
-                  <th>Grade</th>
-                  <th>ID card</th>
-                  <th>Birth</th>
-                  <th>Place</th>
-                  <th>Sex</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  admin.map(st => (
-                    <tr>
-                      <td> <img src={'https://admin-rust-gamma.vercel.app/' + st.pic} alt="" className='profile_pic' /> </td>
-                      <td>{st.mat}</td>
-                      <td>{st.name}</td>
-                      <td>{st.email}</td>
-                      <td>{st.phone}</td>
-                      <td>{st.role}</td>
-                      <td>{st.grade}</td>
-                      <td>{st.idcard}</td>
-                      <td>{moment(st.birth).format("YYYY/MM/DD")}</td>
-                      <td>{st.place}</td>
-                      <td>{st.sex}</td>
-                      <td>
-                        <Link to={`/editadmin/${route}/`+ st.mat} className='btn btn-info btn-sm me-2 bi-pencil-square'></Link>
-                        {/* <Link className='btn btn-danger btn-sm bi-trash' onClick={() => handelDelete(st.mat)}></Link> */}
-                      </td>
-                    </tr>
+        <Link to={`/addadmin/${route}`} className='secondary-button'>+ Add Admin</Link>
 
-                  ))
-                }
-              </tbody>
-            </Table>
-          </div>
-          <Link to={`/addadmin/${route}`} className='btn btn-success'>+ Add Admin</Link>
-   
-          <div className='mt-2 ms-1 '>
-            <Table striped bordered hover variant="dark" responsive>
-              <thead>
-                <tr>
-                  <th>Picture</th>
-                  <th>Matricule</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Role</th>
-                  <th>Grade</th>
-                  <th>ID card</th>
-                  <th>Birth</th>
-                  <th>Place</th>
-                  <th>Sex</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  value.map(st => (
-                    <tr>
-                      <td> <img src={'https://admin-rust-gamma.vercel.app/' + st.pic} alt="" className='profile_pic' /> </td>
-                      <td>{st.mat}</td>
-                      <td>{st.name}</td>
-                      <td>{st.email}</td>
-                      <td>{st.phone}</td>
-                      <td>{st.role}</td>
-                      <td>{st.grade}</td>
-                      <td>{st.idcard}</td>
-                      <td>{moment(st.birth).format("YYYY/MM/DD")}</td>
-                      <td>{st.place}</td>
-                      <td>{st.sex}</td>
-                      <td>
-                        {/* <Link to={'/editadmin/' + st.mat} className='btn btn-info btn-sm me-2 bi-pencil-square'></Link> */}
-                        <Link className='btn btn-danger btn-sm bi-trash' onClick={() => handelDelete(st.mat)}></Link>
-                      </td>
-                    </tr>
+        <div className='mt-2 ms-1 '>
+          <Table striped bordered hover variant="dark" responsive>
+            <thead>
+              <tr>
+                <th>Picture</th>
+                <th>Matricule</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Role</th>
+                <th>Grade</th>
+                <th>ID card</th>
+                <th>Birth</th>
+                <th>Place</th>
+                <th>Sex</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                value.map(st => (
+                  <tr>
+                    <td><img src={'https://server.nfonap.com/' + st.pic} alt="" className='profile_pic' /> </td>
+                    <td>{st.mat}</td>
+                    <td>{st.name}</td>
+                    <td>{st.email}</td>
+                    <td>{st.phone}</td>
+                    <td>{st.role}</td>
+                    <td>{st.grade}</td>
+                    <td>{st.idcard}</td>
+                    <td>{moment(st.birth).format("YYYY/MM/DD")}</td>
+                    <td>{st.place}</td>
+                    <td>{st.sex}</td>
+                    <td>
+                      {/* <Link to={'/editadmin/' + st.mat} className='btn btn-info btn-sm me-2 bi-pencil-square'></Link> */}
+                      <Link className='btn btn-danger btn-sm bi-trash' onClick={() => handelDelete(st.mat)}></Link>
+                    </td>
+                  </tr>
 
-                  ))
-                }
-              </tbody>
-            </Table>
-          </div>
+                ))
+              }
+            </tbody>
+          </Table>
         </div>
-      </main>
-  
+      </div>
+    </main>
+
   )
 }
 

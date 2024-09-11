@@ -6,24 +6,14 @@ import axios from "axios";
 function Courselist1() {
 
   const [value, setValue] = useState([])
+  const [search, setSearch] = useState("");
 
   useEffect(()=>{
-    axios.get('https://admin-rust-gamma.vercel.app/auth/courselist')
+    axios.get('http://localhost:3001/auth/courselist')
     .then(result=>{
         setValue(result.data.Result)
     }).catch(err=>console.log(err))
   },[])
-
-  const handelDelete = (code) => {
-    axios.delete('https://admin-rust-gamma.vercel.app/auth/deletecourse/'+code)
-    .then(result => {
-      if(result.data.deleteStatus){
-        window.location.reload()
-      }else{
-        alert(result.data.Error)
-      }
-    })
-  }
 
   return (
     <main className='main-container'>
@@ -32,6 +22,11 @@ function Courselist1() {
             <h3>Courses list</h3>
         </div>
         <hr />
+        <div class="col-5 mx-3 mt-1 mb-2">
+          <input type="text" class="form-control"
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Filter by Branch, Code ,Title or Lecturer ..." />
+        </div>
        <div className='mt-3  ms-1 '>
         <Table striped bordered hover variant="dark" responsive>
           <thead>
@@ -44,12 +39,18 @@ function Courselist1() {
               <th>Semester</th>
               <th>Type</th>
               <th>Lecturer</th>
-           
+              <th>Phone</th>
+              <th>Branch</th>
+              
             </tr>
           </thead>
           <tbody>
             {
-              value.map( sp =>(
+              value.filter(item => search.toLowerCase() === "" ||
+              item.title.toLowerCase().includes(search) ||
+              item.code.toLowerCase().includes(search) ||
+              item.name?.toLowerCase().includes(search) ||
+              item.branch.toLowerCase().includes(search)).map( sp =>(
                 <tr>
                   <td>{sp.code}</td>
                   <td>{sp.title}</td>
@@ -58,7 +59,9 @@ function Courselist1() {
                   <td>{sp.level}</td>
                   <td>{sp.semester}</td>
                   <td>{sp.type}</td>
-                  <td>{sp.mat}</td>
+                  <td>{sp.name}</td>
+                  <td>{sp.phone}</td>
+                  <td>{sp.branch}</td>
                   
                 </tr>
              

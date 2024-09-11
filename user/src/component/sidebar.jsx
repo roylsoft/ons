@@ -23,7 +23,7 @@ function Sidebar({ openSidebarToggle, setOpenSidebarToggle, mat }) {
     const navigate = useNavigate()
     axios.defaults.withCredentials = true
     const handlelogout = () => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/logout')
+        axios.get('http://localhost:3001/auth/logout')
             .then(result => {
                 if (result.data.Status) {
                     navigate('/')
@@ -40,7 +40,8 @@ function Sidebar({ openSidebarToggle, setOpenSidebarToggle, mat }) {
         <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive" : ""}>
             <div className='sidebar-title'>
                 <div className='sidebar-brand'>
-                    <img src={'https://admin-rust-gamma.vercel.app/Screenshot_20240323-102722 (1).png'}
+                    <img src={'../../public/nfonap.png.png'}
+                    // <img src={'../../public/home-banner-image-MzdQIPbC.png'}
                         alt="" className='logo' />
                     NHIEPS
                 </div>
@@ -97,8 +98,13 @@ function Sidebar({ openSidebarToggle, setOpenSidebarToggle, mat }) {
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
-                    <Link to={`/solvability/${mat}`} onClick={handleLinkClick}>
+                    <Link to={`/frombanker/${mat}`} onClick={handleLinkClick}>
                         <FaBitcoin className='icon' />School fees
+                    </Link>
+                </li>
+                <li className='sidebar-list-item'>
+                    <Link to={`/solvability/${mat}`} onClick={handleLinkClick}>
+                        <FaBitcoin className='icon' />Solvability
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
@@ -111,19 +117,15 @@ function Sidebar({ openSidebarToggle, setOpenSidebarToggle, mat }) {
                         <MdDescription className='icon' />Transcripts
                     </Link>
                 </li>
-                <li className='sidebar-list-item'>
+                {/* <li className='sidebar-list-item'>
                     <Link to={`/addbanker/${mat}`} onClick={handleLinkClick}>
-                        <CgProfile className='icon' /> New banker
+                        <CgProfile className='icon' /> Banker
                     </Link>
-                </li>
+                </li> */}
+               
                 <li className='sidebar-list-item'>
-                    <Link to={`/editbanker/${mat}`} onClick={handleLinkClick}>
-                        <CgProfile className='icon' /> Edit banker
-                    </Link>
-                </li>
-                <li className='sidebar-list-item'>
-                    <Link to={`/key/${mat}`} onClick={handleLinkClick}>
-                        <FaKey className='icon' /> Keys
+                    <Link to={`/adddelegate/${mat}`} onClick={handleLinkClick}>
+                        <CgProfile className='icon' /> Delegates
                     </Link>
                 </li>
                 <li className='sidebar-list-item'>
@@ -136,7 +138,7 @@ function Sidebar({ openSidebarToggle, setOpenSidebarToggle, mat }) {
                 <hr />
                 <li className='sidebar-list-item'>
                     <Link to="" onClick={handleLinkClick}>
-                        {/* <FaKey className='icon' />  */}
+                      
                         Print doccuments
                     </Link>
                 </li>

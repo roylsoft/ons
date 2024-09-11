@@ -17,7 +17,7 @@ function Editdep() {
 
     const handleUpdate = (event) => {
         event.preventDefault()
-        axios.put('https://admin-rust-gamma.vercel.app/auth/editdep/' + code, values)
+        axios.put('http://localhost:3001/auth/editdep/' + code, values)
             .then(result => {
                 console.log(result.data);
                 Navigate('/department/'+ route)
@@ -28,7 +28,7 @@ function Editdep() {
 
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/department/' + code)
+        axios.get('http://localhost:3001/auth/department/' + code)
             .then(result => {
                 setsuite(mat)
                 setValues({
@@ -55,7 +55,7 @@ function Editdep() {
                             <label htmlFor="title"><strong>title :</strong></label>
                             <input type="text" value={values.title} onChange={(e) => setValues({ ...values, title: e.target.value })} name='title' autoComplete='off' placeholder='The title of the course' className='form-control rounded-0' />
                         </div>
-                        <button className='btn btn-success w-100 round-0 mb-2'>Save</button>
+                        <button className='secondary-button round-0 mb-2'>Save</button>
 
                     </form>
                 </div>

@@ -38,7 +38,7 @@ function Adddepartment() {
     event.preventDefault()
     const isValid = validateForm();
     if (isValid) {
-      axios.post('https://admin-rust-gamma.vercel.app/auth/adddepartment', values)
+      axios.post('http://localhost:3001/auth/adddepartment', values)
         .then(result => {
           if (result.data.createStatus) {
             console.log(result.data);
@@ -51,7 +51,7 @@ function Adddepartment() {
     }
   }
   useEffect(() => {
-    axios.get('https://admin-rust-gamma.vercel.app/auth/department')
+    axios.get('http://localhost:3001/auth/department')
       .then(result => {
         if (result.data.readingStatus) {
           setDepartement(result.data.Result)
@@ -86,7 +86,7 @@ function Adddepartment() {
                {errors.title && <div className="error-message">{errors.title}</div>}
             </div>
 
-            <button className='btn btn-success w-100 round-5 mb-2'>Create</button>
+            <button className='secondary-button round-5 mb-2'>Create</button>
 
           </form>
         </div>

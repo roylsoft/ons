@@ -9,7 +9,7 @@ function Timetable3() {
   const [speciality, setSpeciality] = useState([]);
 
   useEffect(() => {
-    axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
+    axios.get('http://localhost:3001/auth/specialities')
       .then(result => {
         if (result.data.readingStatus) {
           setSpeciality(result.data.Result);
@@ -27,7 +27,7 @@ function Timetable3() {
   });
 
   const timetable = async () => {
-    const url = 'https://admin-rust-gamma.vercel.app/auth/timetable/data';
+    const url = 'http://localhost:3001/auth/timetable/data';
     axios.get(url, { params: { spec: values.spec, semester: values.semester, level: values.level } })
       .then(result => {
         if (result.data.readingStatus) {
@@ -50,7 +50,7 @@ function Timetable3() {
         const colone=field
         console.log(colone+" "+valeur);
       // Mettre à jour la valeur dans la base de données MySQL via une requête API
-      await axios.put(`https://admin-rust-gamma.vercel.app/auth/updatecourse/${code}`, { colone, valeur });
+      await axios.put(`http://localhost:3001/auth/updatecourse/${code}`, { colone, valeur });
 
       // Mettre à jour les données localement
       setValue(prevValue =>
@@ -116,7 +116,7 @@ function Timetable3() {
                     <option value="12">12</option>
                 </select>
             </div>
-            <div class="col"> <button type='submit' className='btn btn-success'>Display</button></div>
+            <div class="col"> <button type='submit' className='secondary-button'>Display</button></div>
           </div>
           </form>
           <div class="col mt-1 mb-2">
@@ -132,7 +132,7 @@ function Timetable3() {
           <div class="col mt-1 mb-2">
               <p><h5>Clik to register a new student: </h5></p>
           </div>
-          <div class="col"><Link to='/addstudent' className='btn btn-success'>Edit the time table</Link></div>
+          <div class="col"><Link to='/addstudent' className='secondary-button'>Edit the time table</Link></div>
         </div>
         <hr />
         <div className='mt-3  ms-1 '>

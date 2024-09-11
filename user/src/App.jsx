@@ -1,14 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import Stafflogin from './component/logintostaff.jsx';
 import Adminlogin from './component/adminlogin.jsx';
-import Login from './component/login'
-import Commun from './component/commun'
+import Login from './component/login.jsx'
+import Commun from './component/commun.jsx'
 import Verifkey from './component/verifkey.jsx';
-
-
 
 import Addstudent from './component/addstudent.jsx'
 import Studentlist from './component/studentlist.jsx'
@@ -43,7 +41,6 @@ import Transcript from './component/transcript.jsx'
 
 
 import Lecturer from './component/lecturer.jsx';
-import Assignmark from './component/assigncamarks.jsx';
 import Staffhome from './component/staffhome.jsx';
 import Studentlist1 from './component/studentlist1.jsx';
 import Staff1 from './component/staff1.jsx';
@@ -60,11 +57,11 @@ import Transcript1 from './component/transcript1.jsx'
 import Studenthome from './component/studenthome.jsx';
 import Studentsidebar from './component/studentsidebar.jsx'
 import Specialities2 from './component/Specialities2.jsx';
-import Studentlist2 from './component/Studentlist2.jsx';
-import Admin2 from './component/Admin2.jsx';
-import Staff2 from './component/Staff2.jsx';
-import Courselist2 from './component/Courselist2.jsx';
-import Department2 from './component/Department2.jsx';
+import Studentprint2 from './component/studentlist2.jsx';
+import Admin2 from './component/admin2.jsx';
+import Staff2 from './component/staff2.jsx';
+import Courselist2 from './component/courselist2.jsx';
+import Department2 from './component/department2.jsx';
 import Student2 from './component/student2.jsx';
 import Mark2 from './component/Marks2.jsx';
 import Timetable2 from './component/timetable2.jsx'
@@ -77,7 +74,7 @@ import Markprint from './component/marksprint.jsx';
 import Solvability from './component/solvability.jsx';
 import Feesboard from './component/feesboard.jsx';
 import Editstaffprofile from './component/edstaffprofile.jsx';
-import Assignexammarks from './component/assignexammarks.jsx';
+import Assignmark from './component/assignexammarks.jsx';
 import Editstudentprofile from './component/editstudentprofile.jsx';
 import Solvability1 from './component/frombanker.jsx';
 import Loginbank from './component/loginbank.jsx';
@@ -85,6 +82,8 @@ import Addbanker from './component/addbanker.jsx';
 import Editbanker from './component/editbanker.jsx';
 import Solvability2 from './component/mypayement.jsx';
 import Home1 from './component/Home1.jsx';
+import Adddelegate from './component/adddelegate.jsx';
+import Editdelegate from './component/editdelegate.jsx';
 
 
 
@@ -94,10 +93,16 @@ function App() {
   const OpenSidebar = () => {
     setOpenSidebarToggle(!openSidebarToggle)
   }
-
+  const [userRole, setUserRole] = useState(null)
+  useEffect(() => {
+    // Récupérer le rôle de l'utilisateur à partir du localStorage ou du sessionStorage
+    const storedUserRole = localStorage.getItem('userRole')
+    setUserRole(storedUserRole)
+  }, [])
   let way = location.pathname
   let words = way.split("/")
   let mat = words.pop();
+
 
   // Check if the current location matches the routes in this file
   const shouldRenderHeaderAndSidebar1 =
@@ -119,6 +124,7 @@ function App() {
     location.pathname.startsWith('/editstudent') ||
     location.pathname.startsWith('/specialities') ||
     location.pathname.startsWith('/addspeciality') ||
+    location.pathname.startsWith('/adddelegate') ||
     location.pathname.startsWith('/addcourse') ||
     location.pathname.startsWith('/courselist') ||
     location.pathname.startsWith('/adddepartment') ||
@@ -131,10 +137,12 @@ function App() {
     location.pathname.startsWith('/timetable') ||
     location.pathname.startsWith('/payement') ||
     location.pathname.startsWith('/solvability') ||
+    location.pathname.startsWith('/frombanker') ||
     location.pathname.startsWith('/feesboard') ||
     location.pathname.startsWith('/transcript') ||
     location.pathname.startsWith('/attendance') ||
     location.pathname.startsWith('/key') ||
+    location.pathname.startsWith('/editdelegate') ||
     location.pathname.startsWith('/editstaff');
 
   // Check if the current location matches the routes in this file
@@ -147,7 +155,6 @@ function App() {
     location.pathname.startsWith('/mark1') ||
     location.pathname.startsWith('/specialities1') ||
     location.pathname.startsWith('/department1') ||
-    location.pathname.startsWith('/assigncamarks') ||
     location.pathname.startsWith('/assignexammarks') ||
     location.pathname.startsWith('/timetable1') ||
     location.pathname.startsWith('/transcript1') ||
@@ -158,88 +165,90 @@ function App() {
   const shouldRenderHeaderAndSidebar3 =
     location.pathname.startsWith('/student2') ||
     location.pathname.startsWith('/studenthome') ||
-    location.pathname.startsWith('/Studentlist2') ||
-    location.pathname.startsWith('/Admin2') ||
-    location.pathname.startsWith('/Staff2') ||
+    location.pathname.startsWith('/studentlist2') ||
+    location.pathname.startsWith('/admin2') ||
+    location.pathname.startsWith('/staff2') ||
     location.pathname.startsWith('/Marks2') ||
-    location.pathname.startsWith('/Courselist2') ||
-    location.pathname.startsWith('/Specialities2') ||
+    location.pathname.startsWith('/courselist2') ||
+    location.pathname.startsWith('/specialities2') ||
     location.pathname.startsWith('/timetable2') ||
     location.pathname.startsWith('/transcript2') ||
     location.pathname.startsWith('/mypayement') ||
     location.pathname.startsWith('/editstudentprofile') ||
-    location.pathname.startsWith('/Department2');
+    location.pathname.startsWith('/department2');
 
   // Conditionally apply a CSS class to the grid-container element
   // Determine if the current route is the Starter page
+
   const isStarterPage = location.pathname === '/';
-  const isAdminloginPage = location.pathname === '/adminlogin';
-  const isLoginPage = location.pathname === '/login';
-  const isLoginbanker = location.pathname === '/loginbanker';
-  const isLoginstaffPage = location.pathname === '/logintostaff';
-  const isCommun = location.pathname === '/commun';
-  const isAddattendance = location.pathname === '/addattendance';
-  const isStudent = location.pathname === '/studentreg';
-  const isBanker = location.pathname === '/frombanker';
-  const isVerifkey = location.pathname === '/verifkey';
+  const isAdminloginPage = location.pathname === '/adminlogin.jsx';
+  const isLoginPage = location.pathname === '/login.jsx';
+  const isLoginbanker = location.pathname === '/loginbank.jsx';
+  const isLoginstaffPage = location.pathname === '/logintostaff.jsx';
+  const isCommun = location.pathname === '/commun.jsx';
+  const isAddattendance = location.pathname === '/addattendance.jsx';
+  const isStudent = location.pathname === '/studentreg.jsx';
+  const isVerifkey = location.pathname === '/verifkey.jsx';
 
   const gridContainerClassName = isStarterPage || isAdminloginPage || isLoginPage ||
-    isLoginstaffPage || isCommun || isAddattendance || isVerifkey || isStudent ||
-    isBanker || isLoginbanker
+    isLoginstaffPage || isCommun || isAddattendance || isVerifkey || isStudent || isLoginbanker
     ? 'grid-container-starter' : 'grid-container';
-  
+
 
   return (
     <div>
       <div>
         <Router>
           <Routes>
-            <Route path="/" element={<Home1 />}/>
+            <Route path="/" element={<Home1 />} />
           </Routes>
         </Router>
       </div>
 
       <div className={gridContainerClassName}>
         <Router>
-          {shouldRenderHeaderAndSidebar1 && <Header OpenSidebar={OpenSidebar} />}
-          {shouldRenderHeaderAndSidebar1 &&
+          {userRole === 'admin' && shouldRenderHeaderAndSidebar1 && <Header OpenSidebar={OpenSidebar} />}
+          {userRole === 'admin' && shouldRenderHeaderAndSidebar1 &&
             <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} mat={mat} />}
 
-          {shouldRenderHeaderAndSidebar2 && <Header OpenSidebar={OpenSidebar} />}
-          {shouldRenderHeaderAndSidebar2 &&
+          {userRole === 'staff' && shouldRenderHeaderAndSidebar2 && <Header OpenSidebar={OpenSidebar} />}
+          {userRole === 'staff' && shouldRenderHeaderAndSidebar2 &&
             <Staffsidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} mat={mat} />}
 
-          {shouldRenderHeaderAndSidebar3 && <Header OpenSidebar={OpenSidebar} />}
-          {shouldRenderHeaderAndSidebar3 &&
+          {userRole === 'student' && shouldRenderHeaderAndSidebar3 && <Header OpenSidebar={OpenSidebar} />}
+          {userRole === 'student' && shouldRenderHeaderAndSidebar3 &&
             <Studentsidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} mat={mat} />}
 
           <Routes>
 
-            <Route path="/login" element={<Login />} />
-            <Route path="/logintostaff" element={<Stafflogin />} />
-            <Route path="/loginbank" element={<Loginbank />} />
-            <Route path="/adminlogin" element={<Adminlogin />} />
+            <Route path="/login.jsx" element={<Login />} />
+            <Route path="/logintostaff.jsx" element={<Stafflogin />} />
+            <Route path="/loginbank.jsx" element={<Loginbank />} />
+            <Route path="/adminlogin.jsx" element={<Adminlogin />} />
             <Route path="/addattendance/:mat" element={<Addattendance />} />
-            <Route path="/commun" element={<Commun />} />
-            <Route path="/studentreg" element={<Studentreg />} />
-            <Route path="/verifkey" element={<Verifkey />} />
-            <Route path="/frombanker" element={<Solvability1 />} />
+            <Route path="/commun.jsx" element={<Commun />} />
+            <Route path="/studentreg.jsx" element={<Studentreg />} />
+            <Route path="/verifkey.jsx" element={<Verifkey />} />
 
-
-
+            <Route path="/frombanker/:mat" element={<Solvability1 />} />
             <Route path="/studentlist/:mat" element={<Studentlist />} />
             <Route path="/studentprint/:mat" element={<Studentprint />} />
             <Route path="/timetableprint/:mat" element={<Timetableprint />} />
             <Route path="/editcourse/:mat/:suite" element={<Editcourse />} />
             <Route path="/editspec/:mat/:suite" element={<Editspec />} />
+            <Route path="/editstudent/:mat/:suite" element={<Editstudent />} />
+            <Route path="/editdep/:mat/:suite" element={<Editdep />} />
+            <Route path="/editstaff/:mat/:suite" element={<Editstaff />} />
+            <Route path="/editdelegate/:mat/:suite" element={<Editdelegate />} />
+            <Route path="/editbanker/:mat/:suite" element={<Editbanker />} />
+            <Route path="/editadmin/:mat/:suite" element={<Editadmin />} />
             <Route path="/studentlist/:mat" element={<Studentlist />} />
             <Route path="/staff/:mat" element={<Staff />} />
             <Route path="/staffprint/:mat" element={<Staffprint />} />
             <Route path="home/:mat" element={<Home />} />
             <Route path="/addadmin/:mat" element={<Addadmin />} />
-            <Route path="/editadmin/:mat/:suite" element={<Editadmin />} />
             <Route path="/addstudent/:mat" element={<Addstudent />} />
-            <Route path="/editstudent/:mat/:suite" element={<Editstudent />} />
+            <Route path="/adddelegate/:mat" element={<Adddelegate />} />
             <Route path="/specialities/:mat" element={<Specialities />} />
             <Route path="/addspeciality/:mat" element={<Addspeciality />} />
             <Route path="/addcourse/:mat" element={<Addcourse />} />
@@ -249,7 +258,6 @@ function App() {
             <Route path="/transcript/:mat" element={<Transcript />} />
             <Route path="/adddepartment/:mat" element={<Adddepartment />} />
             <Route path="/department/:mat" element={<Department />} />
-            <Route path="/editdep/:mat/:suite" element={<Editdep />} />
             <Route path="/profile/:mat" element={<Profile />} />
             <Route path="/addstaff/:mat" element={<Addstaff />} />
             <Route path="/mark/:mat" element={<Mark />} />
@@ -261,7 +269,7 @@ function App() {
             <Route path="/feesboard/:mat" element={<Feesboard />} />
             <Route path="/salaryprint/:mat" element={<Salaryprint />} />
             <Route path="/key/:mat" element={<Key />} />
-            <Route path="/editstaff/:mat/:suite" element={<Editstaff />} />
+
 
 
             <Route path="/lecturer/:mat" element={<Lecturer />} />
@@ -274,22 +282,20 @@ function App() {
             <Route path="/specialities1/:mat" element={<Specialities1 />} />
             <Route path="/department1/:mat" element={<Department1 />} />
             <Route path="/transcript1/:mat" element={<Transcript1 />} />
-
-            <Route path="/assignexammarks/:inf" element={<Assignexammarks />} />
-            <Route path="/assigncamarks/:inf" element={<Assignmark />} />
+            <Route path="/assignexammarks/:inf" element={<Assignmark />} />
             <Route path="/courselist1/:mat" element={<Courselist1 />} />
             <Route path="/edstaffprofile/:mat" element={<Editstaffprofile />} />
 
 
             <Route path="/student2/:mat" element={<Student2 />} />
             <Route path="/studenthome/:mat" element={<Studenthome />} />
-            <Route path="/Studentlist2/:mat" element={<Studentlist2 />} />
-            <Route path="/Admin2/:mat" element={<Admin2 />} />
-            <Route path="/Staff2/:mat" element={<Staff2 />} />
-            <Route path="/Mark2/:mat" element={<Mark2 />} />
-            <Route path="/Courselist2/:mat" element={<Courselist2 />} />
-            <Route path="/Specialities2/:mat" element={<Specialities2 />} />
-            <Route path="/Department2/:mat" element={<Department2 />} />
+            <Route path="/studentlist2/:mat" element={<Studentprint2 />} />
+            <Route path="/admin2/:mat" element={<Admin2 />} />
+            <Route path="/staff2/:mat" element={<Staff2 />} />
+            <Route path="/Marks2/:mat" element={<Mark2 />} />
+            <Route path="/courselist2/:mat" element={<Courselist2 />} />
+            <Route path="/specialities2/:mat" element={<Specialities2 />} />
+            <Route path="/department2/:mat" element={<Department2 />} />
             <Route path="/transcript2/:mat" element={<Transcript2 />} />
             <Route path="/editstudentprofile/:mat" element={<Editstudentprofile />} />
             <Route path="/timetable2/:mat" element={<Timetable2 />} />

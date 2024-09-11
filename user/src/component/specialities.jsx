@@ -14,17 +14,15 @@ function Specialities() {
 
 
   useEffect(() => {
-    axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
+    axios.get('http://localhost:3001/auth/specialities')
       .then(result => {
         setsuite(code)
         setValue(result.data.Result)
-
-
-
       }).catch(err => console.log(err))
   }, [])
+  
   const handelDelete = (codesp) => {
-    axios.delete('https://admin-rust-gamma.vercel.app/auth/deletespeciality/' + codesp)
+    axios.delete('http://localhost:3001/auth/deletespeciality/' + codesp)
       .then(result => {
         if (result.data.deleteStatus) {
           window.location.reload()
@@ -40,7 +38,7 @@ function Specialities() {
         <div className='d-flex justify-content-center'>
           <h3>Specialities</h3>
         </div>
-        <Link to={`/addspeciality/${route}`} className='btn btn-success'>+ Add speciality</Link>
+        <Link to={`/addspeciality/${route}`} className='secondary-button'>+ Add speciality</Link>
         <div className='mt-3 ms-1 '>
           <Table striped bordered hover variant="dark">
             <thead>

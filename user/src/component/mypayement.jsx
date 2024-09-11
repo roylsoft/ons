@@ -4,22 +4,26 @@ import axios from "axios";
 import { useReactToPrint } from 'react-to-print'
 import { FiPrinter } from "react-icons/fi";
 import moment from 'moment';
+import { MdDescription } from "react-icons/md";
 
 function Solvability2() {
 
     const pdf = useRef()
+    let way = location.pathname
+    let words = way.split("/")
+    let mat = words.pop();
 
     const [data, setdata] = useState([])
     const [student, setStudent] = useState([])
     const [values, setValues] = useState({
-        mat: ""
+        mat: mat
     })
     const [value, setValue] = useState([]);
     const [order, setorder] = useState("ASC");
     const currentYear = new Date().getFullYear();
     const nextYear = currentYear + 1;
     const cdate = new Date();
-    const date = moment(cdate).format('DD/MM/YYYY hh:mm:ss');
+    const date = moment(cdate).format('YYYY-MM-DD hh:mm:ss');
     const [num, setnum] = useState()
     const [speciality, setSpeciality] = useState()
 
@@ -27,7 +31,7 @@ function Solvability2() {
 
 
     const solvability = async () => {
-        const url = 'https://admin-rust-gamma.vercel.app/student/solvability/data'
+        const url = 'http://localhost:3001/auth/solvability/data'
         axios.get(url, { params: { mat: values.mat } }
         )
             .then(result => {
@@ -35,6 +39,7 @@ function Solvability2() {
                 if (result.data.readingStatus) {
                     setValue(result.data.Result)
                     setStudent(result.data.Result[0])
+                    console.log(result.data.Result)
                 } else {
                     alert(result.data.Error)
                 }
@@ -46,14 +51,14 @@ function Solvability2() {
         try {
             const valeur = value
             // Mettre à jour la valeur dans la base de données MySQL via une requête API
-            await axios.put(`https://admin-rust-gamma.vercel.app/student/uprec`, { valeur });
+            await axios.put(`http://localhost:3001/auth/uprec`, { valeur });
         } catch (error) {
             console.error(error);
         }
     };
 
     const numero = () => {
-        axios.get('https://admin-rust-gamma.vercel.app/student/number')
+        axios.get('http://localhost:3001/auth/number')
             .then(result => {
                 if (result.data.readingStatus) {
                     update(result.data.Result[0].rec + 1)
@@ -70,6 +75,7 @@ function Solvability2() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        console.log(values.mat);
         numero()
         solvability();
 
@@ -77,10 +83,12 @@ function Solvability2() {
 
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
+
+        axios.get('http://localhost:3001/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
                     setSpeciality(result.data.Result)
+                   
 
                 } else {
                     alert(result.data.Error)
@@ -111,7 +119,7 @@ function Solvability2() {
             const colone = field
             console.log(mat + " " + colone + " " + valeur);
             // Mettre à jour la valeur dans la base de données MySQL via une requête API
-            await axios.put(`https://admin-rust-gamma.vercel.app/student/solvability/${mat}`, { colone, valeur, codesp: values.codesp });
+            await axios.put(`http://localhost:3001/auth/solvability/${mat}`, { colone, valeur, codesp: values.codesp });
 
             // Mettre à jour les données localement
             setValue(prevValue =>
@@ -132,8 +140,6 @@ function Solvability2() {
 
     })
 
-    let total = student.reg + student.inst1 + student.inst2 + student.inst3 + student.inst4 + student.inst5
-
 
     return (
         <main className='main-container'>
@@ -141,23 +147,17 @@ function Solvability2() {
                 <div className='d-flex justify-content-center'>
                     <h3>School Fees</h3>
                 </div>
-                <form action="" onSubmit={handleSubmit}>
-                    <div class="row mt-1 mb-2">
+              
                         <div class="col">
                             <p><h5>Student UID:</h5></p>
                         </div>
 
                         <div class="col">
-                            <div class="col-6 mt-1 mb-2">
-                                <input type="text" class="form-control"
-                                    name="mat" onChange={(e) => setValues({ ...values, mat: e.target.value })}
-                                    placeholder="Student UId" />
+                            <div class="row mt-1 mb-2">
+                                <div class="col-3"> <button onClick={handleSubmit} className='secondary-button'><MdDescription className='icon' />Generate my payement</button></div>
                             </div>
                         </div>
-                        <div class="col"> <button type='submit' className='btn btn-success'>Display</button></div>
-
-                    </div>
-                </form>
+                       
 
                 <hr />
                 <div ref={pdf} style={{ width: '95%', marginLeft: '2%', marginRight: '3%', marginTop: '8%' }}>
@@ -166,7 +166,7 @@ function Solvability2() {
                             <p>REPUBLIC OF CAMEROON <br /><i>Peace-Work-Fatherland</i> <br />***** <br />MINISTRY OF HIGHER EDUCATION<br />*****<br />UNIVERSITY OF BAMENDA <br /> <i>Training - Pobity - Entrepreneurship</i> <br /> <br /> <b><h6>Receipt {num} </h6></b></p>
                         </div>
                         <div class="col-2 d-flex justify-content-center">
-                            <img src={'https://admin-rust-gamma.vercel.app/Screenshot_20240323-102722 (1).png'} alt="" className='logo' />
+                            <img src={'../../public/home-banner-image-MzdQIPbC.png'} alt="" className='logo' />
                         </div>
                         <div class="col-5 d-flex justify-content-center">
                             <p>NFONAP-HIEPS<br /><i>Training-development-expertise</i><br />*****<br />The Dean's Office <br />***** <br />P.O Box:2368 Messa-Yaounde <br />E-mail: <u>info@nfonap.education</u> <br />Registration: <u>www.nfonap.net</u><br />website: <u>www.nfonap.education</u> <br />Tel: <u>675550570 / 672545135</u></p>
@@ -309,7 +309,7 @@ function Solvability2() {
                     </div>
                 </div>
                 <div class="d-md-flex justify-content-md-end">
-                    <button type='submit' className='btn btn-success' onClick={generatePdf}>
+                    <button type='submit' className='secondary-button' onClick={generatePdf}>
                         <FiPrinter className='card_icon' /> Download PDF
                     </button>
                 </div>

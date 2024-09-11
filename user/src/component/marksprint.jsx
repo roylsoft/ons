@@ -16,6 +16,8 @@ function Markprint() {
     const [data, setdata] = useState([]);
     const [columns, setColumns] = useState([]);
     const [values, setValues] = useState({
+        branch: "",
+        year: "",
         spec: "",
         semester: "",
         session: "",
@@ -23,10 +25,12 @@ function Markprint() {
     })
 
     const sortMark = async () => {
-        const url = 'https://admin-rust-gamma.vercel.app/auth/marksort/data';
+        const url = 'http://localhost:3001/auth/marksort/data';
         try {
             const response = await axios.get(url, {
                 params: {
+                    branch: values.branch,
+                    year: values.year,
                     spec: values.spec,
                     session: values.session,
                     semester: values.semester,
@@ -56,9 +60,10 @@ function Markprint() {
     };
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
+        axios.get('http://localhost:3001/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
+
                     setSpeciality(result.data.Result)
                 } else {
                     alert(result.data.Error)
@@ -78,58 +83,12 @@ function Markprint() {
     return (
         <main className='main-container'>
             <div className='px-2 mt-3'>
-                <div className='d-flex justify-content-center'>
 
-                    <div class="row mt-1 mb-2">
-
-                        <div class="col mt-1 mb-2">
-                            <p><h5>Marks list ==== </h5></p>
-                        </div>
-                        <div class="col mt-1 mb-2">
-                            <p><h5>Speciality: </h5></p>
-                        </div>
-
-                        <div class="col mt-1 mb-2">
-                            <input type="text" class="form-control bg-info"
-                                value={values.spec}
-                            />
-                        </div>
-
-                        <div class="col mt-1 mb-2">
-                            <p><h5>Level : </h5></p>
-                        </div>
-                        <div class="col mt-1 mb-2">
-                            <input type="text" class="form-control bg-primary"
-                                value={values.level}
-                            />
-                        </div>
-                        <div class="col mt-1 mb-2">
-                            <p><h5>Session : </h5></p>
-                        </div>
-                        <div class="col mt-1 mb-2">
-                            <input type="text" class="form-control bg-light"
-                                value={values.session}
-                            />
-                        </div>
-                        <div class="col mt-1 mb-2">
-                            <p><h5>semester : </h5></p>
-                        </div>
-                        <div class="col mt-1 mb-2">
-                            <input type="text" class="form-control bg-warning"
-                                value={values.semester}
-                            />
-                        </div>
-                    </div>
-                </div>
                 <form action="" onSubmit={handleSubmit}>
-                    <div class="row mt-1 mb-2">
-                        <div class="col">
-                            <p><h5>Choose the list to display :</h5></p>
-                        </div>
-
+                    <div class="row mt-1 mb-2 form-group">
                         <div class="col">
                             <select type='select' name="spec" onChange={(e) => setValues({ ...values, spec: e.target.value })} className='form-control'>
-                                <option value="">-- Select speciality/field--</option>
+                                <option value="">--Speciality--</option>
                                 {speciality.map(sp => (
                                     <option key={sp.codesp} value={sp.codesp}>{sp.title}</option>
                                 ))}
@@ -138,7 +97,7 @@ function Markprint() {
                         </div>
                         <div class="col">
                             <select type="select" onChange={(e) => setValues({ ...values, level: e.target.value })} name='level' autoComplete='off' placeholder='choose your level' className='form-control'>
-                                <option value="">-- Select level--</option>
+                                <option value="">--level--</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -153,16 +112,16 @@ function Markprint() {
 
                         <div class="col">
                             <select type="select" onChange={(e) => setValues({ ...values, session: e.target.value })} name='session' autoComplete='off' placeholder='choose your session' className='form-control'>
-                                <option value="">-- Select session--</option>
+                                <option value="">--Session--</option>
                                 <option value="CA">CA</option>
                                 <option value="EXAM">EXAM</option>
 
                             </select>
 
                         </div>
-                        <div class="col">
+                        <div class="col mb-2">
                             <select type="select" onChange={(e) => setValues({ ...values, semester: e.target.value })} name='semester' autoComplete='off' placeholder='choose your semester' className='form-control'>
-                                <option value="">-- Select semester--</option>
+                                <option value="">--Semester--</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -182,28 +141,34 @@ function Markprint() {
                             </select>
 
                         </div>
-                        <div class="col"> <button type='submit' className='btn btn-success'>Display</button></div>
-
                     </div>
+                    <div class="form-group">
+                        <select type="select" onChange={(e) => setValues({ ...values, branch: e.target.value })}
+                            name='branch' autoComplete='off' placeholder='choose your branch' className='form-control rounded-2'>
+                            <option value="">-- Select the branch--</option>
+                            <option value="Madagascar">Madagascar(Main)</option>
+                            <option value="Odza">Odza</option>
+                            <option value="Olembe">Olembe</option>
+                            <option value="Ngousso">Ngousso</option>
+                            <option value="Bafia">Bafia</option>
+                            <option value="Maroua">Maroua</option>
+                            <option value="Foumbot">Foumbot</option>
+                            <option value="Nkambe">Nkambe</option>
+                            <option value="Douala">Douala</option>
+                        </select>
+                        <select type="select" onChange={(e) => setValues({ ...values, year: e.target.value })}
+                            name='year' autoComplete='off' placeholder='academic year' className='form-control rounded-2'>
+                            <option value="">-- Select the academic year--</option>
+                            <option value="2024_2025">2024/2025</option>
+                            <option value="2025_2026">2025/2026</option>
+                            <option value="2026_2027">2026/2027</option>
+                            <option value="2027_2028">2027/2028</option>
+                            <option value="2028_2029">2028/2029</option>
+                        </select>
+                        <div class="d-flex justify-content-md-end"> <button type='submit' className='btn d-end'>Display</button></div>
+                    </div>
+
                 </form>
-                <div class="row mt-1 mb-2">
-
-                    <div class="col mt-1 mb-2">
-                        <p><h5>Enter a word to locate a specific student: </h5></p>
-                    </div>
-
-                    <div class="col mt-1 mb-2">
-                        <input type="text" class="form-control"
-                            onChange={(e) => setSearch(e.target.value)}
-                            placeholder="Search..." />
-                    </div>
-
-                    <div class="col mt-1 mb-2">
-                        {/* <p><h5>Clik to register a new student: </h5></p> */}
-                    </div>
-                    {/* <div class="col"><Link to='/addstudent' className='btn btn-success'>+ Add student</Link></div> */}
-                </div>
-                <hr />
                 <div className='mt-2 ms-1 '>
                     <hr />
                     <div ref={pdf} style={{ width: '95%', marginLeft: '2%', marginRight: '3%', marginTop: '8%' }}>
@@ -212,46 +177,42 @@ function Markprint() {
                                 <p>REPUBLIC OF CAMEROON <br /><i>Peace-Work-Fatherland</i> <br />***** <br />MINISTRY OF HIGHER EDUCATION<br />*****<br />UNIVERSITY OF BAMENDA <br /> <i>Training - Pobity - Entrepreneurship</i></p>
                             </div>
                             <div class="col-2 d-flex justify-content-center">
-                                <img src={'https://admin-rust-gamma.vercel.app/Screenshot_20240323-102722 (1).png'} alt="" className='logo' />
+                                <img src={'../../public/nfonap.png.png'} alt="" className='logo' />
                             </div>
                             <div class="col-5 d-flex justify-content-center">
                                 <p>NFONAP-HIEPS<br /><i>Training-development-expertise</i><br />*****<br />The Dean's Office <br />***** <br />P.O Box:2368 Messa-Yaounde <br />E-mail: <u>info@nfonap.education</u> <br />Registration: <u>www.nfonap.net</u><br />website: <u>www.nfonap.education</u> <br />Tel: <u>675550570 / 672545135</u></p>
                             </div>
                         </div>
                         <div class='d-flex justify-content-center'>
-                            <div class="row mt-1 mb-2">
+                            <div class="row mt-1 mb-2 form-group">
                                 <div class="col mt-1 mb-2">
-                                    <p><h5>Speciality: </h5></p>
-                                </div>
-                                <div class="col mt-1 mb-2">
+                                    <h6>Speciality:</h6>
                                     <input type="text" class="form-control "
                                         value={values.spec}
                                     />
                                 </div>
+
                                 <div class="col mt-1 mb-2">
-                                    <p><h5>Level: </h5></p>
-                                </div>
-                                <div class="col mt-1 mb-2">
+                                    <h6>Level:</h6>
                                     <input type="text" class="form-control"
                                         value={values.level}
                                     />
                                 </div>
+
                                 <div class="col mt-1 mb-2">
-                                    <p><h5>Semester: </h5></p>
-                                </div>
-                                <div class="col mt-1 mb-2">
+                                    <h6>Semester:</h6>
                                     <input type="text" class="form-control"
                                         value={values.semester}
                                     />
                                 </div>
+
                                 <div class="col mt-1 mb-2">
-                                    <p><h5>Session: </h5></p>
-                                </div>
-                                <div class="col mt-1 mb-2">
+                                    <h6>Session:</h6>
                                     <input type="text" class="form-control"
                                         value={values.session}
                                     />
                                 </div>
+
                             </div>
                         </div>
                         <hr />
@@ -268,7 +229,7 @@ function Markprint() {
                                 {data
                                     .filter((item) => {
                                         return search.toLowerCase() === "" ? item : item.mat1.toLowerCase().includes(search);
-                                    })
+                                    }).sort((a, b) => a.name.localeCompare(b.name))
                                     .map((row, rowindex) => (
                                         <tr key={rowindex}>
                                             {Object.entries(row).map(([key, value], index) => (
@@ -280,7 +241,7 @@ function Markprint() {
                         </Table>
                     </div>
                     <div class="d-md-flex justify-content-md-end">
-                        <button type='submit' className='btn btn-success' onClick={generatePdf}>
+                        <button type='submit' className='secondary-button' onClick={generatePdf}>
                             <FiPrinter className='card_icon' /> Download PDF
                         </button>
                     </div>

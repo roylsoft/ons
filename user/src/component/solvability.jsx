@@ -12,28 +12,36 @@ function Solvability() {
 
     const [students, setStudents] = useState([])
     const [values, setValues] = useState({
-        mat: ""
+        mat: "",
+        cle: "",
+        year: ""
     })
     const [value, setValue] = useState([]);
     const currentYear = new Date().getFullYear();
     const nextYear = currentYear + 1;
     const cdate = new Date();
-    const date = moment(cdate).format('DD/MM/YYYY hh:mm:ss');
+    const date = moment(cdate).format('YYYY-MM-DD hh:mm:ss');
     const [num, setnum] = useState()
-    
-    const solvability = async () => {
-        const url = 'https://admin-rust-gamma.vercel.app/student/solvability/data'
-        axios.get(url, { params: { mat: values.mat } }
-        )
-            .then(result => {
 
-                if (result.data.readingStatus) {
-                    setValue(result.data.Result)
-                    setStudents(result.data.Result[0])
-                } else {
-                    alert(result.data.Error)
-                }
-            }).catch(err => console.log(err))
+    const solvability = async () => {
+        const k = "1910sourceeva1606"
+        const k1 = "1910sourceVally1606"
+        if (values.cle === k || values.cle === k1) {
+            const url = 'http://localhost:3001/auth/solvability/data'
+            axios.get(url, { params: { mat: values.mat, year: values.year } }
+            )
+                .then(result => {
+
+                    if (result.data.readingStatus) {
+                        setValue(result.data.Result)
+                        setStudents(result.data.Result[0])
+                    } else {
+                        alert(result.data.Error)
+                    }
+                }).catch(err => console.log(err))
+        } else {
+            alert("Sorry you are not allowed to access this session!")
+        }
 
     };
 
@@ -41,14 +49,14 @@ function Solvability() {
         try {
             const valeur = value
             // Mettre à jour la valeur dans la base de données MySQL via une requête API
-            await axios.put(`https://admin-rust-gamma.vercel.app/student/uprec`, { valeur });
+            await axios.put(`http://localhost:3001/auth/uprec`, { valeur });
         } catch (error) {
             console.error(error);
         }
     };
 
     const numerosol = () => {
-        axios.get('https://admin-rust-gamma.vercel.app/student/number')
+        axios.get('http://localhost:3001/auth/number')
             .then(result => {
                 if (result.data.readingStatus) {
                     update(result.data.Result[0].rec + 1)
@@ -70,9 +78,9 @@ function Solvability() {
 
     };
 
-
+    const [speciality, setSpeciality] = useState([]);
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
+        axios.get('http://localhost:3001/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
                     setSpeciality(result.data.Result)
@@ -82,26 +90,6 @@ function Solvability() {
                 }
             }).catch(err => console.log(err))
     }, [])
-
-    // const handleCellChange = async (mat, field, value) => {
-    //     try {
-    //         const valeur = value
-    //         const colone = field
-    //         console.log(mat + " " + colone + " " + valeur);
-    //         // Mettre à jour la valeur dans la base de données MySQL via une requête API
-    //         await axios.put(`https://admin-rust-gamma.vercel.app/student/solvability/${mat}`, { colone, valeur, codesp: values.codesp });
-
-    //         // Mettre à jour les données localement
-    //         setValue(prevValue =>
-    //             prevValue.map(item =>
-    //                 item.mat === mat ? { ...item, [field]: value } : item
-    //             )
-    //         );
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
-
 
     const generatePdf = useReactToPrint({
         content: () => pdf.current,
@@ -120,19 +108,33 @@ function Solvability() {
                     <h3>School Fees</h3>
                 </div>
                 <form action="" onSubmit={handleSubmit}>
-                    <div class="row mt-1 mb-2">
-                        <div class="col">
-                            <p><h5>Student UID:</h5></p>
+                    <div class="mt-1 mb-2 row">
+
+                        <div class="form-group">
+
+                            <input type="text" class="form-control mb-3"
+                                name="mat" onChange={(e) => setValues({ ...values, mat: e.target.value })}
+                                placeholder="Student UId" />
+                            <label htmlFor="year"><strong>Academic year<span className='start'>*</span></strong></label>
+                            <select type="select" onChange={(e) => setValues({ ...values, year: e.target.value })}
+                                name='year' autoComplete='off' placeholder='academic year' className='form-control rounded-2'>
+                                <option value="">-- Select the academic year --</option>
+                                <option value="2024_2025">2024/2025</option>
+                                <option value="2025_2026">2025/2026</option>
+                                <option value="2026_2027">2026/2027</option>
+                                <option value="2027_2028">2027/2028</option>
+                                <option value="2028_2029">2028/2029</option>
+                            </select>
+                            <label htmlFor="cle"><strong>Admin key:</strong></label>
+                            <input type="text" onChange={(e) => setValues({ ...values, cle: e.target.value })}
+                                name='cle' autoComplete='off' placeholder='Enter key'
+                                className='form-control rounded-0' />
+
+                            <button type='submit' className='secondary-button'>Display</button>
+
+
                         </div>
 
-                        <div class="col">
-                            <div class="col-6 mt-1 mb-2">
-                                <input type="text" class="form-control"
-                                    name="mat" onChange={(e) => setValues({ ...values, mat: e.target.value })}
-                                    placeholder="Student UId" />
-                            </div>
-                        </div>
-                        <div class="col"> <button type='submit' className='btn btn-success'>Display</button></div>
 
                     </div>
                 </form>
@@ -144,7 +146,7 @@ function Solvability() {
                             <p>REPUBLIC OF CAMEROON <br /><i>Peace-Work-Fatherland</i> <br />***** <br />MINISTRY OF HIGHER EDUCATION<br />*****<br />UNIVERSITY OF BAMENDA <br /> <i>Training - Pobity - Entrepreneurship</i> <br /> <br /> <b><h6>Receipt {num} </h6></b></p>
                         </div>
                         <div class="col-2 d-flex justify-content-center">
-                            <img src={'https://admin-rust-gamma.vercel.app/Screenshot_20240323-102722 (1).png'} alt="" className='logo' />
+                            <img src={'../../public/nfonap.png.png'} alt="" className='logo' />
                         </div>
                         <div class="col-5 d-flex justify-content-center">
                             <p>NFONAP-HIEPS<br /><i>Training-development-expertise</i><br />*****<br />The Dean's Office <br />***** <br />P.O Box:2368 Messa-Yaounde <br />E-mail: <u>info@nfonap.education</u> <br />Registration: <u>www.nfonap.net</u><br />website: <u>www.nfonap.education</u> <br />Tel: <u>675550570 / 672545135</u></p>
@@ -155,10 +157,11 @@ function Solvability() {
                         <div class="col-5 d-flex justify-content-center">
                             Full name: {students.name} <br />
                             Student UID : {students.mat} <br />
+                            Branch: {students.branch} <br />
                             Speciality : {students.codesp}
                         </div>
                         <div class="col-2 d-flex justify-content-center">
-                            Academic Year: {currentYear}/{nextYear}<br />
+                            Academic Year: {value.year}<br />
                         </div>
                         <div class="col-5 d-flex justify-content-center">
                             <div class="col-2 d-flex justify-content-center"> <strong>Class BMD/{students.codesp}{students.level}</strong>   </div>
@@ -187,22 +190,22 @@ function Solvability() {
                                         <tr key={st.mat}>
                                             <td>{st.mat}</td>
                                             <td>
-                                            { st.reg}
+                                                {st.reg}
                                             </td>
                                             <td>
-                                             {st.inst1}
+                                                {st.inst1}
                                             </td>
                                             <td>
-                                            { st.inst2}
+                                                {st.inst2}
                                             </td>
                                             <td>
-                                            { st.inst3}
+                                                {st.inst3}
                                             </td>
                                             <td>
-                                            { st.inst4}
+                                                {st.inst4}
                                             </td>
                                             <td>
-                                             {st.inst5}
+                                                {st.inst5}
                                             </td>
                                             <td>{parseInt(st.reg) + parseInt(st.inst1) + parseInt(st.inst2) + parseInt(st.inst3) + parseInt(st.inst4) + parseInt(st.inst5)}</td>
                                         </tr>
@@ -226,16 +229,16 @@ function Solvability() {
                                     value.map(st => (
                                         <tr key={st.mat}>
                                             <td>
-                                             {st.univ}
+                                                {st.univ}
                                             </td>
                                             <td>
-                                           {  st.grad}
+                                                {st.grad}
                                             </td>
                                             <td>
-                                            { st.sup}
+                                                {st.sup}
                                             </td>
                                             <td>
-                                             {st.prac}
+                                                {st.prac}
                                             </td>
                                             <td>{parseInt(st.univ) + parseInt(st.grad) + parseInt(st.sup) + parseInt(st.prac)}</td>
 
@@ -265,7 +268,7 @@ function Solvability() {
                     </div>
                 </div>
                 <div class="d-md-flex justify-content-md-end">
-                    <button type='submit' className='btn btn-success' onClick={generatePdf}>
+                    <button type='submit' className='secondary-button' onClick={generatePdf}>
                         <FiPrinter className='card_icon' /> Download PDF
                     </button>
                 </div>

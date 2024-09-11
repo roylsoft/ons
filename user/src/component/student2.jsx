@@ -9,7 +9,7 @@ const Student2 = () => {
   const [student, setStudent] = useState([])
   const { mat } = useParams()
   useEffect(() => {
-    axios.get('https://admin-rust-gamma.vercel.app/student/student/' + mat)
+    axios.get('http://localhost:3001/auth/student/' + mat)
       .then(result => {
 
         setStudent(result.data.Result[0])
@@ -19,7 +19,7 @@ const Student2 = () => {
 
   const navigate = useNavigate()
   const handlelogout = () => {
-    axios.get('https://admin-rust-gamma.vercel.app/student/logout')
+    axios.get('http://localhost:3001/auth/logout')
       .then(result => {
         if (result.data.Status) {
           localStorage.removeItem("valid")
@@ -37,7 +37,7 @@ const Student2 = () => {
 
             <div className='px-2 pt-2 pb-3 border shadow-sm w-5'>
               <div className='text-center pb-1'>
-                <img src={"https://admin-rust-gamma.vercel.app/" + student.pic} alt="photo" className='profile_pic' />
+                <img src={"http://localhost:3001/auth/" + student.pic} alt="photo" className='profile_pic' />
               </div> <hr />
               <div className='d-flex justify-content-center'>
                 <div className='d-flex justify-content-center flex-column align-items-center mt-3'>
@@ -64,7 +64,7 @@ const Student2 = () => {
                     <h3>Speciality    : {student.spec}</h3>
                     <h3>Department    : {student.dep}</h3>
                     <h3>Level         : {student.level}</h3>
-                    <h3>Birth         : {moment(student.birth).format("DD/MM/YYYY")}</h3>
+                    <h3>Birth         : {moment(student.birth).format("YYYY-MM-DD")}</h3>
                     <h3>Place         : {student.place}</h3>
                     <h3>Sex           : {student.sex}</h3>
                     <h3>Registrated on       : {student.regdate}</h3>

@@ -9,8 +9,10 @@ function Addattendance() {
 
     const [speciality, setSpeciality] = useState([]);
     const [staff, setstaff] = useState([]);
+    const [success, setsuccess] = useState("");
     const { mat } = useParams()
     const [values, setValues] = useState({
+        branch: "",
         lecturer: "",
         day: "",
         period: "",
@@ -28,46 +30,41 @@ function Addattendance() {
         const newErrors = {};
 
         // Perform validation for each field
-        if (!values.name) {
-            newErrors.name = 'Name is required';
+        if (!values.branch) {
+            newErrors.branch = 'branch is required';
         }
-        if (!values.grade) {
-            newErrors.grade = 'grade is required';
+        if (!values.lecturer) {
+            newErrors.lecturer = 'lecturer is required';
         }
-        if (!values.birth) {
-            newErrors.birth = 'birth is required';
+        if (!values.code) {
+            newErrors.code = 'code is required';
         }
-        if (!values.idcard) {
-            newErrors.idcard = 'idcard is required';
+        if (!values.lecturer) {
+            newErrors.lecturer = 'lecturer is required';
         }
-        if (!values.place) {
-            newErrors.place = 'Place is required';
+        if (!values.period) {
+            newErrors.period = 'period is required';
         }
-        if (!values.sex) {
-            newErrors.sex = 'sex is required';
+        if (!values.hour) {
+            newErrors.hour = 'hour is required';
         }
-
-        if (!values.email) {
-            newErrors.email = 'Email is required';
-        } else if (!/^\S+@\S+\.\S+$/.test(values.email)) {
-            newErrors.email = 'Invalid email address';
+        if (!values.day) {
+            newErrors.day = 'day is required';
         }
-
-        if (!values.phone) {
-            newErrors.phone = 'Phone number is required';
-        } else if (!/^[0-9]{10}$/.test(values.phone)) {
-            newErrors.phone = 'Invalid phone number';
+        if (!values.spec) {
+            newErrors.spec = 'spec is required';
         }
-
+        if (!values.level) {
+            newErrors.level = 'level is required';
+        }
+        if (!values.sign) {
+            newErrors.sign = 'sign is required';
+        }
         if (!values.pass) {
             newErrors.pass = 'Password is required';
 
-        } else if (values.cpass.length < 8) {
+        } else if (values.pass.length < 8) {
             newErrors.cpass = 'Password must be at least 8 characters long';
-        }
-
-        if (!values.pic) {
-            newErrors.pic = 'Picture is required';
         }
 
         setErrors(newErrors);
@@ -79,11 +76,11 @@ function Addattendance() {
         event.preventDefault()
         const isValid = validateForm();
         if (isValid) {
-            axios.post('https://admin-rust-gamma.vercel.app/student/addattendance', values)
+            axios.post('http://localhost:3001/auth/addattendance', values)
                 .then(result => {
                     if (result.data.createStatus) {
-                        console.log(result.data);
-                        setSuccess(result.data.Matricule)
+                        setsuccess(result.data.success)
+                        window.location.reload()
                     } else {
                         setError(result.data.Error)
                     }
@@ -94,9 +91,10 @@ function Addattendance() {
 
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
+        axios.get('http://localhost:3001/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
+
                     setSpeciality(result.data.Result)
                 } else {
                     alert(result.data.Error)
@@ -105,7 +103,7 @@ function Addattendance() {
     }, [])
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/staff/staff')
+        axios.get('http://localhost:3001/auth/staff')
             .then(result => {
                 if (result.data.readingStatus) {
                     console.log(result);
@@ -118,7 +116,7 @@ function Addattendance() {
 
     let navigate = useNavigate()
     const handlelogout = () => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/logout')
+        axios.get('http://localhost:3001/auth/logout')
             .then(result => {
                 if (result.data.Status) {
                     navigate('/')
@@ -128,17 +126,36 @@ function Addattendance() {
 
     return (
         <main className='main-container'>
-            <div className='d-flex mx-3 justify-content-center mt-5 mb-4 align-items-center'>
+            <div className='d-flex justify-content-center mb-4 align-items-center'>
                 <div className='p-3 border-rounded w-60 bolder loginForm'>
 
                     <h2>Add addattendance</h2> <br />
+                    <div className='text-danger'>
+                        {success && success}
+                    </div>
                     <div className='text-danger'>
                         {error && error}
                     </div>
                     <form onSubmit={handleSubmit}>
                         <div className='mb-3 form-group'>
+                            <label htmlFor="branch"><strong>Branch<span className='start'>*</span></strong></label>
+                            <select type="select" onChange={(e) => setValues({ ...values, branch: e.target.value })}
+                                name='branch' autoComplete='off' placeholder='choose your branch' className='form-control rounded-2'>
+                                <option value="">-- Select  the Branch--</option>
+                                <option value="Madagascar">Madagascar(Main)</option>
+                                <option value="Odza">Odza</option>
+                                <option value="Olembe">Olembe</option>
+                                <option value="Ngousso">Ngousso</option>
+                                <option value="Bafia">Bafia</option>
+                                <option value="Maroua">Maroua</option>
+                                <option value="Foumbot">Foumbot</option>
+                                <option value="Nkambe">Nkambe</option>
+                                <option value="Douala">Douala</option>
+                            </select>
+                            {errors.branch && <div className="error-message">{errors.branch}</div>}
                             <label htmlFor="lecturer" className='form-label'>Select a lecturer:</label>
-                            <select type='select' name="lecturer" onChange={(e) => setValues({ ...values, lecturer: e.target.value })}
+                            <select type='select' name="lecturer"
+                                onChange={(e) => setValues({ ...values, lecturer: e.target.value })}
 
                                 className='form-control rounded-0'>
                                 <option value="">-- Select --</option>
@@ -209,8 +226,8 @@ function Addattendance() {
                             {errors.pass && <div className="error-message">{errors.pass}</div>}
                         </div>
                         <div className='d-flex justify-content-center align-items-center'>
-                            <button className='btn btn-success w-40 mx-2 round-0 mb-2'>Create</button>
-                            <button className='btn btn-warning w-40 mx-2 round-0 mb-2' onClick={handlelogout}>Logout</button>
+                            <button type='submit' className='secondary-button mx-2 round-0 mb-2'>Create</button>
+                            <button className='secondary-button btn-warning w-40 mx-2 round-0 mb-2' onClick={handlelogout}>Logout</button>
                         </div>
 
                     </form>

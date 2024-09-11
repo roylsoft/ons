@@ -5,11 +5,20 @@ import { useNavigate } from 'react-router-dom'
 
 
 function Addstaff() {
-    const [route, setsuite] = useState("");
+  
     let way = location.pathname
     let words = way.split("/")
     let code = words.pop();
+    const [error, setError] = useState(null)
+  
+    const [errors, setErrors] = useState({});
+    const Navigate = useNavigate()
+
+    const [department, setValue] = useState([])
+
     const [values, setValues] = useState({
+        branch: "",
+        year: "",
         codep: "",
         name: "",
         email: "",
@@ -23,17 +32,12 @@ function Addstaff() {
         pass: ""
 
     })
-    const [error, setError] = useState(null)
-    const [Matricule, setmatricule] = useState(null)
-    const [errors, setErrors] = useState({});
-    const Navigate = useNavigate()
-
-    const [department, setValue] = useState([])
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/department')
+        axios.get('http://localhost:3001/auth/department')
             .then(result => {
                 if (result.data.readingStatus) {
+
                     setValue(result.data.Result)
                 } else {
                     alert(result.data.Error)
@@ -44,11 +48,6 @@ function Addstaff() {
 
     const validateForm = () => {
         const newErrors = {};
-
-        // Perform validation for each field
-        // if (!values.dep) {
-        //     newErrors.dep = 'department is required';
-        // }
         if (!values.name) {
             newErrors.name = 'Name is required';
         }
@@ -79,7 +78,6 @@ function Addstaff() {
         }
         if (!values.pass) {
             newErrors.pass = 'Password is required';
-
         }
 
         if (!values.pic) {
@@ -94,9 +92,11 @@ function Addstaff() {
     const handleSubmit = (event) => {
         event.preventDefault()
         const isValid = validateForm();
-        console.log(isValid);
+      
         if (isValid) {
             const formdata = new FormData()
+            formdata.append('branch', values.branch)
+            formdata.append('year', values.year)
             formdata.append('codep', values.codep)
             formdata.append('name', values.name)
             formdata.append('email', values.email)
@@ -109,18 +109,21 @@ function Addstaff() {
             formdata.append('pic', values.pic)
             formdata.append('pass', values.pass)
             formdata.append('cpass', values.cpass)
-            axios.post('https://admin-rust-gamma.vercel.app/staff/addstaff', formdata)
+       
+            axios.post('http://localhost:3001/auth/addstaff', formdata)
                 .then(result => {
                     if (result.data.createStatus) {
-                        console.log(result.data);
+                       
+                        setmatricule(result.data.result)
                         Navigate('/staff/' + code)
-                        setmatricule(result.data.Matricule)
+                       
 
                     } else {
                         setError(result.data.Error)
                     }
                 })
                 .catch(err => console.log(err))
+
         }
 
     }
@@ -131,17 +134,42 @@ function Addstaff() {
                 <div className='p-3 border-rounded w-60 bolder loginForm'>
 
                     <h2>Create an Account</h2> <br />
-                    <div className='text-success'>
-                        Your Unique Matriculation number is: {Matricule && Matricule}
-                    </div>
                     <div className='text-danger'>
                         {error && error}
                     </div>
                     <form onSubmit={handleSubmit}>
                         <div className='mb-3 form-group'>
+                            <label htmlFor="branch"><strong>Branch<span className='start'>*</span></strong></label>
+                            <select type="select" onChange={(e) => setValues({ ...values, branch: e.target.value })}
+                                name='branch' autoComplete='off' placeholder='choose your branch' className='form-control rounded-2'>
+                                <option value="">-- Select  the Branch--</option>
+                                <option value="Madagascar">Madagascar(Main)</option>
+                                <option value="Odza">Odza</option>
+                                <option value="Olembe">Olembe</option>
+                                <option value="Ngousso">Ngousso</option>
+                                <option value="Bafia">Bafia</option>
+                                <option value="Maroua">Maroua</option>
+                                <option value="Foumbot">Foumbot</option>
+                                <option value="Nkambe">Nkambe</option>
+                                <option value="Douala">Douala</option>
+                            </select>
+                            {errors.branch && <div className="error-message">{errors.branch}</div>}
+                            <label htmlFor="year"><strong>Academic year<span className='start'>*</span></strong></label>
+                            <select type="select" onChange={(e) => setValues({ ...values, year: e.target.value })}
+                                name='year' autoComplete='off' placeholder='academic year' className='form-control rounded-2'>
+                                <option value="">-- Select the academic year --</option>
+                                <option value="2024_2025">2024/2025</option>
+                                <option value="2025_2026">2025/2026</option>
+                                <option value="2026_2027">2026/2027</option>
+                                <option value="2027_2028">2027/2028</option>
+                                <option value="2028_2029">2028/2029</option>
+                            </select>
+                            {errors.year && <div className="error-message">{errors.year}</div>}
+                        </div>
+                        <div className='mb-3 form-group'>
                             <label htmlFor="name"><strong>Name<span className='start'>*</span></strong></label>
                             <input type="text" onChange={(e) => setValues({ ...values, name: e.target.value })}
-                                name='name' placeholder='Enter your password' className='form-control rounded-2' />
+                                name='name' placeholder='Enter your name' className='form-control rounded-2' />
                             {errors.name && <div className="error-message">{errors.name}</div>}
                             <label htmlFor="email"><strong>Email<span className='start'>*</span></strong></label>
                             <input type="e-mail" onChange={(e) => setValues({ ...values, email: e.target.value })}
@@ -149,7 +177,6 @@ function Addstaff() {
                                 className='form-control rounded-2' />
                             {errors.email && <div className="error-message">{errors.email}</div>}
                         </div>
-
                         <div className='mb-3 form-group'>
                             <label htmlFor="phone"><strong>Phone<span className='start'>*</span></strong></label>
                             <input type="number" onChange={(e) => setValues({ ...values, phone: e.target.value })}
@@ -162,20 +189,18 @@ function Addstaff() {
                                 className='form-control rounded-0' />
                             {errors.birth && <div className="error-message">{errors.birth}</div>}
                         </div>
-
                         <div className='mb-3 form-group'>
                             <label htmlFor="place"><strong>Place<span className='start'>*</span></strong></label>
                             <input type="text" onChange={(e) => setValues({ ...values, place: e.target.value })}
-                                name='place' autoComplete='off' placeholder='Your place of borwn'
+                                name='place' autoComplete='off' placeholder='Your birth place'
                                 className='form-control rounded-0' />
                             {errors.place && <div className="error-message">{errors.place}</div>}
                             <label htmlFor="grade"><strong>Grade<span className='start'>*</span></strong></label>
                             <input type="text" onChange={(e) => setValues({ ...values, grade: e.target.value })}
-                                name='grade' placeholder='Your drade'
+                                name='grade' placeholder='Your grade'
                                 className='form-control rounded-0' />
                             {errors.grade && <div className="error-message">{errors.grade}</div>}
                         </div>
-
                         <div className='mb-3 form-group'>
                             <label htmlFor="idcard"><strong>ID card<span className='start'>*</span></strong></label>
                             <input type="number" onChange={(e) => setValues({ ...values, idcard: e.target.value })}
@@ -225,7 +250,7 @@ function Addstaff() {
                             {errors.cpass && <div className="error-message">{errors.cpass}</div>}
                         </div>
                         <br />
-                        <button type='submit' className='btn btn-success w-100 rounded-5 mb-2'>Create</button>
+                        <button type='submit' className='secondary-button rounded-5 mb-2'>Create</button>
                     </form>
                 </div>
             </div>

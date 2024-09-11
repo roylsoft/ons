@@ -12,7 +12,7 @@ function Staffprint() {
     const [value, setValue] = useState([])
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/staff/staff')
+        axios.get('http://localhost:3001/auth/staff')
             .then(result => {
                 if (result.data.readingStatus) {
                     setValue(result.data.Result)
@@ -29,16 +29,25 @@ function Staffprint() {
         onAfterPrint: () => alert('staff\'s list saved successfully'),
 
     })
+    const [search, setSearch] = useState("");
     return (
         <main className='main-container'>
             <div className='px-2 mt-3'>
+                <div class="row mt-1 mb-2">
+
+                    <div class="col-5 mt-1 mb-2">
+                        <input type="text" class="form-control"
+                            onChange={(e) => setSearch(e.target.value)}
+                            placeholder="Filter by Name or Branch..." />
+                    </div>
+                </div>
                 <div ref={pdf} style={{ width: '95%', marginLeft: '2%', marginRight: '3%', marginTop: '8%' }}>
                     <div class="row mt-1 mb-2 d-flex justify-content-center">
                         <div class="col-5 d-flex justify-content-center">
                             <p>REPUBLIC OF CAMEROON <br /><i>Peace-Work-Fatherland</i> <br />***** <br />MINISTRY OF HIGHER EDUCATION<br />*****<br />UNIVERSITY OF BAMENDA <br /> <i>Training - Pobity - Entrepreneurship</i></p>
                         </div>
                         <div class="col-2 d-flex justify-content-center">
-                            <img src={'https://admin-rust-gamma.vercel.app/Screenshot_20240323-102722 (1).png'} alt="" className='logo' />
+                            <img src={'../../public/nfonap.png.png'} alt="" className='logo' />
                         </div>
                         <div class="col-5 d-flex justify-content-center">
                             <p>NFONAP-HIEPS<br /><i>Training-development-expertise</i><br />*****<br />The Dean's Office <br />***** <br />P.O Box:2368 Messa-Yaounde <br />E-mail: <u>info@nfonap.education</u> <br />Registration: <u>www.nfonap.net</u><br />website: <u>www.nfonap.education</u> <br />Tel: <u>675550570 / 672545135</u></p>
@@ -46,7 +55,7 @@ function Staffprint() {
                     </div>
                     <hr />
                     <div className='d-flex justify-content-center'>
-                        <h3>Our Lecturers</h3>
+                        <h3>NFONAP-HIEPS Lecturers</h3>
                     </div>
                     <hr />
                     <div className='mt-2 ms-1 '>
@@ -58,18 +67,22 @@ function Staffprint() {
                                     <th>Phone</th>
                                     <th>Sex</th>
                                     <th>Department</th>
+                                    <th>Branch</th>
 
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    value.map(st => (
+                                    value.filter(item => search.toLowerCase() === "" ||
+                                    item.name?.toLowerCase().includes(search) ||
+                                    item.branch.toLowerCase().includes(search)).sort((a, b) => a.name.localeCompare(b.name)).map(st => (
                                         <tr>
                                             <td>{st.name}</td>
                                             <td>{st.email}</td>
                                             <td>{st.phone}</td>
                                             <td>{st.sex}</td>
                                             <td>{st.codep}</td>
+                                            <td>{st.branch}</td>
                                         </tr>
 
                                     ))
@@ -79,7 +92,7 @@ function Staffprint() {
                     </div>
                 </div>
                 <div class="d-md-flex justify-content-md-end">
-                    <button type='submit' className='btn btn-success' onClick={generatePdf}>
+                    <button type='submit' className='secondary-button' onClick={generatePdf}>
                         <FiPrinter className='card_icon' /> Download PDF
                     </button>
                 </div>

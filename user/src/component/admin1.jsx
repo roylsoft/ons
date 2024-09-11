@@ -9,7 +9,7 @@ function Admin1() {
   const [value, setValue] = useState([])
 
   useEffect(()=>{
-    axios.get('https://admin-rust-gamma.vercel.app/auth/admin')
+    axios.get('http://localhost:3001/auth/admin')
     .then(result=>{
       if (result.data.readingStatus) {
         setValue(result.data.Result)
@@ -37,19 +37,21 @@ function Admin1() {
               <th>Email</th>
               <th>Phone</th>
               <th>Sex</th>
+              <th>Branch</th>
              
             </tr>
           </thead>
           <tbody>
             {
-              value.map( st =>(
+              value.sort((a, b) => a.name.localeCompare(b.name)).map( st =>(
                 <tr>
-                  <td> <img src={'https://admin-rust-gamma.vercel.app/' +st.pic} alt="" className='profile_pic' /> </td>
+                  <td><img src={'https://server.nfonap.com/' +st.pic} alt="" className='profile_pic' /> </td>
                 
                   <td>{st.name}</td>
                   <td>{st.email}</td>
                   <td>{st.phone}</td>
                   <td>{st.sex}</td>
+                  <td>{st.branch}</td>
                
                 </tr>
              

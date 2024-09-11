@@ -60,7 +60,7 @@ function Editstudentprofile() {
             formdata.append('sex', values.sex)
             formdata.append('pic', values.pic)
 
-            axios.put('https://admin-rust-gamma.vercel.app/student/editstudent/' + mat, formdata)
+            axios.put('http://localhost:3001/auth/editstudent/' + mat, formdata)
                 .then(result => {
                     console.log(result.data);
                     Navigate('/student/' + result.data.mat)
@@ -72,7 +72,7 @@ function Editstudentprofile() {
 
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/student/student/' + mat)
+        axios.get('http://localhost:3001/auth/student/' + mat)
             .then(result => {
                 setValues({
                     ...values,
@@ -81,8 +81,7 @@ function Editstudentprofile() {
                     phone: result.data.Result[0].phone,
                     spec: result.data.Result[0].spec,
                     level: result.data.Result[0].level,
-                    birth: moment(result.data.Result[0].birth).format("DD/MM/YYYY"),
-
+                    birth: moment(result.data.Result[0].birth).format("YYYY-MM-DD"),
                     place: result.data.Result[0].place,
                     sex: result.data.Result[0].sex,
                     pic: result.data.Result[0].pic
@@ -91,10 +90,11 @@ function Editstudentprofile() {
     }, [])
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
+        axios.get('http://localhost:3001/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
-                    setSpeciality(result.data.Result)
+                   
+                    setSpeciality(result.data.Result) 
                 } else {
                     alert(result.data.Error)
                 }
@@ -114,7 +114,7 @@ function Editstudentprofile() {
                         <div className='mb-3 form-group'>
                             <label htmlFor="name"><strong>Name :</strong></label>
                             <input type="text" value={values.name} onChange={(e) => setValues({ ...values, name: e.target.value })}
-                                name='name' placeholder='Enter your password' className='form-control rounded-0' />
+                                name='name' placeholder='Enter your name' className='form-control rounded-0' />
                             <label htmlFor="email"><strong>Email :</strong></label>
                             <input type="e-mail" value={values.email} onChange={(e) => setValues({ ...values, email: e.target.value })}
                                 name='email' autoComplete='off' placeholder='Enter your email addres'
@@ -153,14 +153,14 @@ function Editstudentprofile() {
                                 <option value="8">8</option>
                             </select>
                             <label htmlFor="birth"><strong>Birth:</strong></label>
-                            <input type="date" value={values.birth} onChange={(e) => setValues({ ...values, birth: e.target.value })}
+                            <input type="date" value={values.birth} onChange={(e) => setValues({ ...values, birth: moment(e.target.value).format("YYYY-MM-DD") })}
                                 name='birth' placeholder='' className='form-control rounded-0' />
                         </div>
 
                         <div className='mb-3 form-group'>
                             <label htmlFor="place"><strong>Place :</strong></label>
                             <input type="text" value={values.place} onChange={(e) => setValues({ ...values, place: e.target.value })}
-                                name='place' autoComplete='off' placeholder='Your place of borwn' className='form-control rounded-0' />
+                                name='place' autoComplete='off' placeholder='Your birth place' className='form-control rounded-0' />
                             <label htmlFor="sex"><strong>Sex:</strong></label>
                             <select type="select" value={values.sex} onChange={(e) => setValues({ ...values, sex: e.target.value })}
                                 name='sex' autoComplete='off' placeholder='choose your gender' className='form-control rounded-0'>
@@ -175,7 +175,7 @@ function Editstudentprofile() {
                             <label htmlFor="pic" className='form-label'><strong>Picture:</strong></label>
                             <input type="file" onChange={(e) => setValues({ ...values, pic: e.target.files[0] })} name='pic' autoComplete='off' placeholder='' className='form-control rounded-0' />
                         </div>
-                        <button className='btn btn-success w-100 round-0 mb-2'>Save</button>
+                        <button className='secondary-button round-0 mb-2'>Save</button>
 
                     </form>
                 </div>

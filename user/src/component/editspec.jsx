@@ -27,7 +27,7 @@ function Editspec() {
         formdata.append('title', values.title)
         formdata.append('codep', values.codep)
 
-        axios.put('https://admin-rust-gamma.vercel.app/auth/editspec/' + code, values)
+        axios.put('http://localhost:3001/auth/editspec/' + code, values)
             .then(result => {
               
                 Navigate('/specialities/'+route)
@@ -38,7 +38,7 @@ function Editspec() {
 
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/specialities/' + code)
+        axios.get('http://localhost:3001/auth/specialities/' + code)
             .then(result => {
                 setsuite(mat)
                 setValues({
@@ -50,7 +50,7 @@ function Editspec() {
             }).catch(err => console.log(err))
     }, [])
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/department/')
+        axios.get('http://localhost:3001/auth/department/')
             .then(result => {
                 if (result.data.readingStatus) {
                     setDepartment(result.data.Result)
@@ -85,7 +85,7 @@ function Editspec() {
                                 ))}
                             </select>
                         </div>
-                        <button className='btn btn-success w-100 round-0 mb-2'>Save</button>
+                        <button className='secondary-button round-0 mb-2'>Save</button>
 
                     </form>
                 </div>

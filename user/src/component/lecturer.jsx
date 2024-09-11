@@ -10,7 +10,7 @@ function Lecturer(props) {
   const [staff, setstaff] = useState([])
   const { mat } = useParams()
   useEffect(() => {
-    axios.get('https://admin-rust-gamma.vercel.app/staff/staff/' +mat)
+    axios.get('http://localhost:3001/auth/staff/' +mat)
       .then(result => {
         setstaff(result.data.Result[0])
       })
@@ -19,7 +19,7 @@ function Lecturer(props) {
 
   const navigate = useNavigate()
   const handlelogout = () => {
-    axios.get('https://admin-rust-gamma.vercel.app/staff/logout')
+    axios.get('http://localhost:3001/auth/logout')
       .then(result => {
         if (result.data.Status) {
           localStorage.removeItem("valid")
@@ -37,7 +37,7 @@ function Lecturer(props) {
 
             <div className='px-2 pt-2 pb-3 border shadow-sm w-5'>
               <div className='text-center pb-1'>
-                <img src={"https://admin-rust-gamma.vercel.app/" + staff.pic} alt="photo" className='profile_pic' />
+                <img src={"http://localhost:3001/auth/" + staff.pic} alt="photo" className='profile_pic' />
               </div> <hr />
               <div className='d-flex justify-content-center'>
                 <div className='d-flex justify-content-center flex-column align-items-center mt-3'>
@@ -63,7 +63,7 @@ function Lecturer(props) {
                     <h3>Phone         : {staff.phone}</h3>
                     <h3>Grade    : {staff.grade}</h3>
                     <h3>Level         : {staff.level}</h3>
-                    <h3>Birth         : {moment(staff.birth).format("DD/MM/YYYY")}</h3>
+                    <h3>Birth         : {moment(staff.birth).format("YYYY-MM-DD")}</h3>
                     <h3>Place         : {staff.place}</h3>
                     <h3>Sex           : {staff.sex}</h3>
                     <h3>ID Card    : {staff.idcard}</h3>

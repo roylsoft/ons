@@ -12,11 +12,14 @@ function Feesboard() {
     const [data, setdata] = useState([])
     const [student, setStudent] = useState([])
     const [values, setValues] = useState({
+        branch: "",
         codesp: "",
-        level:""
+        year: "",
+        cle: "",
+        level: ""
     })
     const [value, setValue] = useState([]);
-    
+
 
     const [speciality, setSpeciality] = useState([]);
     const [search, setSearch] = useState("");
@@ -24,24 +27,35 @@ function Feesboard() {
     const currentYear = new Date().getFullYear();
     const nextYear = currentYear + 1;
     const cdate = new Date();
-    const date = moment(cdate).format('DD/MM/YYYY hh:mm:ss');
+    const date = moment(cdate).format('YYYY-MM-DD hh:mm:ss');
 
 
 
     const solvability = async () => {
-        const url = 'https://admin-rust-gamma.vercel.app/student/feesboard/data'
-        axios.get(url, { params: { codesp: values.codesp, level: values.level  } }
-        )
-            .then(result => {
+        console.log(values.cle);
+        const k = "1910sourceeva1606"
+        const k1 = "1910sourceVally1606"
+        if (values.cle === k || values.cle === k1) {
+            const url = 'http://localhost:3001/auth/feesboard/data'
+            axios.get(url, { params: { codesp: values.codesp, level: values.level, year: values.year, branch: values.branch } }
+            )
+                .then(result => {
 
-                if (result.data.readingStatus) {
-                    setValue(result.data.Result)
-                    setStudent(result.data.Result[0])
-                 
-                } else {
-                    alert(result.data.Error)
-                }
-            }).catch(err => console.log(err))
+                    if (result.data.readingStatus) {
+
+                        setValue(result.data.Result)
+                        setStudent(result.data.Result[0])
+
+                    } else {
+
+                        alert(result.data.Error)
+                    }
+                }).catch(err => console.log(err))
+        } else {
+
+            alert("Sorry you are not allowed to access this session!")
+
+        }
 
     };
 
@@ -52,11 +66,10 @@ function Feesboard() {
 
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
+        axios.get('http://localhost:3001/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
                     setSpeciality(result.data.Result)
-                    
 
                 } else {
                     alert(result.data.Error)
@@ -87,7 +100,7 @@ function Feesboard() {
             const colone = field
             console.log(mat + " " + colone + " " + valeur);
             // Mettre à jour la valeur dans la base de données MySQL via une requête API
-            await axios.put(`https://admin-rust-gamma.vercel.app/student/solvability/${mat}`, { colone, valeur, codesp: values.codesp });
+            await axios.put(`http://localhost:3001/auth/solvability/${mat}`, { colone, valeur, codesp: values.codesp });
 
             // Mettre à jour les données localement
             setValue(prevValue =>
@@ -107,7 +120,7 @@ function Feesboard() {
 
     })
 
-    let total=student.reg + student.inst1 + student.inst2 + student.inst3 + student.inst4 + student.inst5
+    let total = student.reg + student.inst1 + student.inst2 + student.inst3 + student.inst4 + student.inst5
 
 
     return (
@@ -117,20 +130,15 @@ function Feesboard() {
                     <h3>School Fees</h3>
                 </div>
                 <form action="" onSubmit={handleSubmit}>
-                    <div class="row mt-1 mb-2">
-                        <div class="col">
-                            <p><h5>Choose the speciality and the month:</h5></p>
-                        </div>
+                    <div class="row mt-1 mb-2 form-group">
 
-                        <div class="col">
+                        <div class="mb-3 form-group">
                             <select type='select' name="codesp" onChange={(e) => setValues({ ...values, codesp: e.target.value })} className='form-control'>
                                 <option value="">-- Select speciality/field--</option>
                                 {speciality.map(sp => (
                                     <option key={sp.codesp} value={sp.codesp}>{sp.title}</option>
                                 ))}
                             </select>
-                        </div>
-                        <div class="col">
                             <select type="select" onChange={(e) => setValues({ ...values, level: e.target.value })} name='level' autoComplete='off' placeholder='choose your level' className='form-control'>
                                 <option value="">-- Select level--</option>
                                 <option value="1">1</option>
@@ -143,10 +151,42 @@ function Feesboard() {
                                 <option value="8">8</option>
                             </select>
 
+                            <select type="select" onChange={(e) => setValues({ ...values, year: e.target.value })}
+                                name='year' autoComplete='off' placeholder='academic year' className='form-control rounded-2'>
+                                <option value="">-- Select  the academic year--</option>
+                                <option value="2024_2025">2024/2025</option>
+                                <option value="2025_2026">2025/2026</option>
+                                <option value="2026_2027">2026/2027</option>
+                                <option value="2027_2028">2027/2028</option>
+                                <option value="2028_2029">2028/2029</option>
+                            </select>
+                            <label htmlFor="branch"><strong>Branch<span className='start'>*</span></strong></label>
+                            <select type="select" onChange={(e) => setValues({ ...values, branch: e.target.value })}
+                                name='branch' autoComplete='off' placeholder='choose your branch' className='form-control rounded-2'>
+                                <option value="">-- Select  the Branch--</option>
+                                <option value="Madagascar">Madagascar(Main)</option>
+                                <option value="Odza">Odza</option>
+                                <option value="Olembe">Olembe</option>
+                                <option value="Ngousso">Ngousso</option>
+                                <option value="Bafia">Bafia</option>
+                                <option value="Maroua">Maroua</option>
+                                <option value="Foumbot">Foumbot</option>
+                                <option value="Nkambe">Nkambe</option>
+                                <option value="Douala">Douala</option>
+                            </select>
+
+                        </div>
+                        <div className='mb-2 form-group'>
+                            <label htmlFor="cle"><strong>Admin key:</strong></label>
+                            <input type="text" onChange={(e) => setValues({ ...values, cle: e.target.value })}
+                                name='cle' autoComplete='off' placeholder='Enter key'
+                                className='form-control rounded-0' />
+                            <div class="col"> <button type='submit' className='secondary-button'>Display</button></div>
                         </div>
 
 
-                        <div class="col"> <button type='submit' className='btn btn-success'>Display</button></div>
+
+
 
                     </div>
                 </form>
@@ -157,7 +197,7 @@ function Feesboard() {
                             <p>REPUBLIC OF CAMEROON <br /><i>Peace-Work-Fatherland</i> <br />***** <br />MINISTRY OF HIGHER EDUCATION<br />*****<br />UNIVERSITY OF BAMENDA <br /> <i>Training - Pobity - Entrepreneurship</i> <br /> <br /> <b><h6>Receipt</h6></b></p>
                         </div>
                         <div class="col-2 d-flex justify-content-center">
-                            <img src={'https://admin-rust-gamma.vercel.app/Screenshot_20240323-102722 (1).png'} alt="" className='logo' />
+                            <img src={'../../public/nfonap.png.png'} alt="" className='logo' />
                         </div>
                         <div class="col-5 d-flex justify-content-center">
                             <p>NFONAP-HIEPS<br /><i>Training-development-expertise</i><br />*****<br />The Dean's Office <br />***** <br />P.O Box:2368 Messa-Yaounde <br />E-mail: <u>info@nfonap.education</u> <br />Registration: <u>www.nfonap.net</u><br />website: <u>www.nfonap.education</u> <br />Tel: <u>675550570 / 672545135</u></p>
@@ -167,10 +207,10 @@ function Feesboard() {
                     <div class="row mt-1 mb-2 d-flex justify-content-center">
                         <div class="col-5 d-flex justify-content-center">
                             Speciality: {student.codesp} <br />
-                           
+
                         </div>
                         <div class="col-2 d-flex justify-content-center">
-                            Academic Year: {currentYear}/{nextYear}<br />
+                            Academic Year: {student.year}<br />
                         </div>
                         <div class="col-5 d-flex justify-content-center">
                             <div class="col-2 d-flex justify-content-center"> <strong>Class: {student.codesp} {student.level}</strong>   </div>
@@ -209,7 +249,7 @@ function Feesboard() {
                                         <tr key={st.mat}>
                                             <td>{st.mat}</td>
                                             <td>{st.name}</td>
-                                           
+
                                             <td>{st.reg}</td>
                                             <td>{st.inst1}</td>
                                             <td>{st.inst2}</td>
@@ -220,7 +260,7 @@ function Feesboard() {
                                             <td>{st.grad}</td>
                                             <td>{st.sup}</td>
                                             <td>{st.prac}</td>
-                                            <td>{parseInt(st.reg)+parseInt(st.inst1)+parseInt(st.inst2)+parseInt(st.inst3)+parseInt(st.inst4)+parseInt(st.inst5)+parseInt(st.univ)+parseInt(st.grad)+parseInt(st.sup)+parseInt(st.prac)}</td>
+                                            <td>{parseInt(st.reg) + parseInt(st.inst1) + parseInt(st.inst2) + parseInt(st.inst3) + parseInt(st.inst4) + parseInt(st.inst5) + parseInt(st.univ) + parseInt(st.grad) + parseInt(st.sup) + parseInt(st.prac)}</td>
 
                                         </tr>
 
@@ -248,7 +288,7 @@ function Feesboard() {
                     </div>
                 </div>
                 <div class="d-md-flex justify-content-md-end">
-                    <button type='submit' className='btn btn-success' onClick={generatePdf}>
+                    <button type='submit' className='secondary-button' onClick={generatePdf}>
                         <FiPrinter className='card_icon' /> Download PDF
                     </button>
                 </div>

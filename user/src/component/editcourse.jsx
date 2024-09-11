@@ -24,7 +24,6 @@ function Editcourse() {
         level: "",
         semester: "",
         type: "",
-        mat: "",
         name: "",
         phone: ""
 
@@ -40,11 +39,10 @@ function Editcourse() {
         formdata.append('level', values.level)
         formdata.append('semester', values.semester)
         formdata.append('type', values.type)
-        formdata.append('mat', values.mat)
         formdata.append('name', values.name)
         formdata.append('phone', values.phone)
 
-        axios.put('https://admin-rust-gamma.vercel.app/auth/editcourse/' + codec, values)
+        axios.put('http://localhost:3001/auth/editcourse/' + codec, values)
             .then(result => {
                 console.log(result.data);
                 Navigate('/courselist/' + route)
@@ -55,7 +53,7 @@ function Editcourse() {
 
     useEffect(() => {
         console.log(codec)
-        axios.get('https://admin-rust-gamma.vercel.app/auth/course/' + codec)
+        axios.get('http://localhost:3001/auth/course/' + codec)
             .then(result => {
                 setsuite(mat)
                 setValues({
@@ -67,7 +65,6 @@ function Editcourse() {
                     level: result.data.Result[0].level,
                     semester: result.data.Result[0].semester,
                     type: result.data.Result[0].type,
-                    mat: result.data.Result[0].mat,
                     name: result.data.Result[0].name,
                     phone: result.data.Result[0].phone
                 })
@@ -76,10 +73,10 @@ function Editcourse() {
     }, [])
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
+        axios.get('http://localhost:3001/auth/specialities')
             .then(result => {
                 if (result.data.readingStatus) {
-                    setSpeciality(result.data.Result)
+                    setSpeciality(result.data.Result) 
                 } else {
                     alert(result.data.Error)
                 }
@@ -87,7 +84,7 @@ function Editcourse() {
     }, [])
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/staff/staff')
+        axios.get('http://localhost:3001/auth/staff')
             .then(result => {
                 if (result.data.readingStatus) {
                     setStaff(result.data.Result)
@@ -165,31 +162,29 @@ function Editcourse() {
                             <label htmlFor="type"><strong>type:</strong></label>
                             <select type="select" value={values.type} onChange={(e) => setValues({ ...values, type: e.target.value })}
                                 name='type' autoComplete='off' placeholder='general or special course?' className='form-control rounded-0'>
-                                <option value="">-- Select --</option>
-                                <option value="F">general</option>
-                                <option value="M">sepecial</option>
+                               <option value="">-- Select --</option>
+                                <option value="fondamental">fondamental</option>
+                                <option value="professional">professional</option>
+                                <option value="transversal">transversal</option>
+                                <option value="cross-sectional">cross-sectional</option>
 
                             </select>
                             <label htmlFor="staff" className='form-label'>Select a lecturer:</label>
-                            <select type='select' name="mat" value={values.mat} onChange={(e) => setValues({ ...values, mat: e.target.value })}
+                            <select type='select' name="name" value={values.name} onChange={(e) => setValues({ ...values, name: e.target.value })}
                                 className='form-control rounded-0'>
                                 <option value="">-- Select --</option>
                                 {staff.map(sp => (
-                                    <option key={sp.mat} value={sp.mat}>{sp.name}</option>
+                                    <option key={sp.mat} value={sp.name}>{sp.name}</option>
                                 ))}
                             </select>
                         </div>
                         <div className='mb-3 form-group'>
-                            <label htmlFor="name"><strong>Name :</strong></label>
-                            <input type="text" value={values.name} onChange={(e) => setValues({ ...values, name: e.target.value })}
-                                name='name' placeholder='name of the lecturer' className='form-control rounded-0' />
-                            <label htmlFor="title"><strong>title :</strong></label>
+
+                            <label htmlFor="phone"><strong>Phone:</strong></label>
                             <input type="number" value={values.phone} onChange={(e) => setValues({ ...values, phone: e.target.value })}
                                 name='phone' autoComplete='off' placeholder='phone of the lecturer' className='form-control rounded-0' />
+                            <button className='secondary-button round-0 mb-2'>Save</button>
                         </div>
-
-                        <button className='btn btn-success w-100 round-0 mb-2'>Save</button>
-
                     </form>
                 </div>
             </div>

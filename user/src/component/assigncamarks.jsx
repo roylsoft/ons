@@ -20,9 +20,9 @@ function Assignmark() {
   })
   let loc = location.pathname
   let mat = loc.replace(/^\/assigncamarks\//, "")
-  console.log(mat);
+  
   const sortMark = async () => {
-    const url = 'https://admin-rust-gamma.vercel.app/auth/sortmark/data';
+    const url = 'http://localhost:3001/auth/sortmark/data';
     try {
       const response = await axios.get(url, {
         params: {
@@ -33,13 +33,11 @@ function Assignmark() {
           page: currentPage,
           perPage: perPage,
           search: search,
-          mat: mat,
+          mat: mat
         },
       });
-      console.log("mat :" + mat);
-      console.log(response.data);
-      console.log(response.data.result);
-      const result = Array.isArray(response.data.result) ? response.data.result : Array.from(response.data.result);
+      
+      const result = Array.isArray(response.data.Result) ? response.data.Result : Array.from(response.data.Result);
       setdata(result);
       const dynamicColumns = Object.keys(result[0] || {}).map((key) => ({
         name: key,
@@ -59,7 +57,7 @@ function Assignmark() {
   };
 
   useEffect(() => {
-    axios.get('https://admin-rust-gamma.vercel.app/auth/specialities')
+    axios.get('http://localhost:3001/auth/specialities')
       .then(result => {
         if (result.data.readingStatus) {
           setSpeciality(result.data.Result)
@@ -77,15 +75,15 @@ function Assignmark() {
     let keys = Object.keys(rowData);
     let colName = keys[0];
     let matetud = rowData[colName]
-    console.log(matetud);
+   
 
     if (index === 0 || index === 1) {
 
-      console.log("Error on :" + index);
+     
     } else {
       const updatedRow = data[rowindex];
-      console.log("Updated row:", updatedRow);
-      const url = 'https://admin-rust-gamma.vercel.app/auth/lectupdatemark/inf';
+      
+      const url = 'http://localhost:3001/auth/lectupdatemark/inf';
       axios
         .get(url, {
           params: {
@@ -102,10 +100,8 @@ function Assignmark() {
         })
         .then((result) => {
           if (result.data.readingStatus) {
-            console.log(result.data.result);
-          } else {
-            alert(result.data.Error);
-          }
+           
+          } 
         })
         .catch((err) => console.log(err));
     }
@@ -127,9 +123,6 @@ function Assignmark() {
 
           <div class="row mt-1 mb-2">
 
-            <div class="col mt-1 mb-2">
-              <p><h5>Marks list ==== </h5></p>
-            </div>
             <div class="col mt-1 mb-2">
               <p><h5>Speciality: </h5></p>
             </div>
@@ -167,11 +160,8 @@ function Assignmark() {
           </div>
         </div>
         <form action="" onSubmit={handleSubmit}>
-          <div class="row mt-1 mb-2">
-            <div class="col">
-              <p><h5>Choose the list to display:</h5></p>
-            </div>
-
+          <div class="row mt-1 mb-2 form-group">
+            
             <div class="col">
               <select type='select' name="spec" onChange={(e) => setValues({ ...values, spec: e.target.value })} className='form-control'>
                 <option value="">-- Select speciality/field--</option>
@@ -181,6 +171,7 @@ function Assignmark() {
               </select>
 
             </div>
+            <br />
             <div class="col">
               <select type="select" onChange={(e) => setValues({ ...values, level: e.target.value })} name='level' autoComplete='off' placeholder='choose your level' className='form-control'>
                 <option value="">-- Select level--</option>
@@ -195,6 +186,7 @@ function Assignmark() {
               </select>
 
             </div>
+            <br />
 
             {/* <div class="col">
               <select type="select" onChange={(e) => setValues({ ...values, session: e.target.value })} name='session' autoComplete='off' placeholder='choose your session' className='form-control'>
@@ -227,20 +219,18 @@ function Assignmark() {
               </select>
 
             </div>
-            <div class="col"> <button type='submit' className='btn btn-success'>Display</button></div>
+            <br />
+            <div class="col"> <button type='submit' className='secondary-button'>Display</button></div>
 
           </div>
         </form>
         <div class="row mt-1 mb-2">
 
-          <div class="col mt-1 mb-2">
-            <p><h5>Enter a word to locate a specific student: </h5></p>
-          </div>
-
-          <div class="col mt-1 mb-2">
+          
+          <div class="col-6 mt-1 mb-2">
             <input type="text" class="form-control"
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search..." />
+              placeholder="Search student..." />
           </div>
 
         </div>

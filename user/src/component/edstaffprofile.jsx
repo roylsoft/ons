@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import "./style.css"
 import axios from "axios"
 import { useNavigate, useParams } from 'react-router-dom'
+import moment from 'moment';
 
 function Editstaffprofile() {
 
@@ -52,7 +53,7 @@ function Editstaffprofile() {
             formdata.append('place', values.place)
             formdata.append('sex', values.sex)
 
-            axios.put('https://admin-rust-gamma.vercel.app/auth/editstaff/' + mat, values)
+            axios.put('http://localhost:3001/auth/editstaff/' + mat, values)
                 .then(result => {
                     console.log(result.data);
                     Navigate('/staffhome/'+mat)
@@ -64,7 +65,7 @@ function Editstaffprofile() {
 
 
     useEffect(() => {
-        axios.get('https://admin-rust-gamma.vercel.app/staff/staff/' + mat)
+        axios.get('http://localhost:3001/auth/staff/' + mat)
             .then(result => {
                 setValues({
                     ...values,
@@ -117,14 +118,14 @@ function Editstaffprofile() {
                             <input type="text" value={values.idcard} onChange={(e) => setValues({ ...values, idcard: e.target.value })}
                                 name='idcard' autoComplete='off' placeholder='Your ID card goes here' className='form-control rounded-0' />
                             <label htmlFor="birth"><strong>Birth:</strong></label>
-                            <input type="date" value={values.birth} onChange={(e) => setValues({ ...values, birth: moment(e.target.value).format("DD/MM/YYYY") })}
+                            <input type="date" value={values.birth} onChange={(e) => setValues({ ...values, birth: moment(e.target.value).format("YYYY-MM-DD") })}
                                 name='birth' placeholder='' className='form-control rounded-0' />
                         </div>
 
                         <div className='mb-3 form-group'>
                             <label htmlFor="place"><strong>Place :</strong></label>
                             <input type="text" value={values.place} onChange={(e) => setValues({ ...values, place: e.target.value })}
-                                name='place' autoComplete='off' placeholder='Your place of borwn' className='form-control rounded-0' />
+                                name='place' autoComplete='off' placeholder='Your birth place' className='form-control rounded-0' />
                             <label htmlFor="sex"><strong>Sex:</strong></label>
                             <select type="select" value={values.sex} onChange={(e) => setValues({ ...values, sex: e.target.value })}
                                 name='sex' autoComplete='off' placeholder='choose your gender' className='form-control rounded-0'>
@@ -135,7 +136,7 @@ function Editstaffprofile() {
                             </select>
                         </div>
 
-                        <button className='btn btn-success w-100 round-0 mb-2'>Save</button>
+                        <button className='secondary-button round-0 mb-2'>Save</button>
                     </form>
                 </div>
             </div>

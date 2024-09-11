@@ -37,7 +37,7 @@ function Trancript2() {
         event.preventDefault()
         sutudentinf()
 
-        axios.post('https://admin-rust-gamma.vercel.app/auth/transcript1', values)
+        axios.post('http://localhost:3001/auth/transcript1', values)
             .then(result => {
                 if (result.data) {
                     console.log(result.data.result);
@@ -55,7 +55,7 @@ function Trancript2() {
             })
             .catch(err => console.log(err))
 
-        axios.post('https://admin-rust-gamma.vercel.app/auth/transcript2', values)
+        axios.post('http://localhost:3001/auth/transcript2', values)
             .then(result => {
                 if (result.data) {
                     console.log(result.data.result);
@@ -75,7 +75,7 @@ function Trancript2() {
     }
     const matri = values.mat
     const sutudentinf = () => {
-        axios.get('https://admin-rust-gamma.vercel.app/student/student/' + matri)
+        axios.get('http://localhost:3001/auth/student/' + matri)
             .then(result => {
                 console.log(result.data.Result[0].level);
                 setStudent(result.data.Result[0])
@@ -197,7 +197,7 @@ function Trancript2() {
                             <div className='mb-3 col-3'>
                                 <input type="text" value={param} onChange={(e) => setValues({ ...values, mat: e.target.value })} name='mat' autoComplete='off' placeholder='Student UID' className='form-control rounded-2' />
                             </div>
-                            <div class="col-3"> <button type='submit' className='btn btn-success'>Display</button></div>
+                            <div class="col-3"> <button type='submit' className='secondary-button'>Display</button></div>
 
                         </div>
                     </form>
@@ -210,7 +210,7 @@ function Trancript2() {
                             <p>REPUBLIC OF CAMEROON <br /><i>Peace-Work-Fatherland</i> <br />***** <br />MINISTRY OF HIGHER EDUCATION<br />*****<br />UNIVERSITY OF BAMENDA <br /> <i>Training - Pobity - Entrepreneurship</i></p>
                         </div>
                         <div class="col-2 d-flex justify-content-center">
-                            <img src={'https://admin-rust-gamma.vercel.app/Screenshot_20240323-102722 (1).png'} alt="" className='logo' />
+                            <img src={'../../public/home-banner-image-MzdQIPbC.png'} alt="" className='logo' />
                         </div>
                         <div class="col-5 d-flex justify-content-center">
                             <p>NFONAP-HIEPS<br /><i>Training-development-expertise</i><br />*****<br />The Dean's Office <br />***** <br />P.O Box:2368 Messa-Yaounde <br />E-mail: <u>info@nfonap.education</u> <br />Registration: <u>www.nfonap.net</u><br />website: <u>www.nfonap.education</u> <br />Tel: <u>675550570 / 672545135</u></p>
@@ -222,7 +222,7 @@ function Trancript2() {
                     <div class="row mt-1 mb-2 d-flex justify-content-center">
                         <div class="col-5 d-flex justify-content-center">
                             Full name: {student.name} <br />
-                            Date of birth: {moment(student.birth).format("DD/MM/YYYY")}<br />
+                            Date of birth: {moment(student.birth).format("YYYY-MM-DD")}<br />
                             Place of birth: {student.place} <br />
                             Gender: {student.sex}<br />
                             Student UID : {values.mat}
@@ -231,7 +231,7 @@ function Trancript2() {
                             <strong><i>ANNUAL TRANSCRIPT</i> <br /> {num}/CM/UBA/NHIEPS/{student.dep}/{student.spec} </strong>
                         </div>
                         <div class="col-5 d-flex justify-content-center">
-                            <img src={`https://admin-rust-gamma.vercel.app/${student.pic}`}
+                            <img src={`https://server.nfonap.com/${student.pic}`}
                                 alt="" className='logo' />
                         </div>
                     </div>
@@ -342,7 +342,7 @@ function Trancript2() {
                     </div>
                 </div>
                 <div class="d-md-flex justify-content-md-end">
-                    <button type='submit' className='btn btn-success' onClick={generatePdf}>
+                    <button type='submit' className='secondary-button' onClick={generatePdf}>
                         <FiPrinter className='card_icon' /> Download PDF
                     </button>
                 </div>

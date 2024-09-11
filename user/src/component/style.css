@@ -1,9 +1,8 @@
 .loginPage {
   background-position: center;
   background-size: 140% 170%;
-  display: flex;
   border-radius: 15px;
-
+  background-color: rgb(255, 255, 255);
 }
 
 
@@ -11,11 +10,9 @@
   color: rgb(0, 0, 0);
   border: seashell;
   border-color: aliceblue;
-  background-color: white;
+  background-color: rgb(243, 238, 245);
   border-width: 2px;
   border-radius: 15px;
-
-
 }
 
 .first-row {
@@ -36,7 +33,7 @@
   border-color: rgb(109, 25, 143);
   border-width: px;
   border-style: solid;
- 
+
 
 }
 
@@ -119,14 +116,14 @@
     color: white;
   }
 
-  /* .loginPage {
+  .loginPage {
     background-position: center;
     background-size: 110% 140%;
     height: 60vh; 
     display: inline;
     border-radius: 15px;
     background-color: rgb(255, 255, 255);
-  } */
+  }
 
   .rule {
     background-color: white;
@@ -153,11 +150,10 @@
   }
 
   .loginForm {
-    margin-top: 30px;
+    margin-top: 5px;
     margin-left: 1px;
     margin-right: 5px;
     margin-bottom: 40px;
-
     color: rgb(0, 0, 0);
     width: 50c;
     border: seashell;
@@ -194,7 +190,7 @@
     color: rgb(0, 0, 0);
     width: 50c;
     border: seashell;
-    margin-top: 40px;
+    margin-top: 10px;
 
   }
 }

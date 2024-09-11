@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { Link, generatePath } from "react-router-dom";
 import Table from 'react-bootstrap/Table';
 import axios from "axios";
 import { useReactToPrint } from 'react-to-print'
@@ -13,7 +12,9 @@ function Trancript() {
     const [semester1, setsemester1] = useState([])
     const [semester2, setsemester2] = useState([])
     const [values, setValues] = useState({
-        mat: ""
+        mat: "",
+        cle: "",
+        year: ""
     })
 
     const currentYear = new Date().getFullYear();
@@ -30,7 +31,7 @@ function Trancript() {
     const matri = values.mat
     const sutudentinf = () => {
 
-        axios.get('https://admin-rust-gamma.vercel.app/student/student/' + matri)
+        axios.get('http://localhost:3001/auth/student/' + matri)
             .then(result => {
                 let niv = result.data.Result[0].level
                 setStudent(result.data.Result[0])
@@ -50,11 +51,11 @@ function Trancript() {
     }
 
     const numero = () => {
-        axios.get('https://admin-rust-gamma.vercel.app/student/number')
+        axios.get('http://localhost:3001/auth/number')
             .then(result => {
                 if (result.data.readingStatus) {
                     update(result.data.Result[0].trans + 1)
-                    let n=result.data.Result[0].trans + 1
+                    let n = result.data.Result[0].trans + 1
                     const num = "N°28020103" + n
                     setnum(num)
                 } else {
@@ -67,7 +68,7 @@ function Trancript() {
         try {
             const valeur = value
             // Mettre à jour la valeur dans la base de données MySQL via une requête API
-            await axios.put(`https://admin-rust-gamma.vercel.app/student/uptrans`, {valeur});
+            await axios.put(`http://localhost:3001/auth/uptrans`, { valeur });
         } catch (error) {
             console.error(error);
         }
@@ -75,43 +76,52 @@ function Trancript() {
 
 
     const handleSubmit = (event) => {
+
         event.preventDefault()
         numero()
         sutudentinf()
         update(num)
-        axios.post('https://admin-rust-gamma.vercel.app/auth/transcript1', values)
-            .then(result => {
-                if (result.data) {
-                    const semester = result.data.result
-                    const completedata = semester.map(row => ({
-                        ...row, avg: parseFloat(row.ca) + parseFloat(row.ns), qm: calculqm(parseFloat(row.ca) + parseFloat(row.ns)),
-                        grade: calculgrade(parseFloat(row.ca) + parseFloat(row.ns)), obs: calculobs(parseFloat(row.ca) + parseFloat(row.ns))
-                    }))
-                    setsemester1(completedata)
-                    setSuccess("sucess")
+        const k = "1910sourceeva1606"
+        const k1 = "1910sourceVally1606"
+        if (values.cle === k || values.cle === k1) {
+            axios.post('http://localhost:3001/auth/transcript1', values)
+                .then(result => {
+                    if (result.data) {
+                        const semester = result.data.result
 
-                } else {
-                    setError(result.data.Error)
-                }
-            })
-            .catch(err => console.log(err))
+                        const completedata = semester.map(row => ({
+                            ...row, avg: parseFloat(row.ca) + parseFloat(row.ns), qm: calculqm(parseFloat(row.ca) + parseFloat(row.ns)),
+                            grade: calculgrade(parseFloat(row.ca) + parseFloat(row.ns)), obs: calculobs(parseFloat(row.ca) + parseFloat(row.ns))
+                        }))
+                        setsemester1(completedata)
+                        setSuccess("sucess")
 
-        axios.post('https://admin-rust-gamma.vercel.app/auth/transcript2', values)
-            .then(result => {
-                if (result.data) {
-                    console.log(result.data.result);
-                    const semester = result.data.result
-                    const completedata = semester.map(row => ({
-                        ...row, avg: parseFloat(row.ca) + parseFloat(row.ns), qm: calculqm(parseFloat(row.ca) + parseFloat(row.ns)),
-                        grade: calculgrade(parseFloat(row.ca) + parseFloat(row.ns)), obs: calculobs(parseFloat(row.ca) + parseFloat(row.ns))
-                    }))
-                    setsemester2(completedata)
-                    setSuccess("sucess")
-                } else {
-                    setError(result.data.Error)
-                }
-            })
-            .catch(err => console.log(err))
+                    } else {
+                        setError(result.data.Error)
+                    }
+                })
+                .catch(err => console.log(err))
+
+            axios.post('http://localhost:3001/auth/transcript2', values)
+                .then(result => {
+                    if (result.data) {
+
+                        const semester = result.data.result
+                        const completedata = semester.map(row => ({
+                            ...row, avg: parseFloat(row.ca) + parseFloat(row.ns), qm: calculqm(parseFloat(row.ca) + parseFloat(row.ns)),
+                            grade: calculgrade(parseFloat(row.ca) + parseFloat(row.ns)), obs: calculobs(parseFloat(row.ca) + parseFloat(row.ns))
+                        }))
+                        setsemester2(completedata)
+                        setSuccess("sucess")
+                    } else {
+                        setError(result.data.Error)
+                    }
+                })
+                .catch(err => console.log(err))
+
+        } else {
+            alert("Sorry you are not allowed to access this session!")
+        }
 
     }
 
@@ -201,7 +211,6 @@ function Trancript() {
         content: () => pdf.current,
         documentTitle: 'transcript',
         onAfterPrint: () => alert('transcript saved successfully'),
-
     })
 
     return (
@@ -209,28 +218,47 @@ function Trancript() {
         <main className='main-container'>
             <div className='px-2 mt-3'>
                 <div class="row mt-1 mb-2">
+                    <div class="col">
+                        <p><h5>Generate a student transcript :</h5></p>
+                    </div>
+
                     <form action="" onSubmit={handleSubmit}>
-                        <div class="row mt-1 mb-2">
-                            <div class="col-4">
-                                <p><h5>Generate a student transcript :</h5></p>
-                            </div>
-                            <div className='mb-3 col-3'>
-                                <input type="text" onChange={(e) => setValues({ ...values, mat: e.target.value })}
-                                    name='mat' autoComplete='off' placeholder='Student UID' className='form-control rounded-2' />
-                            </div>
-                            <div class="col-3"> <button type='submit' className='btn btn-success'>Display</button></div>
+                        <div class="mt-1 mb-2 form-group">
+
+                            <input type="text" onChange={(e) => setValues({ ...values, mat: e.target.value })} name='mat' autoComplete='off' placeholder='Student UID' className='form-control rounded-2' />
+
+                            <label htmlFor="year"><strong>Academic year<span className='start'>*</span></strong></label>
+                            <select type="select" onChange={(e) => setValues({ ...values, year: e.target.value })}
+                                name='year' autoComplete='off' placeholder='academic year' className='form-control rounded-2'>
+                                <option value="">-- Select  the academic year--</option>
+                                <option value="2024_2025">2024/2025</option>
+                                <option value="2025_2026">2025/2026</option>
+                                <option value="2026_2027">2026/2027</option>
+                                <option value="2027_2028">2027/2028</option>
+                                <option value="2028_2029">2028/2029</option>
+                            </select>
+                            <label htmlFor="cle"><strong>Admin key:</strong></label>
+                            <input type="text" onChange={(e) => setValues({ ...values, cle: e.target.value })}
+                                name='cle' autoComplete='off' placeholder='Enter key'
+                                className='form-control rounded-0' />
+
+
+                            <div class=""> <button type='submit' className='secondary-button'>Generate</button></div>
 
                         </div>
                     </form>
                 </div>
                 <hr />
-                <div ref={pdf} style={{ width: '95%', marginLeft: '2%', marginRight: '3%', marginTop: '8%' }}>
+                <div ref={pdf} style={{
+                    width: '95%', backgroundColor: 'white', color: 'black', marginLeft: '2%',
+                    marginRight: '3%', fontSynthesisWeight: 'auto', marginTop: '8%'
+                }}>
                     <div class="row mt-1 mb-2 d-flex justify-content-center">
                         <div class="col-5 d-flex justify-content-center">
                             <p>REPUBLIC OF CAMEROON <br /><i>Peace-Work-Fatherland</i> <br />***** <br />MINISTRY OF HIGHER EDUCATION<br />*****<br />UNIVERSITY OF BAMENDA <br /> <i>Training - Pobity - Entrepreneurship</i></p>
                         </div>
                         <div class="col-2 d-flex justify-content-center">
-                            <img src={'https://admin-rust-gamma.vercel.app/Screenshot_20240323-102722 (1).png'} alt="" className='logo' />
+                            <img src={'../../public/home-banner-image-MzdQIPbC.png'} alt="" className='logo' />
                         </div>
                         <div class="col-5 d-flex justify-content-center">
                             <p>NFONAP-HIEPS<br /><i>Training-development-expertise</i><br />*****<br />The Dean's Office <br />***** <br />P.O Box:2368 Messa-Yaounde <br />E-mail: <u>info@nfonap.education</u> <br />Registration: <u>www.nfonap.net</u><br />website: <u>www.nfonap.education</u> <br />Tel: <u>675550570 / 672545135</u></p>
@@ -240,7 +268,7 @@ function Trancript() {
                     <div class="row mt-1 mb-2 d-flex justify-content-center">
                         <div class="col-5 d-flex justify-content-center">
                             Full name: {student.name} <br />
-                            Date of birth: {moment(student.birth).format("DD/MM/YYYY")}<br />
+                            Date of birth: {moment(student.birth).format("YYYY-MM-DD")}<br />
                             Place of birth: {student.place} <br />
                             Gender: {student.sex}<br />
                             Student UID : {values.mat}
@@ -249,7 +277,7 @@ function Trancript() {
                             <strong><i>ANNUAL TRANSCRIPT</i> <br /> {num}/CM/UBA/NHIEPS/{student.dep}/{student.spec} </strong>
                         </div>
                         <div class="col-5 d-flex justify-content-center">
-                            <img src={`https://admin-rust-gamma.vercel.app/${student.pic}`}
+                            <img src={`https://server.nfonap.com/${student.pic}`}
                                 alt="" className='logo' />
                         </div>
                     </div>
@@ -272,36 +300,33 @@ function Trancript() {
                     </div>
                     <div className='mt-1  ms-1 '>
                         <Table striped bordered hover responsive>
-                            <thead>
-                                <tr>
-                                    <th>Course</th>
-                                    <th>Title</th>
-                                    <th>Credit</th>
-                                    <th>CA/30</th>
-                                    <th>NS/70</th>
-                                    <th>AVG/100</th>
-                                    <th>QM</th>
-                                    <th>Grade</th>
-                                    <th>Obs</th>
+                            <thead >
+                                <tr >
+                                    <th style={{ backgroundColor: 'black', color: 'white' }}>Course</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>Title</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>Credit</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>CA/30</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>NS/70</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>AVG/100</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>QM</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>Grade</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>Obs</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {
-                                    semester1.map(sp => (
-                                        <tr>
-                                            <td>{sp.code}</td>
-                                            <td>{sp.title}</td>
-                                            <td>{sp.credit}</td>
-                                            <td>{sp.ca}</td>
-                                            <td>{sp.ns}</td>
-                                            <td>{sp.avg}</td>
-                                            <td>{sp.qm}</td>
-                                            <td>{sp.grade}</td>
-                                            <td>{sp.obs}</td>
-                                        </tr>
-                                    ))
-                                }
-
+                                {semester1.map((sp, index) => (
+                                    <tr key={index} style={index === 0 ? { color: 'white' } : null}>
+                                        <td style={{ backgroundColor: '#263043', color: 'white' }}>{sp.code}</td>
+                                        <td style={{ backgroundColor: '#363a42', color: 'white' }}>{sp.title}</td>
+                                        <td>{sp.credit}</td>
+                                        <td>{sp.ca}</td>
+                                        <td>{sp.ns}</td>
+                                        <td style={{ backgroundColor: '#263043', color: 'white' }}>{sp.avg}</td>
+                                        <td>{sp.qm}</td>
+                                        <td>{sp.grade}</td>
+                                        <td style={{ backgroundColor: '#263043', color: 'white' }}>{sp.obs}</td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </Table>
                         <div className='d-flex justify-content-center'>
@@ -310,30 +335,30 @@ function Trancript() {
                         <Table striped bordered hover responsive>
                             <thead>
                                 <tr>
-                                    <th>Course</th>
-                                    <th>Title</th>
-                                    <th>Credit</th>
-                                    <th>CA/30</th>
-                                    <th>NS/70</th>
-                                    <th>AVG/100</th>
-                                    <th>QM</th>
-                                    <th>Grade</th>
-                                    <th>Obs</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>Course</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>Title</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>Credit</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>CA/30</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>NS/70</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>AVG/100</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>QM</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>Grade</th>
+                                    <th style={{ backgroundColor: '#000000', color: 'white' }}>Obs</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
                                     semester2.map(sp => (
                                         <tr>
-                                            <td>{sp.code}</td>
-                                            <td>{sp.title}</td>
+                                            <td style={{ backgroundColor: '#263043', color: 'white' }}>{sp.code}</td>
+                                            <td style={{ backgroundColor: '#363a42', color: 'white' }}>{sp.title}</td>
                                             <td>{sp.credit}</td>
                                             <td>{sp.ca}</td>
                                             <td>{sp.ns}</td>
-                                            <td>{sp.avg}</td>
+                                            <td style={{ backgroundColor: '#263043', color: 'white' }}>{sp.avg}</td>
                                             <td>{sp.qm}</td>
                                             <td>{sp.grade}</td>
-                                            <td>{sp.obs}</td>
+                                            <td style={{ backgroundColor: '#263043', color: 'white' }}>{sp.obs}</td>
                                         </tr>
                                     ))
                                 }
@@ -342,25 +367,25 @@ function Trancript() {
                         </Table>
                     </div>
                     <hr />
-                    <div class="row mt-1 mx-5 mb-2">
+                    <div class="row mt-1 mx-5">
                         <div class="col-5 d-flex justify-content-center"></div>
                         <div class="col-2"></div>
                         <div class="col-5 d-flex justify-content-center">Date: <u>...............................</u></div>
                     </div>
 
-                    <div class="row mt-1 mb-5 d-flex justify-content-center">
+                    <div class="row mb-5 d-flex justify-content-center">
                         <div class="col-5 d-flex justify-content-center">The head of department</div>
                         <div class="col-2"></div>
                         <div class="col-5 d-flex justify-content-center">The director of academic affairs</div>
                     </div>
                     <hr />
-                    <div class="row mt-5 mx-5 mb-2">
+                    <div class="row mx-5 mb-2">
                         <p className='d-flex justify-content-center'>This marks transcript is delivered in only one copy.
                             The holder can reproduce and obtain certified copies. Copy@right-2023 NFONAP-HIEPS & Fintel_RoyalSoft </p>
                     </div>
                 </div>
                 <div class="d-md-flex justify-content-md-end">
-                    <button type='submit' className='btn btn-success' onClick={generatePdf}>
+                    <button type='submit' className='secondary-button' onClick={generatePdf}>
                         <FiPrinter className='card_icon' /> Download PDF
                     </button>
                 </div>
